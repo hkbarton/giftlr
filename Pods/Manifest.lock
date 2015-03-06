@@ -25,15 +25,22 @@ PODS:
     - AFNetworking/NSURLSession (~> 2.5.0)
   - Bolts (1.1.4)
   - DateTools (1.5.0)
+  - Facebook-iOS-SDK (3.23.0):
+    - Bolts (~> 1.0)
   - Parse (1.6.4):
     - Bolts (~> 1.1)
+  - ParseFacebookUtils (1.6.4):
+    - Facebook-iOS-SDK (~> 3.20)
+    - Parse (~> 1.6.4)
   - SVProgressHUD (1.1.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - BDBOAuth1Manager
   - DateTools
+  - Facebook-iOS-SDK
   - Parse
+  - ParseFacebookUtils
   - SVProgressHUD
 
 SPEC CHECKSUMS:
@@ -41,7 +48,9 @@ SPEC CHECKSUMS:
   BDBOAuth1Manager: 274574557077abc873fc5688abe8b991e782749c
   Bolts: dd9fb8433d67f5acc3b6b4d1379bbc5513d716c1
   DateTools: 7df78f0c4719eb28cfd2d58a90fafd036e73156c
+  Facebook-iOS-SDK: 3d65f685348b789e46a9aacf92bfa85b60b63755
   Parse: c2610f7a12ad0defc974803b819c4efe7746e6db
+  ParseFacebookUtils: 00833ccf6fec7d6429e2403fe457496a5089358b
   SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
 
 COCOAPODS: 0.35.0
