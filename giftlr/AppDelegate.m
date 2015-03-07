@@ -32,8 +32,6 @@
     self.window.rootViewController = lvc;
     
     [self.window makeKeyAndVisible];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
 }
 

@@ -14,6 +14,7 @@
 		073B41D11AA8157500139A10 /* giftlrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41D01AA8157500139A10 /* giftlrTests.m */; };
 		073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E02241AAB856B007778F4 /* ProductSearchViewController.m */; };
 		073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E02251AAB856B007778F4 /* ProductSearchViewController.xib */; };
+		073E022C1AAB9044007778F4 /* Html in Resources */ = {isa = PBXBuildFile; fileRef = 073E022B1AAB9044007778F4 /* Html */; };
 		9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBD21AA96C970070CEB8 /* LoginViewController.m */; };
 		9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBD31AA96C970070CEB8 /* LoginViewController.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
@@ -43,6 +44,7 @@
 		073E02231AAB856B007778F4 /* ProductSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSearchViewController.h; sourceTree = "<group>"; };
 		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
 		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
+		073E022B1AAB9044007778F4 /* Html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Html; sourceTree = "<group>"; };
 		31F1E81EBE4E83E81F5D889F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D6C28483687981AD2731B10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		635D06DC3D813B3F2FA6652E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		073B41B31AA8157400139A10 /* giftlr */ = {
 			isa = PBXGroup;
 			children = (
+				073E022B1AAB9044007778F4 /* Html */,
 				073B41DA1AA8158B00139A10 /* Model */,
 				073B41DB1AA815A300139A10 /* API */,
 				073B41DC1AA815B100139A10 /* View */,
@@ -267,6 +270,7 @@
 			files = (
 				073B41C51AA8157500139A10 /* LaunchScreen.xib in Resources */,
 				073B41C21AA8157500139A10 /* Images.xcassets in Resources */,
+				073E022C1AAB9044007778F4 /* Html in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
 			);

@@ -57,7 +57,8 @@
 
 - (IBAction)onProductSearchClick:(id)sender {
     ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
-    [self presentViewController:psvc animated:YES completion:nil];
+    UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
+    [self presentViewController:psnvc animated:YES completion:nil];
 }
 
 
