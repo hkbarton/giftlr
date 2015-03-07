@@ -12,6 +12,8 @@
 		073B41C21AA8157500139A10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
 		073B41C51AA8157500139A10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C31AA8157500139A10 /* LaunchScreen.xib */; };
 		073B41D11AA8157500139A10 /* giftlrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41D01AA8157500139A10 /* giftlrTests.m */; };
+		073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E02241AAB856B007778F4 /* ProductSearchViewController.m */; };
+		073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E02251AAB856B007778F4 /* ProductSearchViewController.xib */; };
 		9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBD21AA96C970070CEB8 /* LoginViewController.m */; };
 		9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBD31AA96C970070CEB8 /* LoginViewController.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
@@ -38,6 +40,9 @@
 		073B41CA1AA8157500139A10 /* giftlrTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = giftlrTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		073B41CF1AA8157500139A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		073B41D01AA8157500139A10 /* giftlrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = giftlrTests.m; sourceTree = "<group>"; };
+		073E02231AAB856B007778F4 /* ProductSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSearchViewController.h; sourceTree = "<group>"; };
+		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
+		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
 		31F1E81EBE4E83E81F5D889F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D6C28483687981AD2731B10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		635D06DC3D813B3F2FA6652E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +159,9 @@
 				9602DBD11AA96C970070CEB8 /* LoginViewController.h */,
 				9602DBD21AA96C970070CEB8 /* LoginViewController.m */,
 				9602DBD31AA96C970070CEB8 /* LoginViewController.xib */,
+				073E02231AAB856B007778F4 /* ProductSearchViewController.h */,
+				073E02241AAB856B007778F4 /* ProductSearchViewController.m */,
+				073E02251AAB856B007778F4 /* ProductSearchViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -259,6 +267,7 @@
 			files = (
 				073B41C51AA8157500139A10 /* LaunchScreen.xib in Resources */,
 				073B41C21AA8157500139A10 /* Images.xcassets in Resources */,
+				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +321,7 @@
 			files = (
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
+				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
 				9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
