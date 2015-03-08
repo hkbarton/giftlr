@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UITextField *inputAddress;
 
 @property (nonatomic, strong) NSString *curAddress;
+@property (nonatomic, assign) BOOL isWebLoading;
 
 - (IBAction)onAddProductClicked:(id)sender;
 
@@ -74,8 +75,13 @@ NSString *const AddressHome = @"Home";
 
 #pragma mark web view
 
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    self.isWebLoading = YES;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    self.curAddress = webView.request.URL.absoluteString;
+    self.isWebLoading = NO;
+    self.curAddress = [self.webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     if (self.curAddress == nil || [self.curAddress isEqual:@""] || [self.curAddress rangeOfString:@"http"].location != 0) {
         self.curAddress = AddressHome;
     }
@@ -86,11 +92,14 @@ NSString *const AddressHome = @"Home";
 
 - (IBAction)onAddProductClicked:(id)sender {
     if (![self.curAddress isEqual:AddressHome]) {
-        NSString *host  = @"fsaf^&(*fdas";
-        NSRegularExpression *domainRegex = [NSRegularExpression regularExpressionWithPattern:@"([\\w\\d]+\\.)?([\\w\\d]+\\.\\w+)" options:NSRegularExpressionCaseInsensitive error:nil];
-        NSTextCheckingResult *match = [domainRegex firstMatchInString:host options:0 range:NSMakeRange(0, [host length])];
-        NSLog(@"%ld", match.range.location);
-        NSLog(@"%@", NSStringFromRange([match rangeAtIndex:2]));
+        NSString *html = [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
+        ProductGift *productGift = [ProductGift parseProductFromWeb:[NSURL URLWithString:self.curAddress] withHTML:html];
+        NSLog(@"%@", productGift.name);
+        NSLog(@"%@", productGift.productURL);
+        NSLog(@"%@", [productGift.price stringValue]);
+        if (productGift.imageURLs) {
+            NSLog(@"%@", productGift.imageURLs[0]);
+        }
     }
 }
 

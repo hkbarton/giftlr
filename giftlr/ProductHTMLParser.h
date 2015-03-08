@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ParsePattern.h"
 
 @interface ProductHTMLParser : NSObject
 
-@property (nonatomic, strong) NSString *nameParsePattern;
-@property (nonatomic, strong) NSString *imageURLParsePattern;
-@property (nonatomic, strong) NSString *priceParsePattern;
+@property (nonatomic, strong) NSArray *nameParsePatterns;
+@property (nonatomic, strong) NSArray *imageURLParsePatterns;
+@property (nonatomic, strong) NSArray *priceParsePatterns;
+@property (nonatomic, strong) NSArray *urlParsePatterns;
 
 +(ProductHTMLParser *)getParserByURL:(NSURL *)url;
++(NSString *)parseData:(NSString *) data withParsePatterns:(NSArray *)patterns;
 
 @end

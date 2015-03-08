@@ -11,6 +11,7 @@
 		072FC3B41AABA3E300E7A1D5 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
 		072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */; };
 		072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */; };
+		072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3BC1AABEB7600E7A1D5 /* ParsePattern.m */; };
 		073B41B71AA8157400139A10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41B61AA8157400139A10 /* main.m */; };
 		073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41B91AA8157400139A10 /* AppDelegate.m */; };
 		073B41C21AA8157500139A10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
@@ -42,6 +43,8 @@
 		072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGift.m; sourceTree = "<group>"; };
 		072FC3B81AABC6A300E7A1D5 /* ProductHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductHTMLParser.h; sourceTree = "<group>"; };
 		072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductHTMLParser.m; sourceTree = "<group>"; };
+		072FC3BB1AABEB7600E7A1D5 /* ParsePattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsePattern.h; sourceTree = "<group>"; };
+		072FC3BC1AABEB7600E7A1D5 /* ParsePattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsePattern.m; sourceTree = "<group>"; };
 		073B41B11AA8157400139A10 /* giftlr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = giftlr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		073B41B51AA8157400139A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		073B41B61AA8157400139A10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 			children = (
 				072FC3B51AABBDCD00E7A1D5 /* ProductGift.h */,
 				072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */,
+				072FC3BB1AABEB7600E7A1D5 /* ParsePattern.h */,
+				072FC3BC1AABEB7600E7A1D5 /* ParsePattern.m */,
 				072FC3B81AABC6A300E7A1D5 /* ProductHTMLParser.h */,
 				072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */,
 			);
@@ -352,6 +357,7 @@
 			files = (
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
+				072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */,
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,

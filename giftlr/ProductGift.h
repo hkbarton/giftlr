@@ -19,9 +19,9 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, strong) NSString *productDescription;
 @property (nonatomic, strong) NSString *productURL;
 @property (nonatomic, strong) NSDecimalNumber *price;
-@property (nonatomic, strong) NSArray *imageURLs;
+@property (nonatomic, strong) NSMutableArray *imageURLs;
 @property (nonatomic, strong) NSString *status;
 
-+(ProductGift*)parseProductFromHTML:(NSString *)html;
++(ProductGift*)parseProductFromWeb:(NSURL *)url withHTML:(NSString *)html;
 
 @end
