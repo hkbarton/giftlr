@@ -26,6 +26,7 @@
 //    loginView.center = self.view.center;
 //    [self.view addSubview:loginView];
 
+    /*
     NSArray *permissions = @[@"email", @"user_friends", @"public_profile", @"user_birthday", @"user_interests", @"user_events"]; // , @"rsvp_event"
     [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
         if (!user) {
@@ -48,6 +49,7 @@
             NSLog(@"User logged in through Facebook!");
         }
     }];
+    */
 }
 
 - (void)didReceiveMemoryWarning {

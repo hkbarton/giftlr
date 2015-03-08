@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */; };
+		072FC3B41AABA3E300E7A1D5 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
+		072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */; };
+		072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */; };
 		073B41B71AA8157400139A10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41B61AA8157400139A10 /* main.m */; };
 		073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 073B41B91AA8157400139A10 /* AppDelegate.m */; };
 		073B41C21AA8157500139A10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
@@ -31,6 +35,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		072FC3B01AABA3E300E7A1D5 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
+		072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
+		072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailViewController.xib; sourceTree = "<group>"; };
+		072FC3B51AABBDCD00E7A1D5 /* ProductGift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductGift.h; sourceTree = "<group>"; };
+		072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductGift.m; sourceTree = "<group>"; };
+		072FC3B81AABC6A300E7A1D5 /* ProductHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductHTMLParser.h; sourceTree = "<group>"; };
+		072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductHTMLParser.m; sourceTree = "<group>"; };
 		073B41B11AA8157400139A10 /* giftlr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = giftlr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		073B41B51AA8157400139A10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		073B41B61AA8157400139A10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,6 +83,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		072FC3AF1AABA3C100E7A1D5 /* Product */ = {
+			isa = PBXGroup;
+			children = (
+				073E02231AAB856B007778F4 /* ProductSearchViewController.h */,
+				073E02241AAB856B007778F4 /* ProductSearchViewController.m */,
+				073E02251AAB856B007778F4 /* ProductSearchViewController.xib */,
+				072FC3B01AABA3E300E7A1D5 /* ProductDetailViewController.h */,
+				072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */,
+				072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */,
+			);
+			name = Product;
+			sourceTree = "<group>";
+		};
 		073B41A81AA8157400139A10 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +162,10 @@
 		073B41DA1AA8158B00139A10 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				072FC3B51AABBDCD00E7A1D5 /* ProductGift.h */,
+				072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */,
+				072FC3B81AABC6A300E7A1D5 /* ProductHTMLParser.h */,
+				072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -159,12 +187,10 @@
 		073B41DD1AA815BA00139A10 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				072FC3AF1AABA3C100E7A1D5 /* Product */,
 				9602DBD11AA96C970070CEB8 /* LoginViewController.h */,
 				9602DBD21AA96C970070CEB8 /* LoginViewController.m */,
 				9602DBD31AA96C970070CEB8 /* LoginViewController.xib */,
-				073E02231AAB856B007778F4 /* ProductSearchViewController.h */,
-				073E02241AAB856B007778F4 /* ProductSearchViewController.m */,
-				073E02251AAB856B007778F4 /* ProductSearchViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -273,6 +299,7 @@
 				073E022C1AAB9044007778F4 /* Html in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
+				072FC3B41AABA3E300E7A1D5 /* ProductDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,9 +351,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
+				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
+				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
 				9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */,
+				072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
