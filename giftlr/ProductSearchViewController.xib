@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductSearchViewController">
             <connections>
+                <outlet property="btnWebBack" destination="0YI-aN-FCd" id="bHO-fQ-B0L"/>
+                <outlet property="btnWebNext" destination="Brb-vb-bhu" id="yP6-Hc-DQf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="D1y-wj-Npr" id="CmD-1g-HBj"/>
             </connections>
@@ -23,18 +25,46 @@
                     <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKz-Cf-D1z">
-                            <rect key="frame" x="117" y="10" width="87" height="30"/>
+                            <rect key="frame" x="116" y="10" width="89" height="30"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="Add Product">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="onAddProductClicked:" destination="-1" eventType="touchUpInside" id="gtE-wx-ZTz"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YI-aN-FCd">
+                            <rect key="frame" x="8" y="12" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="8hA-CT-2W9"/>
+                                <constraint firstAttribute="width" constant="25" id="hNj-L3-jAz"/>
+                            </constraints>
+                            <state key="normal" image="previous">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnWebBackClicked:" destination="-1" eventType="touchUpInside" id="H4e-Mz-bZl"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Brb-vb-bhu">
+                            <rect key="frame" x="49" y="12" width="25" height="25"/>
+                            <state key="normal" image="next">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnWebNextClicked:" destination="-1" eventType="touchUpInside" id="Wfw-kL-4EZ"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.5554347235" green="0.80007836809999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="centerY" secondItem="hKz-Cf-D1z" secondAttribute="centerY" id="Fm5-RI-5Or"/>
+                        <constraint firstAttribute="centerY" secondItem="0YI-aN-FCd" secondAttribute="centerY" id="N1I-nA-krv"/>
+                        <constraint firstItem="Brb-vb-bhu" firstAttribute="leading" secondItem="0YI-aN-FCd" secondAttribute="trailing" constant="16" id="d2S-nt-pB6"/>
+                        <constraint firstItem="0YI-aN-FCd" firstAttribute="leading" secondItem="sUr-zM-Gds" secondAttribute="leading" constant="8" id="mgu-Kg-Fto"/>
+                        <constraint firstAttribute="centerY" secondItem="Brb-vb-bhu" secondAttribute="centerY" id="r0P-gr-C8G"/>
                         <constraint firstAttribute="centerX" secondItem="hKz-Cf-D1z" secondAttribute="centerX" id="sIG-0y-4zf"/>
                         <constraint firstAttribute="height" constant="49" id="wRN-6z-3Wz"/>
                     </constraints>
@@ -53,6 +83,10 @@
             <point key="canvasLocation" x="185" y="442"/>
         </view>
     </objects>
+    <resources>
+        <image name="next" width="25" height="25"/>
+        <image name="previous" width="25" height="25"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

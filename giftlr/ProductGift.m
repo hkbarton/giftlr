@@ -30,6 +30,7 @@ NSString *const ProductGiftBought = @"ProductGiftBought";
     } else {
         result.price = [[NSDecimalNumber alloc] initWithFloat:0];
     }
+    result.quantity = 1;
     NSString *imageURL = [ProductHTMLParser parseData:html withParsePatterns:parser.imageURLParsePatterns];
     if (imageURL != nil) {
         result.imageURLs = [NSMutableArray arrayWithObjects:imageURL, nil];

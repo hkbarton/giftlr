@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductGift.h"
+
+@class ProductDetailViewController;
+
+@protocol ProductDetailViewControllerDelegate
+
+@optional
+-(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didAddGift:(ProductGift *)product;
+
+@end
 
 @interface ProductDetailViewController : UIViewController
+
+@property (nonatomic, weak) id<ProductDetailViewControllerDelegate> delegate;
+
+-(id)initWithProduct: (ProductGift *)product;
 
 @end

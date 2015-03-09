@@ -41,7 +41,7 @@ static NSDictionary *_ParserData;
                          @"<title>([^<>]+)</title>",
                          nil],NamePatternKey,
                         [NSArray arrayWithObjects:
-                         @"2`<[^<>]+id=\"(main-image|kib-ma)(?:(?!<img)[\\S\\s])*<img[^<>]+src=\"([^<>\"]+\\.jpg)\"[^<>]*>",
+                         @"<img[^<>]*src=\"([^<>\"]+)\"[^<>]+id=\"main-image\"[^<>]*>",
                          nil], ImageURLPatternKey,
                         [NSArray arrayWithObjects:
                          @"2`(priceLarge|current-price|priceblock_ourprice)[^<]+\\$([\\d\\,]+\\.\\d{1,2})",

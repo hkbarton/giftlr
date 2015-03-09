@@ -20,6 +20,10 @@
 		073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E02241AAB856B007778F4 /* ProductSearchViewController.m */; };
 		073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E02251AAB856B007778F4 /* ProductSearchViewController.xib */; };
 		073E022C1AAB9044007778F4 /* Html in Resources */ = {isa = PBXBuildFile; fileRef = 073E022B1AAB9044007778F4 /* Html */; };
+		07E52B7B1AAD1FD800B67296 /* ProductDetailTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B7A1AAD1FD800B67296 /* ProductDetailTextView.xib */; };
+		07E52B7E1AAD226800B67296 /* ProductDetailTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B7D1AAD226800B67296 /* ProductDetailTextView.m */; };
+		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
+		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
 		9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBD21AA96C970070CEB8 /* LoginViewController.m */; };
 		9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBD31AA96C970070CEB8 /* LoginViewController.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
@@ -59,6 +63,12 @@
 		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
 		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
 		073E022B1AAB9044007778F4 /* Html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Html; sourceTree = "<group>"; };
+		07E52B7A1AAD1FD800B67296 /* ProductDetailTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailTextView.xib; sourceTree = "<group>"; };
+		07E52B7C1AAD226800B67296 /* ProductDetailTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailTextView.h; sourceTree = "<group>"; };
+		07E52B7D1AAD226800B67296 /* ProductDetailTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailTextView.m; sourceTree = "<group>"; };
+		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
+		07E52B801AAD37B700B67296 /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
+		07E52B811AAD37B700B67296 /* PurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseViewController.xib; sourceTree = "<group>"; };
 		31F1E81EBE4E83E81F5D889F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D6C28483687981AD2731B10 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		635D06DC3D813B3F2FA6652E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +105,9 @@
 				072FC3B01AABA3E300E7A1D5 /* ProductDetailViewController.h */,
 				072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */,
 				072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */,
+				07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */,
+				07E52B801AAD37B700B67296 /* PurchaseViewController.m */,
+				07E52B811AAD37B700B67296 /* PurchaseViewController.xib */,
 			);
 			name = Product;
 			sourceTree = "<group>";
@@ -185,6 +198,9 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				07E52B7C1AAD226800B67296 /* ProductDetailTextView.h */,
+				07E52B7D1AAD226800B67296 /* ProductDetailTextView.m */,
+				07E52B7A1AAD1FD800B67296 /* ProductDetailTextView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -304,7 +320,9 @@
 				073E022C1AAB9044007778F4 /* Html in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
+				07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */,
 				072FC3B41AABA3E300E7A1D5 /* ProductDetailViewController.xib in Resources */,
+				07E52B7B1AAD1FD800B67296 /* ProductDetailTextView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,12 +373,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E52B7E1AAD226800B67296 /* ProductDetailTextView.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
 				072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */,
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
+				07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */,
 				9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */,
 				072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */,
 			);
