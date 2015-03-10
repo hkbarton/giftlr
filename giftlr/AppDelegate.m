@@ -11,6 +11,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "LoginViewController.h"
+#import "EventListViewController.h"
 
 @interface AppDelegate ()
 
@@ -28,8 +29,16 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    LoginViewController *lvc = [[LoginViewController alloc] init];
-    self.window.rootViewController = lvc;
+
+    // Check whether user is logged in
+    PFUser *currentUser = [PFUser currentUser];
+    if (currentUser) {
+        EventListViewController *evc = [[EventListViewController alloc] init];
+        self.window.rootViewController = evc;
+    } else {
+        LoginViewController *lvc = [[LoginViewController alloc] init];
+        self.window.rootViewController = lvc;
+    }
     
     [self.window makeKeyAndVisible];
     return YES;

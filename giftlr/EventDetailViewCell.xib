@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="326" id="KGk-i7-Jjw" customClass="EventDetailViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="326"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-event-profile-image" translatesAutoresizingMaskIntoConstraints="NO" id="Puj-45-PtZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="DZ8-TV-fTD"/>
+                        </constraints>
+                    </imageView>
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-user-50" translatesAutoresizingMaskIntoConstraints="NO" id="odg-Eu-DmY">
+                        <rect key="frame" x="136" y="234" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="q2B-pK-rAf"/>
+                            <constraint firstAttribute="height" constant="48" id="vov-H1-F2p"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hosted by Yingming" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkz-m3-CNR">
+                        <rect key="frame" x="99" y="282" width="121.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="5yf-Fo-DT2"/>
+                            <constraint firstAttribute="height" constant="18" id="br7-mR-R2R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="5yf-Fo-DT2"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friday, March 3, 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dKZ-f2-OW0">
+                        <rect key="frame" x="86" y="208" width="148.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="XaN-uA-PCI"/>
+                            <constraint firstAttribute="height" constant="18" id="nqd-Ax-Wc6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XaN-uA-PCI"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mountain View" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kol-Qv-ldh">
+                        <rect key="frame" x="80" y="300" width="160" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="160" id="BqJ-Ea-F9Q"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Puj-45-PtZ" secondAttribute="trailing" id="0m0-qH-2o6"/>
+                    <constraint firstItem="dKZ-f2-OW0" firstAttribute="top" secondItem="Puj-45-PtZ" secondAttribute="bottom" constant="8" id="3bX-e0-Cno"/>
+                    <constraint firstAttribute="bottom" secondItem="kol-Qv-ldh" secondAttribute="bottom" constant="10" id="84v-kD-Jqg"/>
+                    <constraint firstItem="odg-Eu-DmY" firstAttribute="top" secondItem="dKZ-f2-OW0" secondAttribute="bottom" constant="8" id="EHz-Fi-CYQ"/>
+                    <constraint firstAttribute="centerX" secondItem="kol-Qv-ldh" secondAttribute="centerX" id="EwI-k0-GoR"/>
+                    <constraint firstItem="kol-Qv-ldh" firstAttribute="top" secondItem="dKZ-f2-OW0" secondAttribute="bottom" id="aHi-Kx-Svg"/>
+                    <constraint firstItem="dKZ-f2-OW0" firstAttribute="top" secondItem="dkz-m3-CNR" secondAttribute="bottom" constant="4" id="apq-Cn-sIg"/>
+                    <constraint firstItem="Puj-45-PtZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="g4l-Yd-SjH"/>
+                    <constraint firstItem="dkz-m3-CNR" firstAttribute="top" secondItem="odg-Eu-DmY" secondAttribute="bottom" id="mQu-Jf-hkU"/>
+                    <constraint firstItem="Puj-45-PtZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="nTz-Ms-gav"/>
+                    <constraint firstItem="kol-Qv-ldh" firstAttribute="top" secondItem="dkz-m3-CNR" secondAttribute="bottom" id="pbG-cz-Cs8"/>
+                    <constraint firstAttribute="centerX" secondItem="dKZ-f2-OW0" secondAttribute="centerX" id="r9X-wk-Bk4"/>
+                    <constraint firstAttribute="centerX" secondItem="dkz-m3-CNR" secondAttribute="centerX" id="sMg-zE-eRw"/>
+                    <constraint firstAttribute="centerX" secondItem="odg-Eu-DmY" secondAttribute="centerX" id="zki-o0-bpc"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="apq-Cn-sIg"/>
+                        <exclude reference="aHi-Kx-Svg"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="eventHostImageView" destination="odg-Eu-DmY" id="aLY-KY-Xps"/>
+                <outlet property="eventHostedByLabel" destination="dkz-m3-CNR" id="mn0-vp-gTo"/>
+                <outlet property="eventLocationLabel" destination="kol-Qv-ldh" id="2wb-Me-LVm"/>
+                <outlet property="eventProfilePicView" destination="Puj-45-PtZ" id="Pb8-Zk-ztS"/>
+                <outlet property="eventTimeLabel" destination="dKZ-f2-OW0" id="hTZ-Bw-7tp"/>
+            </connections>
+            <point key="canvasLocation" x="433" y="274"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="default-event-profile-image" width="732" height="370"/>
+        <image name="default-user-50" width="50" height="50"/>
+    </resources>
+</document>

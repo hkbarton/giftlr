@@ -1,3 +1,6 @@
 giftlr.xcodeproj/xcuserdata/kenayi.xcuserdatad/xcdebugger/
 giftlr.xcodeproj/project.xcworkspace/xcshareddata/
+giftlr.xcworkspace/xcuserdata/
+Pods/
 Podfile.lock
+*.swp
