@@ -435,7 +435,6 @@
 				9602DBDA1AAB51E50070CEB8 /* EventListViewController.xib in Resources */,
 				9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */,
 				9602DBEA1AACEC640070CEB8 /* EventDetailViewController.xib in Resources */,
-				073B41C21AA8157500139A10 /* Images.xcassets in Resources */,
 				9602DBFE1AAD283C0070CEB8 /* GiftViewCell.xib in Resources */,
 				9602DBE51AABD7380070CEB8 /* EventViewCell.xib in Resources */,
 				9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */,
