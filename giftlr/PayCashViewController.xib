@@ -23,7 +23,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip to Hawaii" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hkc-R9-ugo">
-                    <rect key="frame" x="8" y="46.5" width="104.5" height="20.5"/>
+                    <rect key="frame" x="8" y="46" width="104.5" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -43,6 +43,16 @@
                         <action selector="onPayButton:" destination="-1" eventType="touchUpInside" id="S5q-bv-H9p"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbp-wp-y94">
+                    <rect key="frame" x="136" y="163" width="48" height="30"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onCancelButton:" destination="-1" eventType="touchUpInside" id="8m7-wu-mdR"/>
+                        <action selector="onPayButton:" destination="-1" eventType="touchUpInside" id="0lo-oD-UqD"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -51,7 +61,9 @@
                 <constraint firstItem="WE2-WV-pbi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="98b-cw-ibl"/>
                 <constraint firstItem="cG9-Q4-PlR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="9j1-zC-Neb"/>
                 <constraint firstItem="WE2-WV-pbi" firstAttribute="top" secondItem="Hkc-R9-ugo" secondAttribute="bottom" constant="8" id="FGv-wP-R3S"/>
+                <constraint firstItem="fbp-wp-y94" firstAttribute="top" secondItem="Egx-YE-FIl" secondAttribute="bottom" constant="8" id="Nri-bU-cmp"/>
                 <constraint firstItem="cG9-Q4-PlR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="WJ5-lF-Op6"/>
+                <constraint firstAttribute="centerX" secondItem="fbp-wp-y94" secondAttribute="centerX" id="cCQ-Gl-SQC"/>
                 <constraint firstItem="Egx-YE-FIl" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="125" id="h08-EB-CeZ"/>
                 <constraint firstItem="Hkc-R9-ugo" firstAttribute="top" secondItem="cG9-Q4-PlR" secondAttribute="bottom" constant="18" id="i6B-Cy-nYz"/>
             </constraints>
