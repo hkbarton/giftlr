@@ -10,7 +10,7 @@
 
 @interface CashClaim : NSObject
 
-@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSString *facebookUserID;
 @property (nonatomic, strong) NSDecimalNumber *amount;
 @property (nonatomic, strong) NSString *status;
 

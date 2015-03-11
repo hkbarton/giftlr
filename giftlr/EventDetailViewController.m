@@ -192,6 +192,7 @@
 
 - (IBAction)onAddCashGiftButton:(id)sender {
     AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
+    vc.event = self.event;
     [self presentViewController:vc animated:YES completion:nil];
 }
 

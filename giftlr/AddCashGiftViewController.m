@@ -7,12 +7,14 @@
 //
 
 #import "AddCashGiftViewController.h"
+#import "CashGift.h"
 
 @interface AddCashGiftViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 - (IBAction)onAddButton:(id)sender;
 - (IBAction)onCancelButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
 
 @end
 
@@ -20,7 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    self.eventNameLabel.text = self.event.name;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,7 +32,16 @@
 }
 
 - (IBAction)onAddButton:(id)sender {
+    CashGift *cashGift = [[CashGift alloc]init];
     
+    cashGift.name = self.nameTextField.text;
+    cashGift.amount = [[NSDecimalNumber alloc] initWithString:self.priceTextField.text];
+    cashGift.facebookEventID = self.event.fbEventId;
+    cashGift.hostName = self.event.eventHostName;
+    
+    [cashGift saveToParse];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onCancelButton:(id)sender {

@@ -7,16 +7,17 @@
 //
 
 #import "CashGiftCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface CashGiftCell()
 
-@property (weak, nonatomic) IBOutlet UIView *posterImageView;
-@property (weak, nonatomic) IBOutlet UIView *hostImageView;
-@property (weak, nonatomic) IBOutlet UIView *eventNameLabel;
-@property (weak, nonatomic) IBOutlet UIView *hostNameLabel;
-@property (weak, nonatomic) IBOutlet UIView *totalLabel;
-@property (weak, nonatomic) IBOutlet UIView *fulfilledLabel;
-@property (weak, nonatomic) IBOutlet UIView *amountLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *hostProfileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fulfilledLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hostNameLabel;
 
 
 @end
@@ -31,6 +32,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)initWithCashGift:(CashGift *)cashGift {
+    [self.posterImageView setImageWithURL:[NSURL URLWithString:cashGift.imageURLs[0]]];
+    self.nameLabel.text = cashGift.name;
+    self.amountLabel.text = [cashGift.amount stringValue];
+    
 }
 
 @end

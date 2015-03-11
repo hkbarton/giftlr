@@ -10,6 +10,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "EventListViewController.h"
+#import "GiftListViewController.h"
 #import "EventDetailViewController.h"
 #import "EventViewCell.h"
 #import "LoginViewController.h"
@@ -80,6 +81,8 @@
             [self.tableView reloadData];
         }
     } else if ([item.title isEqualToString:@"Gifts"]) {
+        GiftListViewController *vc = [[GiftListViewController alloc] init];
+        [self presentViewController:vc animated:YES completion:nil];
     } else if ([item.title isEqualToString:@"Search"]) {
         self.searchBar.hidden = NO;
         self.eventSourceTypeView.hidden = YES;

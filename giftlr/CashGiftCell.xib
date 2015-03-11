@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4iC-gU-joO">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="4iC-gU-joO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="173"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="173" id="Wdc-0Q-OCs"/>
@@ -85,15 +85,18 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="amountLabel" destination="H2p-sc-9uM" id="UCh-jZ-gaR"/>
-                <outlet property="eventNameLabel" destination="H2p-sc-9uM" id="Ge9-Je-xbW"/>
-                <outlet property="fulfilledLabel" destination="H2p-sc-9uM" id="Ajb-gl-Yfz"/>
-                <outlet property="hostImageView" destination="H2p-sc-9uM" id="tuo-y9-WLW"/>
-                <outlet property="hostNameLabel" destination="H2p-sc-9uM" id="VFi-kc-izK"/>
-                <outlet property="posterImageView" destination="H2p-sc-9uM" id="d0i-pl-Egr"/>
-                <outlet property="totalLabel" destination="H2p-sc-9uM" id="Bdb-YE-fzv"/>
+                <outlet property="amountLabel" destination="bxD-vE-Olo" id="Aps-Ui-e6b"/>
+                <outlet property="fulfilledLabel" destination="rZm-jV-qAv" id="lZv-AI-vq9"/>
+                <outlet property="hostNameLabel" destination="JXk-OZ-v2O" id="8ce-AG-GwS"/>
+                <outlet property="hostProfileImageView" destination="yil-jY-Hi6" id="2sQ-eD-Aa3"/>
+                <outlet property="nameLabel" destination="4X2-pg-J40" id="odl-CK-kg2"/>
+                <outlet property="posterImageView" destination="4iC-gU-joO" id="Aqs-cg-2NS"/>
+                <outlet property="totalLabel" destination="wGJ-qY-Sr4" id="MJo-1n-28Q"/>
             </connections>
             <point key="canvasLocation" x="139" y="282.5"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="cash" width="400" height="265"/>
+    </resources>
 </document>

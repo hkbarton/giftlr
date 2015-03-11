@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiftListViewController">
             <connections>
                 <outlet property="emptyView" destination="pa7-yi-ebO" id="5Zk-sg-SR1"/>
+                <outlet property="tabBar" destination="Mpt-aI-hEG" id="Mt9-UY-axx"/>
                 <outlet property="tableView" destination="l3f-Sa-e7M" id="Kzi-PE-VsI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -17,11 +18,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l3f-Sa-e7M">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-yi-ebO">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No gifts :(" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BI5-MU-Xx9">
                             <rect key="frame" x="123" y="178" width="74" height="20.5"/>
@@ -47,17 +48,34 @@
                         <constraint firstAttribute="centerX" secondItem="i2b-rZ-QGv" secondAttribute="centerX" id="UCW-IO-s78"/>
                     </constraints>
                 </view>
+                <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mpt-aI-hEG">
+                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="49" id="Klh-Y4-lDK"/>
+                        <constraint firstAttribute="height" constant="49" id="dKy-Qi-waE"/>
+                    </constraints>
+                    <items>
+                        <tabBarItem title="Events" image="Gift-26-pink" id="wUf-jb-AwL"/>
+                        <tabBarItem title="Gifts" image="Gift-26-pink" id="eb2-HK-DaW"/>
+                        <tabBarItem title="Search" image="Gift-26-pink" id="Lf3-zq-C4g"/>
+                        <tabBarItem title="Logout" image="Gift-26-pink" id="mjv-FO-cxU"/>
+                    </items>
+                </tabBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="l3f-Sa-e7M" secondAttribute="bottom" id="0HC-3p-F1L"/>
+                <constraint firstAttribute="trailing" secondItem="Mpt-aI-hEG" secondAttribute="trailing" id="8Kp-WX-aIe"/>
                 <constraint firstItem="pa7-yi-ebO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BXS-o1-AQk"/>
-                <constraint firstAttribute="bottom" secondItem="pa7-yi-ebO" secondAttribute="bottom" id="ZAy-Ze-FpI"/>
+                <constraint firstItem="Mpt-aI-hEG" firstAttribute="top" secondItem="l3f-Sa-e7M" secondAttribute="bottom" id="PMe-cn-cTp"/>
                 <constraint firstAttribute="trailing" secondItem="pa7-yi-ebO" secondAttribute="trailing" id="aXW-y5-rb2"/>
+                <constraint firstAttribute="bottom" secondItem="Mpt-aI-hEG" secondAttribute="bottom" id="bSG-0e-Tk8"/>
                 <constraint firstItem="l3f-Sa-e7M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gEw-vw-vNT"/>
                 <constraint firstItem="l3f-Sa-e7M" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gOV-li-vvY"/>
                 <constraint firstAttribute="trailing" secondItem="l3f-Sa-e7M" secondAttribute="trailing" id="jeG-Xb-EQK"/>
+                <constraint firstItem="Mpt-aI-hEG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="lze-UI-6HO"/>
                 <constraint firstItem="pa7-yi-ebO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n0K-Zs-Uep"/>
+                <constraint firstItem="Mpt-aI-hEG" firstAttribute="top" secondItem="pa7-yi-ebO" secondAttribute="bottom" id="zsF-UT-Q5R"/>
             </constraints>
             <point key="canvasLocation" x="331" y="326"/>
         </view>
@@ -70,6 +88,9 @@
             <point key="canvasLocation" x="705.5" y="515"/>
         </button>
     </objects>
+    <resources>
+        <image name="Gift-26-pink" width="26" height="26"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

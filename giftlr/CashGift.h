@@ -7,16 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
+#import "Event.h"
 
 @interface CashGift : NSObject
 
-@property (strong, nonatomic) NSString *cashGiftID;
-@property (strong, nonatomic) NSString *eventID;
 @property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *giftDescription;
+@property (strong, nonatomic) NSDecimalNumber *amount;
 @property (strong, nonatomic) NSMutableArray *imageURLs;
 @property (strong, nonatomic) NSArray *claims;
 @property (strong, nonatomic) NSString *hostName;
 @property (strong, nonatomic) NSString *hostProfileImageURL;
+@property (strong, nonatomic) NSString *facebookEventID;
+@property (strong, nonatomic) NSString *claimerFacebookUserID;
+
+-(void)saveToParse;
+-(PFObject *)getPFObject;
+-(id)initWithPFObject:(PFObject *)pfObject;
+
+@property (strong, nonatomic) PFObject *pfObject;
 
 @end
