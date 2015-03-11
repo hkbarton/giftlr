@@ -47,8 +47,17 @@ const int CASH_GIFT_SECTION_INDEX = 1;
     self.productGifts = [NSMutableArray array];
     self.cashGifts = [NSMutableArray array];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"CashGift"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery *productQuery = [PFQuery queryWithClassName:@"ProductGift"];
+    [productQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (PFObject *object in objects) {
+            ProductGift *productGift = [[ProductGift alloc] initWithPFObject:object];
+            [self.productGifts addObject:productGift];
+        }
+        [self refresh];
+    }];
+    
+    PFQuery *cashQuery = [PFQuery queryWithClassName:@"CashGift"];
+    [cashQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         for (PFObject *object in objects) {
             CashGift *cashGift = [[CashGift alloc] initWithPFObject:object];
             [self.cashGifts addObject:cashGift];
