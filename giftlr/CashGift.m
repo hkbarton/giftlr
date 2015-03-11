@@ -43,4 +43,21 @@
     return self;
 }
 
++(void)loadCashGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *cashGifts, NSError *error))callback {
+    PFQuery *query = [PFQuery queryWithClassName:@"CashGift"];
+    [query whereKey:@"facebookEventID" equalTo:event.fbEventId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSMutableArray *result = nil;
+        if (!error) {
+            result = [NSMutableArray array];
+            for (int i=0;i<[objects count];i++) {
+                PFObject *pfObj = objects[i];
+                [result addObject:[[CashGift alloc] initWithPFObject:pfObj]];
+            }
+        }
+        callback(result, error);
+    }];
+}
+
+
 @end
