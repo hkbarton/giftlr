@@ -58,6 +58,13 @@
     NSMutableString *source = [NSMutableString stringWithString:@"From: "];
     [source appendString:[ProductHTMLParser getDomainFromURL:[NSURL URLWithString:productGift.productURL]]];
     self.labelDomain.text = source;
+    if ([productGift.status isEqualToString:ProductGiftStatusClaimed]) {
+        [self.btnClaim setImage:[UIImage imageNamed:@"Hearts-26-pink"] forState:UIControlStateNormal];
+    }
+    if ([productGift.status isEqualToString:ProductGiftBought]) {
+        [self.btnClaim setImage:[UIImage imageNamed:@"Hearts-26-pink"] forState:UIControlStateNormal];
+        [self.btnBuy setImage:[UIImage imageNamed:@"Buy-24-pink"] forState:UIControlStateNormal];
+    }
 }
 
 @end
