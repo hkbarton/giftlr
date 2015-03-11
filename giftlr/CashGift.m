@@ -20,6 +20,7 @@ NSString *const CashGiftBought = @"Bought";
     cashGift[@"name"] = self.name;
     cashGift[@"amount"] = @([self.amount floatValue]);
     cashGift[@"facebookEventID"] = self.facebookEventID;
+    cashGift[@"status"] = self.status;
     
     [cashGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -42,6 +43,7 @@ NSString *const CashGiftBought = @"Bought";
         self.name = [pfObject objectForKey:@"name"];
         self.amount = [pfObject objectForKey:@"amount"];
         self.facebookEventID = [pfObject objectForKey:@"facebookEventID"];
+        self.status = [pfObject objectForKey:@"status"];
     }
     
     return self;
