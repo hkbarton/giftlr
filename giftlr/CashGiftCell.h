@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CashGift.h"
 
 @interface CashGiftCell : UITableViewCell
+
+-(void)initWithCashGift:(CashGift *)cashGift;
+
 
 @end

@@ -18,5 +18,6 @@
 
 +(ProductHTMLParser *)getParserByURL:(NSURL *)url;
 +(NSString *)parseData:(NSString *) data withParsePatterns:(NSArray *)patterns;
++(NSString *)getDomainFromURL:(NSURL *) url;
 
 @end

@@ -10,16 +10,24 @@
 #import "EventDetailViewCell.h"
 #import "EventDescriptionCell.h"
 #import "Event.h"
-#import "GiftViewCell.h"
+#import "EventProductGiftCell.h"
+#import "EventCashGiftCell.h"
+#import "ProductSearchViewController.h"
+#import "AddCashGiftViewController.h"
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *addGiftView;
 @property (weak, nonatomic) IBOutlet UILabel *addGiftLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
+- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender;
 
 @property (strong, nonatomic) NSArray *gifts;
+- (IBAction)onAddCashGiftButton:(id)sender;
+
+@property (nonatomic, strong) NSMutableArray *productGiftList;
+@property (nonatomic, strong) NSMutableArray *cashGiftList;
 
 @end
 
@@ -32,10 +40,12 @@
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"EventDescriptionCell" bundle:nil] forCellReuseIdentifier:@"EventDescriptionCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"EventDetailViewCell" bundle:nil] forCellReuseIdentifier:@"EventDetailViewCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"GiftViewCell" bundle:nil] forCellReuseIdentifier:@"GiftViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EventProductGiftCell" bundle:nil] forCellReuseIdentifier:@"EventProductGiftCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EventCashGiftCell" bundle:nil] forCellReuseIdentifier:@"EventCashGiftCell"];
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     // hot pink #ff69b4
@@ -76,6 +86,17 @@
             self.joinEventControl.selectedSegmentIndex = UISegmentedControlNoSegment;
             break;
     }
+    
+    // load data
+    self.productGiftList = [NSMutableArray array];
+    [ProductGift loadProductGiftsByEvent:self.event withCallback:^(NSArray *productGifts, NSError *error) {
+        if (!error) {
+            [self.productGiftList addObjectsFromArray:productGifts];
+            [self.tableView reloadData];
+        }
+    }];
+    // TODO load cash gift list
+    self.cashGiftList = [NSMutableArray array];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,8 +127,7 @@
 //}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // TODO: integration with gifts
-    return 2 + 5;
+    return 2 + [self.productGiftList count] + [self.cashGiftList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -128,10 +148,21 @@
         return cell;
     }
     
-    GiftViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GiftViewCell"];
-    cell.event = self.event;
+    // load ProductGift list
+    if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
+        EventProductGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventProductGiftCell"];
+        cell.event = self.event;
+        cell.productGift = self.productGiftList[indexPath.row - 2];
+        return cell;
+    // load CashGift list
+    } else if (indexPath.row >= [self.productGiftList count] + 2) {
+        EventCashGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCashGiftCell"];
+        cell.event = self.event;
+        cell.cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
+        return cell;
+    }
     
-    return cell;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,6 +181,26 @@
 
 - (void) onBack {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender {
+    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] initWithHostEvent:self.event];
+    psvc.delegate = self;
+    UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
+    [self presentViewController:psnvc animated:YES completion:nil];
+}
+
+- (IBAction)onAddCashGiftButton:(id)sender {
+    AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
+    vc.event = self.event;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+#pragma mark - Delegate of other view controllers
+
+-(void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift {
+    [self.productGiftList addObject:productGift];
+    [self.tableView reloadData];
 }
 
 @end

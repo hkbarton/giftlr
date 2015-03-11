@@ -11,7 +11,7 @@
 #import "ProductDetailViewController.h"
 #import "SVProgressHUD.h"
 
-@interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate>
+@interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate, ProductDetailViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *btnWebBack;
@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSString *curAddress;
 @property (nonatomic, assign) BOOL isWebLoading;
 @property (nonatomic, assign) BOOL shouldAddProductAfterLoading;
+@property (nonatomic, strong) Event *hostEvent;
 
 - (IBAction)onAddProductClicked:(id)sender;
 - (IBAction)btnWebBackClicked:(id)sender;
@@ -32,6 +33,13 @@
 NSString *const AddressHome = @"";
 
 @implementation ProductSearchViewController
+
+-(id)initWithHostEvent:(Event *) hostEvent {
+    if (self = [super init]) {
+        self.hostEvent = hostEvent;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +56,7 @@ NSString *const AddressHome = @"";
     self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
     // right side buttons
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onCloseClicked)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onHomeClicked)];
     // web view
     self.webView.delegate = self;
@@ -60,10 +69,20 @@ NSString *const AddressHome = @"";
     [super didReceiveMemoryWarning];
 }
 
+-(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(ProductGift *)productGift {
+    if (self.delegate) {
+        [self.delegate productSearchViewController:self didProductGiftAdd:productGift];
+    }
+}
+
 #pragma mark event handle
 
 - (void)onHomeClicked {
     [self loadHomeWeb];
+}
+
+- (void)onCloseClicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark util
@@ -83,7 +102,9 @@ NSString *const AddressHome = @"";
 - (void)addProduct {
     NSString *html = [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     ProductGift *productGift = [ProductGift parseProductFromWeb:[NSURL URLWithString:self.curAddress] withHTML:html];
+    productGift.hostEvent = self.hostEvent;
     ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift];
+    pdvc.delegate = self;
     [self.navigationController pushViewController:pdvc animated:YES];
 }
 

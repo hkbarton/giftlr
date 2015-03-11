@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong)ProductGift *product;
 
+-(ProductGift *)getUpdatedProductGift;
+
 @end

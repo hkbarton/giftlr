@@ -14,7 +14,7 @@
 @protocol ProductDetailViewControllerDelegate
 
 @optional
--(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didAddGift:(ProductGift *)product;
+-(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(ProductGift *)productGift;
 
 @end
 

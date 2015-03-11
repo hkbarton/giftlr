@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
+#import "Event.h"
 
 extern NSString *const ProductGiftStatusUnclaimed;
 extern NSString *const ProductGiftStatusClaimed;
@@ -22,7 +24,13 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, assign) NSInteger quantity;
 @property (nonatomic, strong) NSMutableArray *imageURLs;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) Event *hostEvent;
+
+-(void)saveToParse;
+-(PFObject *)getPFObject;
+-(id)initWithPFObject:(PFObject *)pfObject;
 
 +(ProductGift*)parseProductFromWeb:(NSURL *)url withHTML:(NSString *)html;
++(void)loadProductGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *productGifts, NSError *error))callback;
 
 @end
