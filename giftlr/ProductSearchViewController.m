@@ -103,7 +103,7 @@ NSString *const AddressHome = @"";
     NSString *html = [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"];
     ProductGift *productGift = [ProductGift parseProductFromWeb:[NSURL URLWithString:self.curAddress] withHTML:html];
     productGift.hostEvent = self.hostEvent;
-    ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift];
+    ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeAdd];
     pdvc.delegate = self;
     [self.navigationController pushViewController:pdvc animated:YES];
 }

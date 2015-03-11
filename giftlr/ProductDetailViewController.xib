@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="btnAddGift" destination="b9s-xc-gkH" id="k0i-lf-6fU"/>
                 <outlet property="btnBuy" destination="MCe-Gr-awm" id="Kk2-i4-9t6"/>
+                <outlet property="btnClaim" destination="GeB-Io-2y3" id="MH7-fL-8cC"/>
                 <outlet property="tabbar" destination="3jA-0N-14D" id="EsB-Hj-R6C"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,18 +21,18 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jA-0N-14D">
                     <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-xc-gkH">
-                            <rect key="frame" x="8" y="10" width="57" height="30"/>
-                            <state key="normal" title="Add Gift">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeB-Io-2y3">
+                            <rect key="frame" x="140" y="10" width="40" height="30"/>
+                            <state key="normal" title="Claim">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="onBtnAddGiftClicked:" destination="-1" eventType="touchUpInside" id="7sT-hK-moF"/>
+                                <action selector="onBtnClaimClicked:" destination="-1" eventType="touchUpInside" id="l5U-Bt-aZT"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCe-Gr-awm">
-                            <rect key="frame" x="282" y="10" width="30" height="30"/>
+                            <rect key="frame" x="145" y="10" width="30" height="30"/>
                             <state key="normal" title="Buy">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,14 +41,26 @@
                                 <action selector="onBtnBuyClicked:" destination="-1" eventType="touchUpInside" id="kFp-S7-Ue4"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9s-xc-gkH">
+                            <rect key="frame" x="132" y="10" width="57" height="30"/>
+                            <state key="normal" title="Add Gift">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onBtnAddGiftClicked:" destination="-1" eventType="touchUpInside" id="7sT-hK-moF"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="b9s-xc-gkH" firstAttribute="leading" secondItem="3jA-0N-14D" secondAttribute="leading" constant="8" id="8dc-99-Dr1"/>
+                        <constraint firstAttribute="centerY" secondItem="GeB-Io-2y3" secondAttribute="centerY" id="0hS-bM-2Mr"/>
+                        <constraint firstAttribute="centerX" secondItem="GeB-Io-2y3" secondAttribute="centerX" id="C6E-ya-3Fs"/>
+                        <constraint firstAttribute="centerY" secondItem="MCe-Gr-awm" secondAttribute="centerY" id="FmV-n9-SJi"/>
                         <constraint firstAttribute="height" constant="49" id="FrF-KR-3vs"/>
-                        <constraint firstAttribute="trailing" secondItem="MCe-Gr-awm" secondAttribute="trailing" constant="8" id="HjU-XZ-Nlw"/>
                         <constraint firstAttribute="centerY" secondItem="b9s-xc-gkH" secondAttribute="centerY" id="IMH-2t-Zca"/>
-                        <constraint firstAttribute="centerY" secondItem="MCe-Gr-awm" secondAttribute="centerY" id="Yhh-iP-LCv"/>
+                        <constraint firstAttribute="centerX" secondItem="b9s-xc-gkH" secondAttribute="centerX" id="X7h-sR-IX2"/>
+                        <constraint firstAttribute="centerX" secondItem="MCe-Gr-awm" secondAttribute="centerX" id="mKL-oK-508"/>
                     </constraints>
                 </view>
             </subviews>

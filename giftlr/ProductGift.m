@@ -25,7 +25,7 @@ NSString *const PFObjectClassName = @"ProductGift";
 
 -(id)initWithPFObject:(PFObject *)pfObject {
     if (self = [super init]) {
-        self.giftID = pfObject[@"objectId"];
+        self.giftID = pfObject.objectId;
         self.name = pfObject[@"name"];
         self.productDescription = pfObject[@"productDescription"];
         self.productURL = pfObject[@"productURL"];
@@ -50,6 +50,9 @@ NSString *const PFObjectClassName = @"ProductGift";
 -(void)saveToParse {
     // save gift
     PFObject *productGift = [PFObject objectWithClassName:PFObjectClassName];
+    if (self.giftID != nil) {
+        productGift.objectId = self.giftID;
+    }
     productGift[@"name"] = self.name;
     if (self.productDescription != nil) {
         productGift[@"productDescription"] = self.productDescription;
@@ -64,14 +67,17 @@ NSString *const PFObjectClassName = @"ProductGift";
     if (self.hostEvent != nil) {
         productGift[@"fbEventId"] = self.hostEvent.fbEventId;
     }
+    if (self.claimerFacebookUserID != nil) {
+        productGift[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
+    }
     [productGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            self.giftID = productGift[@"objectId"];
+            self.giftID = productGift.objectId;
+            self.pfObject = productGift;
         } else {
             // TODO
         }
     }];
-    // save event relation
 }
 
 +(ProductGift*)parseProductFromWeb:(NSURL *)url withHTML:(NSString *)html {

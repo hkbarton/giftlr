@@ -10,32 +10,62 @@
 #import "ProductDetailTextView.h"
 #import "PurchaseViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "User.h"
+
+NSString *const ProductDetailViewModeAdd = @"ProductDetailViewModeAdd";
+NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 
 @interface ProductDetailViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *tabbar;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddGift;
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
+@property (weak, nonatomic) IBOutlet UIButton *btnClaim;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageProduct;
 @property (strong, nonatomic) ProductDetailTextView *productDetailTextView;
 
 @property (nonatomic, strong) ProductGift *product;
+@property (nonatomic, strong) NSString *mode;
 
 - (IBAction)onBtnAddGiftClicked:(id)sender;
 - (IBAction)onBtnBuyClicked:(id)sender;
-
+- (IBAction)onBtnClaimClicked:(id)sender;
 
 @end
 
 @implementation ProductDetailViewController
 
--(id)initWithProduct: (ProductGift *)product{
+-(id)initWithProduct: (ProductGift *)product andMode:(NSString *)mode{
     if (self = [super init]) {
-       self.product = product;
+        self.product = product;
+        self.mode = mode;
     }
     return self;
+}
+
+- (void) updateActionButtonStatus {
+    if ([self.mode isEqualToString:ProductDetailViewModeAdd]) {
+        self.btnAddGift.hidden = NO;
+        self.btnClaim.hidden = YES;
+        self.btnBuy.hidden = YES;
+    } else if ([self.mode isEqualToString:ProductDetailViewModeView]) {
+        self.btnAddGift.hidden = YES;
+        self.btnClaim.hidden = NO;
+        self.btnBuy.hidden = NO;
+        if ([[User currentUser].fbUserId isEqualToString: self.product.hostEvent.eventHostId]) {
+            self.btnClaim.hidden = YES;
+            self.btnBuy.hidden = YES;
+        } else {
+            if ([self.product.status isEqualToString: ProductGiftStatusClaimed] || [self.product.status isEqualToString:ProductGiftBought]) {
+                self.btnClaim.hidden = YES;
+            }
+            if ([self.product.status isEqualToString: ProductGiftBought] || [self.product.status isEqualToString:ProductGiftStatusUnclaimed]) {
+                self.btnBuy.hidden = YES;
+            }
+        }
+    }
 }
 
 - (void)initSubView {
@@ -52,6 +82,8 @@
     [self.scrollView addSubview:self.productDetailTextView];
     self.scrollView.contentSize = CGSizeMake(appFrame.size.width, 600);
     [self.view addSubview:self.scrollView];
+    // setup different button by different mode
+    [self updateActionButtonStatus];
 }
 
 - (void)viewDidLoad {
@@ -71,6 +103,10 @@
         // TODO set default image
     }
     self.productDetailTextView.product = self.product;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self updateActionButtonStatus];
 }
 
 - (void)loadImage:(__weak UIImageView *)imageView withURL:(NSString *)url {
@@ -101,11 +137,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-// TODO temprary, should be removed
 - (IBAction)onBtnBuyClicked:(id)sender {
     PurchaseViewController *pvc = [[PurchaseViewController alloc] initWithProduct:self.product];
     UINavigationController *pnvc = [[UINavigationController alloc] initWithRootViewController:pvc];
     [self presentViewController:pnvc animated:YES completion:nil];
+}
+
+- (IBAction)onBtnClaimClicked:(id)sender {
+    self.product.claimerFacebookUserID = [User currentUser].fbUserId;
+    self.product.status = ProductGiftStatusClaimed;
+    [self.product saveToParse];
+    [self updateActionButtonStatus];
 }
 
 @end

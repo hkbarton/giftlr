@@ -14,6 +14,7 @@
 #import "EventCashGiftCell.h"
 #import "ProductSearchViewController.h"
 #import "AddCashGiftViewController.h"
+#import "ProductDetailViewController.h"
 
 @interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate>
 
@@ -178,6 +179,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
+        ProductGift *productGift = self.productGiftList[indexPath.row - 2];
+        productGift.hostEvent = self.event;
+        ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeView];
+        [self.navigationController pushViewController:pdvc animated:YES];
+    }
 }
 
 #pragma mark - setters

@@ -25,6 +25,7 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, strong) NSMutableArray *imageURLs;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) Event *hostEvent;
+@property (nonatomic, strong) NSString *claimerFacebookUserID;
 
 -(void)saveToParse;
 -(PFObject *)getPFObject;

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ProductGift.h"
 
+extern NSString *const ProductDetailViewModeAdd;
+extern NSString *const ProductDetailViewModeView;
+
 @class ProductDetailViewController;
 
 @protocol ProductDetailViewControllerDelegate
@@ -22,6 +25,6 @@
 
 @property (nonatomic, weak) id<ProductDetailViewControllerDelegate> delegate;
 
--(id)initWithProduct: (ProductGift *)product;
+-(id)initWithProduct: (ProductGift *)product andMode:(NSString *)mode;
 
 @end
