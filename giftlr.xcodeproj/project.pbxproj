@@ -24,6 +24,10 @@
 		07E52B7E1AAD226800B67296 /* ProductDetailTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B7D1AAD226800B67296 /* ProductDetailTextView.m */; };
 		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
 		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
+		07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */; };
+		07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */; };
+		07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */; };
+		07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */; };
 		33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD01AAD21B900438120 /* GiftListViewController.m */; };
 		33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33AC4BD11AAD21B900438120 /* GiftListViewController.xib */; };
 		33AC4BD71AAD222300438120 /* CashGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD61AAD222300438120 /* CashGift.m */; };
@@ -50,8 +54,6 @@
 		9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBED1AACFDE20070CEB8 /* EventDetailViewCell.xib */; };
 		9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */; };
 		9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */; };
-		9602DBFD1AAD283C0070CEB8 /* GiftViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBFB1AAD283C0070CEB8 /* GiftViewCell.m */; };
-		9602DBFE1AAD283C0070CEB8 /* GiftViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBFC1AAD283C0070CEB8 /* GiftViewCell.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +97,12 @@
 		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
 		07E52B801AAD37B700B67296 /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		07E52B811AAD37B700B67296 /* PurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseViewController.xib; sourceTree = "<group>"; };
+		07EB3EDC1AB00BFF007B1607 /* EventProductGiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventProductGiftCell.h; sourceTree = "<group>"; };
+		07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventProductGiftCell.m; sourceTree = "<group>"; };
+		07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventProductGiftCell.xib; sourceTree = "<group>"; };
+		07EB3EE11AB00C27007B1607 /* EventCashGiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCashGiftCell.h; sourceTree = "<group>"; };
+		07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCashGiftCell.m; sourceTree = "<group>"; };
+		07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCashGiftCell.xib; sourceTree = "<group>"; };
 		31F1E81EBE4E83E81F5D889F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		33AC4BCF1AAD21B900438120 /* GiftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftListViewController.h; sourceTree = "<group>"; };
 		33AC4BD01AAD21B900438120 /* GiftListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftListViewController.m; sourceTree = "<group>"; };
@@ -139,9 +147,6 @@
 		9602DBF01AAD12F10070CEB8 /* EventDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDescriptionCell.h; sourceTree = "<group>"; };
 		9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDescriptionCell.m; sourceTree = "<group>"; };
 		9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDescriptionCell.xib; sourceTree = "<group>"; };
-		9602DBFA1AAD283C0070CEB8 /* GiftViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftViewCell.h; sourceTree = "<group>"; };
-		9602DBFB1AAD283C0070CEB8 /* GiftViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftViewCell.m; sourceTree = "<group>"; };
-		9602DBFC1AAD283C0070CEB8 /* GiftViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,9 +287,6 @@
 				9602DBF01AAD12F10070CEB8 /* EventDescriptionCell.h */,
 				9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */,
 				9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */,
-				9602DBFA1AAD283C0070CEB8 /* GiftViewCell.h */,
-				9602DBFB1AAD283C0070CEB8 /* GiftViewCell.m */,
-				9602DBFC1AAD283C0070CEB8 /* GiftViewCell.xib */,
 				07E52B7C1AAD226800B67296 /* ProductDetailTextView.h */,
 				07E52B7D1AAD226800B67296 /* ProductDetailTextView.m */,
 				07E52B7A1AAD1FD800B67296 /* ProductDetailTextView.xib */,
@@ -294,6 +296,12 @@
 				33AC4BDD1AAD227C00438120 /* CashGiftCell.h */,
 				33AC4BDE1AAD227C00438120 /* CashGiftCell.m */,
 				33AC4BDF1AAD227C00438120 /* CashGiftCell.xib */,
+				07EB3EDC1AB00BFF007B1607 /* EventProductGiftCell.h */,
+				07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */,
+				07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */,
+				07EB3EE11AB00C27007B1607 /* EventCashGiftCell.h */,
+				07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */,
+				07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -436,10 +444,10 @@
 				9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */,
 				9602DBEA1AACEC640070CEB8 /* EventDetailViewController.xib in Resources */,
 				0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */,
-				9602DBFE1AAD283C0070CEB8 /* GiftViewCell.xib in Resources */,
 				9602DBE51AABD7380070CEB8 /* EventViewCell.xib in Resources */,
 				9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
+				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
 				073E022C1AAB9044007778F4 /* Html in Resources */,
@@ -449,6 +457,7 @@
 				0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */,
 				07E52B7B1AAD1FD800B67296 /* ProductDetailTextView.xib in Resources */,
 				33AC4BE91AAD503900438120 /* AddCashGiftViewController.xib in Resources */,
+				07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */,
 				33AC4BDC1AAD226800438120 /* ProductGiftCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,9 +509,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9602DBFD1AAD283C0070CEB8 /* GiftViewCell.m in Sources */,
 				9602DBE01AABAFCB0070CEB8 /* Event.m in Sources */,
 				9602DBDD1AAB8E530070CEB8 /* User.m in Sources */,
+				07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */,
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
@@ -514,6 +523,7 @@
 				33AC4BDB1AAD226800438120 /* ProductGiftCell.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
 				33AC4BD71AAD222300438120 /* CashGift.m in Sources */,
+				07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */,
 				072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */,
 				33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */,
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
