@@ -14,7 +14,7 @@
 @protocol PurchaseViewControllerDelegate
 
 @optional
--(void)purchaseViewController:(PurchaseViewController *)purchaseViewController didBought:(ProductGift *)product;
+-(void)purchaseViewController:(PurchaseViewController *)purchaseViewController didProductGiftBought:(ProductGift *)product;
 
 @end
 

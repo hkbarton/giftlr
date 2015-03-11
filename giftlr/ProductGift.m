@@ -9,11 +9,70 @@
 #import "ProductGift.h"
 #import "ProductHTMLParser.h"
 
-NSString *const ProductGiftStatusUnclaimed = @"ProductGiftStatusUnclaimed";
-NSString *const ProductGiftStatusClaimed = @"ProductGiftStatusClaimed";
-NSString *const ProductGiftBought = @"ProductGiftBought";
+NSString *const ProductGiftStatusUnclaimed = @"Unclaimed";
+NSString *const ProductGiftStatusClaimed = @"Claimed";
+NSString *const ProductGiftBought = @"Bought";
+
+NSString *const PFObjectClassName = @"ProductGift";
+
+@interface ProductGift()
+
+@property (nonatomic, strong) PFObject *pfObject;
+
+@end
 
 @implementation ProductGift
+
+-(id)initWithPFObject:(PFObject *)pfObject {
+    if (self = [super init]) {
+        self.giftID = pfObject[@"objectId"];
+        self.name = pfObject[@"name"];
+        self.productDescription = pfObject[@"productDescription"];
+        self.productURL = pfObject[@"productURL"];
+        self.price = [[NSDecimalNumber alloc] initWithFloat:[pfObject[@"price"] floatValue]];
+        self.quantity = [pfObject[@"quantity"] integerValue];
+        self.imageURLs = pfObject[@"imageURLs"];
+        self.status = pfObject[@"status"];
+        NSString *fbEventId = pfObject[@"fbEventId"];
+        if (fbEventId!=nil) {
+            // TODO change to load event from Event object
+            self.hostEvent = [[Event alloc] init];
+            self.hostEvent.fbEventId = fbEventId;
+        }
+    }
+    return self;
+}
+
+-(PFObject *)getPFObject {
+    return self.pfObject;
+}
+
+-(void)saveToParse {
+    // save gift
+    PFObject *productGift = [PFObject objectWithClassName:PFObjectClassName];
+    productGift[@"name"] = self.name;
+    if (self.productDescription != nil) {
+        productGift[@"productDescription"] = self.productDescription;
+    }
+    productGift[@"productURL"] = self.productURL;
+    productGift[@"price"] = @([self.price floatValue]);
+    productGift[@"quantity"] = @(self.quantity);
+    if (self.imageURLs != nil) {
+        productGift[@"imageURLs"] = self.imageURLs;
+    }
+    productGift[@"status"] = self.status;
+    if (self.hostEvent != nil) {
+        productGift[@"fbEventId"] = self.hostEvent.fbEventId;
+    }
+    [productGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            self.giftID = productGift[@"objectId"];
+        } else {
+            // TODO
+        }
+    }];
+    // save event relation
+}
 
 +(ProductGift*)parseProductFromWeb:(NSURL *)url withHTML:(NSString *)html {
     ProductGift *result = [[ProductGift alloc] init];

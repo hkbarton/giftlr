@@ -14,7 +14,7 @@
 #import "ProductSearchViewController.h"
 #import "AddCashGiftViewController.h"
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *addGiftView;
@@ -157,7 +157,8 @@
 }
 
 - (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender {
-    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
+    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] initWithHostEvent:self.event];
+    psvc.delegate = self;
     UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
     [self presentViewController:psnvc animated:YES completion:nil];
 }
@@ -166,4 +167,11 @@
     AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
     [self presentViewController:vc animated:YES completion:nil];
 }
+
+#pragma mark - Delegate of other view controllers
+
+-(void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift {
+    
+}
+
 @end

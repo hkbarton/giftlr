@@ -45,8 +45,10 @@
 }
 
 - (IBAction)btnDoneClicked:(id)sender {
+    self.product.status = ProductGiftBought;
+    [self.product saveToParse];
     if (self.delegate) {
-        [self.delegate purchaseViewController:self didBought:self.product];
+        [self.delegate purchaseViewController:self didProductGiftBought:self.product];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }

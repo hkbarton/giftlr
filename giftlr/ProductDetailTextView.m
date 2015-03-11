@@ -66,7 +66,15 @@
     [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
     self.txtPrice.text = [currencyFormat stringFromNumber:product.price];
     self.txtQuantity.text = [NSString stringWithFormat:@"%ld", product.quantity];
-    self.txtDescription.text = @"";
+    self.txtDescription.text = product.productDescription;
+}
+
+-(ProductGift *)getUpdatedProductGift {
+    _product.name = self.txtName.text;
+    _product.price = [[NSDecimalNumber alloc] initWithString:[self.txtPrice.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
+    _product.quantity = [self.txtQuantity.text intValue];
+    _product.productDescription = self.txtDescription.text;
+    return _product;
 }
 
 @end

@@ -31,7 +31,7 @@
 
 @implementation ProductDetailViewController
 
--(id)initWithProduct: (ProductGift *)product {
+-(id)initWithProduct: (ProductGift *)product{
     if (self = [super init]) {
        self.product = product;
     }
@@ -93,13 +93,16 @@
 }
 
 - (IBAction)onBtnAddGiftClicked:(id)sender {
+    self.product = [self.productDetailTextView getUpdatedProductGift];
+    [self.product saveToParse];
     if (self.delegate) {
-        [self.delegate productDetailViewController:self didAddGift:self.product];
+        [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
+// TODO temprary, should be removed
 - (IBAction)onBtnBuyClicked:(id)sender {
-    
     PurchaseViewController *pvc = [[PurchaseViewController alloc] initWithProduct:self.product];
     UINavigationController *pnvc = [[UINavigationController alloc] initWithRootViewController:pvc];
     [self presentViewController:pnvc animated:YES completion:nil];
