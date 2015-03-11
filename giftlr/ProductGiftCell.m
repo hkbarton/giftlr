@@ -34,7 +34,14 @@
 - (void)initWithProductGift:(ProductGift *)productGift {
     [self.posterImageView setImageWithURL:[NSURL URLWithString:productGift.imageURLs[0]]];
     self.nameLabel.text = productGift.name;
-    self.priceLabel.text = [productGift.price stringValue];
+
+    NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
+    [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
+    self.priceLabel.text = [currencyFormat stringFromNumber:productGift.price];
+    
+    self.eventNameLabel.text = productGift.hostEvent.name;
+    self.hostNameLabel.text = productGift.hostEvent.eventHostName;
+    
 }
 
 

@@ -14,8 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *hostProfileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *fulfilledLabel;
-@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *amountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hostNameLabel;
 
@@ -35,9 +33,16 @@
 }
 
 - (void)initWithCashGift:(CashGift *)cashGift {
+
+    
     [self.posterImageView setImageWithURL:[NSURL URLWithString:cashGift.imageURLs[0]]];
     self.nameLabel.text = cashGift.name;
-    self.amountLabel.text = [cashGift.amount stringValue];
+
+    NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
+    [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
+    self.amountLabel.text = [currencyFormat stringFromNumber:cashGift.amount];
+    
+    self.hostNameLabel.text = @""; // TODO get this from the gift's event
     
 }
 

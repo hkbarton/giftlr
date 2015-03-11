@@ -35,7 +35,6 @@
     [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
 
     self.nameLabel.text = cashGift.name;
-    self.fulfilledLabel.text = @"?"; // TODO figure out the total fulfilled amount
     self.amountLabel.text = [currencyFormat stringFromNumber:cashGift.amount];
 }
 

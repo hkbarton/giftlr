@@ -9,6 +9,10 @@
 #import "CashGift.h"
 #import <Parse/Parse.h>
 
+NSString *const CashGiftStatusUnclaimed = @"Unclaimed";
+NSString *const CashGiftStatusClaimed = @"Claimed";
+NSString *const CashGiftBought = @"Bought";
+
 @implementation CashGift
 
 -(void)saveToParse {

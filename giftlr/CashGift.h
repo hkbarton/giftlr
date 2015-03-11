@@ -10,16 +10,20 @@
 #import <Parse/Parse.h>
 #import "Event.h"
 
+extern NSString *const CashGiftStatusUnclaimed;
+extern NSString *const CashGiftStatusClaimed;
+extern NSString *const CashGiftBought;
+
 @interface CashGift : NSObject
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSDecimalNumber *amount;
 @property (strong, nonatomic) NSMutableArray *imageURLs;
-@property (strong, nonatomic) NSArray *claims;
 @property (strong, nonatomic) NSString *hostName;
 @property (strong, nonatomic) NSString *hostProfileImageURL;
 @property (strong, nonatomic) NSString *facebookEventID;
 @property (strong, nonatomic) NSString *claimerFacebookUserID;
+@property (nonatomic, strong) NSString *status;
 
 -(void)saveToParse;
 -(PFObject *)getPFObject;
