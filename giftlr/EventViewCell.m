@@ -55,18 +55,26 @@
 
     [self.eventProfilePicView setImage:nil];
     
-    [event fetchEventDetailWithCompletion:^(NSError *error) {
-        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
-        [User setUserProfileImage:self.eventHostImageView fbUserId:event.eventHostId];
+    if (event.eventHostId == nil) {
+        [event fetchEventDetailWithCompletion:^(NSError *error) {
+            [self updateEventDetailView];
+        }];
+    } else {
+        [self updateEventDetailView];
+    }
+}
 
-        if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
-            self.giftImageView.hidden = YES;
-            self.attendingImageView.hidden = YES;
-        } else {
-            self.giftImageView.hidden = NO;
-            self.attendingImageView.hidden = NO;
-        }
-    }];
+- (void) updateEventDetailView {
+    [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
+    [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
+    
+    if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
+        self.giftImageView.hidden = YES;
+        self.attendingImageView.hidden = YES;
+    } else {
+        self.giftImageView.hidden = NO;
+        self.attendingImageView.hidden = NO;
+    }
 }
 
 @end

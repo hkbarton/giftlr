@@ -25,8 +25,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *hostingButton;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-@property (strong, nonatomic) NSArray *allEvents;
-@property (strong, nonatomic) NSArray *myEvents;
+@property (strong, nonatomic) NSMutableArray *allEvents;
+@property (strong, nonatomic) NSMutableDictionary *allEventsIndexDictionary;
+@property (strong, nonatomic) NSMutableDictionary *myEventsIndexDictionary;
+@property (strong, nonatomic) NSMutableArray *myEvents;
 @property (strong, nonatomic) NSMutableArray *searchEvents;
 @property (assign, nonatomic) BOOL isMyEventMode;
 @property (assign, nonatomic) BOOL isSearchMode;
@@ -43,8 +45,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.myEvents = [[NSArray alloc] init];
-    self.allEvents = [[NSArray alloc] init];
+    self.myEvents = [[NSMutableArray alloc] init];
+    self.allEvents = [[NSMutableArray alloc] init];
+    self.allEventsIndexDictionary = [NSMutableDictionary dictionary];
+    self.myEventsIndexDictionary = [NSMutableDictionary dictionary];
     self.isMyEventMode = NO;
     self.isSearchMode = NO;
     [self setEventSourceSwitchState];
@@ -62,7 +66,7 @@
     self.searchEvents = [NSMutableArray array];
 
     [self loadCurrentUserFBProfile];
-    [self fetchFBEvents];
+    [self fetchParseEvents];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -238,11 +242,13 @@
 }
 
 - (void)loadCurrentUserFBProfile {
-    if ([User currentUser] != nil) {
-        NSLog(@"no need to load user profile");
-        return;
-    }
+//    if ([User currentUser] != nil) {
+//        // @TODO: data in Parse may be stale. should we pull the up-to-date data from FB?
+//        NSLog(@"no need to load user profile");
+//        return;
+//    }
     [User fetchFBUserProfileWithCompletion:@"me" completion:^(User *user, NSError *error) {
+        user.pfUser = [PFUser currentUser];
         if (!error) {
             [User setCurrentUser:user];
         } else {
@@ -251,12 +257,67 @@
     }];
 }
 
-- (void)fetchFBEvents {
-    [Event fetchFBEventsWithCompletion:@"me" completion:^(NSDictionary *events, NSError *error) {
-        if (!error) {
-            self.allEvents = events[@"otherEvents"];
-            self.myEvents = events[@"myEvents"];
-            [self.tableView reloadData];
+// Based on the relations to fetch the events for the users
+- (void)fetchParseEvents {
+    // TODO: move this relation stuff into User Model
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"events"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *pfEvents, NSError *error) {
+        if (error) {
+            // There was an error
+            NSLog(@"failed to get events for the user");
+        } else {
+            NSLog(@"get %ld events from parse", pfEvents.count);
+            for (PFObject *pfEvent in pfEvents) {
+                Event *event = [[Event alloc] initWithPFObject:pfEvent];
+                [self.allEvents addObject:event];
+                [self.allEventsIndexDictionary setObject:event forKey:event.fbEventId];
+                if ([event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
+                    [self.myEvents addObject:event];
+                    [self.myEventsIndexDictionary setObject:event forKey:event.fbEventId];
+                }
+            }
+            
+            [Event fetchFBEventsWithCompletion:@"me" completion:^(NSDictionary *events, NSError *error) {
+                if (!error) {
+                    NSMutableArray *newEvents = [NSMutableArray array];
+                    for (Event *event in events[@"allEvents"]) {
+                        // New event, not in parse yet
+                        if ([self.allEventsIndexDictionary objectForKey:event.fbEventId] == nil) {
+                            [event saveToParseWithCompletion:^(NSError *error) {
+                                if (!error) {
+                                    // save the relations
+                                    [[User currentUser] linkUserWithEvent:event];
+                                }
+                            }];
+                            [self.allEvents addObject:event];
+                            [self.allEventsIndexDictionary setObject:event forKey:event.fbEventId];
+                            [newEvents addObject:event];
+                        }
+                    }
+                    
+                    for (Event *event in events[@"myEvents"]) {
+                        // All my events should already be added in allEvents
+                        Event *myEvent = [self.allEventsIndexDictionary objectForKey:event.fbEventId];
+                        if (myEvent == nil) {
+                            NSLog(@"strange, couldn't fine myevent %@ in allevents", event.fbEventId);
+                        } else if ([self.myEventsIndexDictionary objectForKey:myEvent.fbEventId] == nil) {
+                            [self.myEvents addObject:myEvent];
+                            [self.myEventsIndexDictionary setObject:myEvent forKey:myEvent.fbEventId];
+                        }
+                    }
+
+                    [self.allEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
+                    }];
+                    [self.myEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
+                    }];
+                    
+                    [self.tableView reloadData];
+                } else {
+                    NSLog(@"failed get fb event %@", error);
+                }
+            }];
         }
     }];
 }

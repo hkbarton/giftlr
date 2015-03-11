@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "Event.h"
 
 
 @interface User : NSObject
@@ -20,7 +21,13 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) FBProfilePictureView *profilePicView;
 
+@property (nonatomic, strong) PFUser *pfUser;
+
 - (id)initWithFbUserData:(NSDictionary *)fbUserData;
+- (void)saveToParse;
+- (id)initWithPFUser:(PFUser *)pfUser;
+- (void)linkUserWithEvent:(Event *)event;
+- (void)linkUserWithEvents:(NSArray *)events;
 
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion;
 + (void)setUserProfileImage:(UIView *)profileContainerView fbUserId:(NSString *)fbUserId;

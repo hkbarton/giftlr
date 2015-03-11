@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 kenayi. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
-#import "User.h"
 
 typedef NS_ENUM(NSInteger, EventType) {
     EventTypeCreated = 0,
@@ -43,9 +43,15 @@ typedef NS_ENUM(NSInteger, EventType) {
 // Data from /event/picture
 @property (nonatomic, strong) NSString *profileUrl;
 
-@property (nonatomic, strong) User *eventHost;
+@property (strong, nonatomic) PFObject *pfObject;
+
+- (id)initWithPFObject:(PFObject *)pfObject;
 
 - (id)initWithData:(NSDictionary *)data type:(EventType)type;
+
+- (void)saveToParse;
+
+- (void)saveToParseWithCompletion:(void (^)(NSError *error))completion;
 
 - (void)fetchEventDetailWithCompletion:(void (^)(NSError *error))completion;
 

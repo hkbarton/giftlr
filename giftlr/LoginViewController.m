@@ -81,7 +81,7 @@
                                            }];
                 
             } else {
-                NSLog(@"User logged in through Facebook!");
+                NSLog(@"Existing user logged in through Facebook!");
                 [self presentEventListView];
             }
         }];
@@ -93,6 +93,7 @@
     [self presentViewController:evc animated:YES completion:^{
     }];
 }
+
 - (IBAction)onProductSearchClick:(id)sender {
     ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
     UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];

@@ -11,6 +11,11 @@
 #import <DateTools.h>
 
 #import "Event.h"
+#import "User.h"
+
+@interface Event ()
+
+@end
 
 @implementation Event
 
@@ -20,6 +25,8 @@ static NSDateFormatter *df = nil;
     self = [super init];
 
     if (self) {
+        self.pfObject = nil;
+        
         self.fbEventId = data[@"id"];
         self.location = data[@"location"];
         self.rsvpStatus  = data[@"rsvp_status"];
@@ -46,6 +53,85 @@ static NSDateFormatter *df = nil;
     return self;
 }
 
+- (id)initWithPFObject:(PFObject*)pfObject {
+    self = [super init];
+    if (self) {
+        self.pfObject = pfObject;
+        
+        self.fbEventId = pfObject[@"fbEventId"];
+        self.location = pfObject[@"location"];
+        // TODO: how to determine RSVP status?
+        // self.rsvpStatus  = data[@"rsvp_status"];
+        self.name = pfObject[@"name"];
+        if (df == nil) {
+            df = [[NSDateFormatter alloc] init];
+        }
+        self.startTime = pfObject[@"startTime"];
+        [df setDateFormat:@"MMM"];
+        self.startTimeMonth =[df stringFromDate:self.startTime];
+        [df setDateFormat:@"dd"];
+        self.startTimeDay =[df stringFromDate:self.startTime];
+        [df setDateFormat:@"EEEE, MMMM dd 'at' h:mma"];
+        self.startTimeString =[df stringFromDate:self.startTime];
+        
+        self.eventHostName = pfObject[@"eventHostName"];
+        self.eventHostId = pfObject[@"eventHostId"];
+        self.eventDescription = pfObject[@"eventDescription"];
+        self.profileUrl = pfObject[@"profileUrl"];
+
+        self.isHostEvent = ([self.eventHostId isEqualToString:[User currentUser].fbUserId]);
+    }
+    
+    return self;
+}
+
+- (void)saveToParse {
+    [self saveToParseWithCompletion:^(NSError *error) {
+    }];
+}
+
+- (void)saveToParseWithCompletion:(void (^)(NSError *error))completion {
+    if (!self.pfObject) {
+        self.pfObject = [PFObject objectWithClassName:@"Event"];
+    }
+    
+    // @TODO: figure out how to save rsvp data?
+    
+    self.pfObject[@"name"] = self.name;
+    self.pfObject[@"fbEventId"] = self.fbEventId;
+    if (self.location) {
+        self.pfObject[@"location"] = self.location;
+    }
+    if (self.startTime) {
+        self.pfObject[@"startTime"] = self.startTime;
+    }
+    if (self.eventHostId) {
+        self.pfObject[@"eventHostId"] = self.eventHostId;
+    }
+    if (self.eventHostName) {
+        self.pfObject[@"eventHostName"] = self.eventHostName;
+    }
+    if (self.eventDescription) {
+        self.pfObject[@"eventDescription"] = self.eventDescription;
+    }
+    if (self.profileUrl) {
+        self.pfObject[@"profileUrl"] = self.profileUrl;
+    }
+    
+    [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"saved event '%@' successfully with id %@", self.name, self.pfObject.objectId);
+        } else {
+            // There was a problem, check error.description
+        }
+        
+        completion(error);
+    }];
+}
+
+
+# pragma mark -- helper functions to fetch from FB
+
 - (void)fetchEventDetailWithCompletion:(void (^)(NSError *error))completion {
     __block NSInteger resultCount = 0;
     NSString *eventGraphPath = [NSString stringWithFormat:@"/%@", self.fbEventId];
@@ -66,6 +152,7 @@ static NSDateFormatter *df = nil;
                               
                               resultCount ++;
                               if (resultCount == 2) {
+                                  [self saveToParse];
                                   completion(nil);
                               }
                           }];
@@ -90,6 +177,7 @@ static NSDateFormatter *df = nil;
                               
                               resultCount ++;
                               if (resultCount == 2) {
+                                  [self saveToParse];
                                   completion(nil);
                               }
                           }];
@@ -130,27 +218,26 @@ static NSDateFormatter *df = nil;
                                       NSArray *myRawEvents = [rawEventResults valueForKeyPath:@"created.data"];
                                       for (NSDictionary *eventData in myRawEvents) {
                                           Event *event = [[Event alloc] initWithData:eventData type:EventTypeCreated];
-                                          event.eventHost = [User currentUser];
                                           [myEvents addObject:event];
                                       }
                                       [eventResults setObject:myEvents forKey:@"myEvents"];
                                       
-                                      NSMutableArray *otherEvents = [NSMutableArray array];
+                                      NSMutableArray *allEvents = [NSMutableArray array];
                                       for (NSString *eventSubEdge in fbEventSubEdges) {
                                           if (![eventSubEdge isEqualToString:@"created"]) {
                                               NSArray *myRawEvents = [rawEventResults valueForKeyPath:[NSString stringWithFormat:@"%@.data", eventSubEdge]];
                                               for (NSDictionary *eventData in myRawEvents) {
                                                   EventType type = [Event stringToEventType:eventSubEdge];
                                                   Event *event = [[Event alloc] initWithData:eventData type:type];
-                                                  [otherEvents addObject:event];
+                                                  [allEvents addObject:event];
                                               }
                                           }
                                       }
-                                      [otherEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                                      [allEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                                           return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
                                       }];
                                       
-                                      [eventResults setObject:otherEvents forKey:@"otherEvents"];
+                                      [eventResults setObject:allEvents forKey:@"allEvents"];
                                       completion(eventResults, nil);
                                   }
                               }];

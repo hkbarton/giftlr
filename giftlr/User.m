@@ -32,6 +32,70 @@
     return self;
 }
 
+- (id)initWithPFUser:(PFUser *)pfUser {
+    self = [super init];
+    if (self) {
+        self.pfUser = pfUser;
+        
+        self.fbUserData = pfUser[@"fbUserData"];
+        self.fbUserId = pfUser[@"fbUserId"];
+        self.email = pfUser[@"email"];
+        self.firstName = pfUser[@"first_name"];
+        self.lastName = pfUser[@"last_name"];
+        self.name = pfUser[@"name"];
+        self.profilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fbUserId pictureCropping:FBProfilePictureCroppingSquare];
+    }
+    
+    return self;
+}
+
+#pragma mark - Parse related helpers
+- (void)saveToParse {
+    if (!self.pfUser) {
+        // What is gonna be the user name/pwd here?
+        // This will be used fo our own signup purpose
+        self.pfUser = [PFUser user];
+    }
+    
+    self.pfUser[@"fbUserData"] = self.fbUserData;
+    self.pfUser[@"fbUserId"] = self.fbUserId;
+    self.pfUser[@"email"] = self.email;
+    self.pfUser[@"first_name"] = self.firstName;
+    self.pfUser[@"last_name"] = self.lastName;
+    self.pfUser[@"name"] = self.name;
+    
+    [self.pfUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            // The object has been saved.
+            NSLog(@"user saved successfully %@", self.pfUser.objectId);
+        } else {
+            NSLog(@"failed to save user data");
+            // There was a problem, check error.description
+        }
+    }];
+}
+
+- (void)linkUserWithEvent:(Event *)event {
+    if (event.pfObject && self.pfUser) {
+        PFRelation *relation = [self.pfUser relationForKey:@"events"];
+        [relation addObject:event.pfObject];
+        [self.pfUser saveInBackground];
+    }
+}
+
+- (void)linkUserWithEvents:(NSArray *)events {
+    if (events.count > 0 && self.pfUser) {
+        PFRelation *relation = [self.pfUser relationForKey:@"events"];
+        for (Event *event in events) {
+            [relation addObject:event.pfObject];
+        }
+
+        [self.pfUser saveInBackground];
+    }
+}
+
+# pragma mark - fb related helpers
+
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion {
     NSString *userGraphPath = [NSString stringWithFormat:@"%@", userId];
     [FBRequestConnection startWithGraphPath:userGraphPath
@@ -49,31 +113,24 @@
 #pragma mark - current user methods
 
 static User *_currentUser = nil;
-NSString * const kCurrentUserKey = @"kCurrentUserKey";
 
 + (User *)currentUser {
+    // Should we still save to user defaults?
     if (_currentUser == nil) {
-        NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kCurrentUserKey];
-        if (data != nil) {
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
-            _currentUser = [[User alloc] initWithFbUserData:dictionary];
+        PFUser *user = [PFUser currentUser];
+        if (user != nil) {
+            _currentUser = [[User alloc] initWithPFUser:user];
         }
     }
+    
     return _currentUser;
 }
 
 + (void)setCurrentUser:(User *)user {
     _currentUser = user;
     if (_currentUser != nil) {
-        NSData  *data = [NSJSONSerialization dataWithJSONObject:user.fbUserData options:0 error:NULL];
-        [[NSUserDefaults standardUserDefaults] setObject:data forKey:kCurrentUserKey];
-    } else {
-        // clear the saved object
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kCurrentUserKey];
+        [user saveToParse];
     }
-    
-    // Force to save to disk
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (void)logout {

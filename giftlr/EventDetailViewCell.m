@@ -8,6 +8,7 @@
 
 #import "EventDetailViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "User.h"
 
 @interface EventDetailViewCell ()
 
