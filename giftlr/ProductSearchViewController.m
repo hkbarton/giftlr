@@ -48,6 +48,7 @@ NSString *const AddressHome = @"";
     self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
     // right side buttons
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onCloseClicked)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onHomeClicked)];
     // web view
     self.webView.delegate = self;
@@ -64,6 +65,10 @@ NSString *const AddressHome = @"";
 
 - (void)onHomeClicked {
     [self loadHomeWeb];
+}
+
+- (void)onCloseClicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark util

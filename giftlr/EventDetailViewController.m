@@ -11,6 +11,7 @@
 #import "EventDescriptionCell.h"
 #import "Event.h"
 #import "GiftViewCell.h"
+#import "ProductSearchViewController.h"
 
 @interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIView *addGiftView;
 @property (weak, nonatomic) IBOutlet UILabel *addGiftLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
+- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender;
 
 @property (strong, nonatomic) NSArray *gifts;
 
@@ -150,6 +152,12 @@
 
 - (void) onBack {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender {
+    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
+    UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
+    [self presentViewController:psnvc animated:YES completion:nil];
 }
 
 @end

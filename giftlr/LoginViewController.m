@@ -93,11 +93,6 @@
     [self presentViewController:evc animated:YES completion:^{
     }];
 }
-- (IBAction)onProductSearchClick:(id)sender {
-    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
-    UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
-    [self presentViewController:psnvc animated:YES completion:nil];
-}
 
 
 @end
