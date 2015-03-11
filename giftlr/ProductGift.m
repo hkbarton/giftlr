@@ -98,4 +98,20 @@ NSString *const PFObjectClassName = @"ProductGift";
     return result;
 }
 
++(void)loadProductGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *productGifts, NSError *error))callback {
+    PFQuery *query = [PFQuery queryWithClassName:PFObjectClassName];
+    [query whereKey:@"fbEventId" equalTo:event.fbEventId];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSMutableArray *result = nil;
+        if (!error) {
+            result = [NSMutableArray array];
+            for (int i=0;i<[objects count];i++) {
+                PFObject *pfObj = objects[i];
+                [result addObject:[[ProductGift alloc] initWithPFObject:pfObj]];
+            }
+        }
+        callback(result, error);
+    }];
+}
+
 @end

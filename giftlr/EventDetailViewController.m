@@ -26,7 +26,6 @@
 @property (strong, nonatomic) NSArray *gifts;
 - (IBAction)onAddCashGiftButton:(id)sender;
 
-// TODO may retrieve those two from event object;
 @property (nonatomic, strong) NSMutableArray *productGiftList;
 @property (nonatomic, strong) NSMutableArray *cashGiftList;
 
@@ -46,6 +45,7 @@
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 100;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     // hot pink #ff69b4
@@ -88,8 +88,14 @@
     }
     
     // load data
-    // TODO load gift list by event
     self.productGiftList = [NSMutableArray array];
+    [ProductGift loadProductGiftsByEvent:self.event withCallback:^(NSArray *productGifts, NSError *error) {
+        if (!error) {
+            [self.productGiftList addObjectsFromArray:productGifts];
+            [self.tableView reloadData];
+        }
+    }];
+    // TODO load cash gift list
     self.cashGiftList = [NSMutableArray array];
 }
 
@@ -146,13 +152,13 @@
     if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
         EventProductGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventProductGiftCell"];
         cell.event = self.event;
-        cell.productGift = self.productGiftList[indexPath.row];
+        cell.productGift = self.productGiftList[indexPath.row - 2];
         return cell;
     // load CashGift list
     } else if (indexPath.row >= [self.productGiftList count] + 2) {
         EventCashGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCashGiftCell"];
         cell.event = self.event;
-        cell.cashGift = self.cashGiftList[indexPath.row];
+        cell.cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
         return cell;
     }
     
