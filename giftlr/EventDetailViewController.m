@@ -12,6 +12,7 @@
 #import "Event.h"
 #import "GiftViewCell.h"
 #import "ProductSearchViewController.h"
+#import "AddCashGiftViewController.h"
 
 @interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -22,6 +23,7 @@
 - (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender;
 
 @property (strong, nonatomic) NSArray *gifts;
+- (IBAction)onAddCashGiftButton:(id)sender;
 
 @end
 
@@ -160,4 +162,8 @@
     [self presentViewController:psnvc animated:YES completion:nil];
 }
 
+- (IBAction)onAddCashGiftButton:(id)sender {
+    AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 @end

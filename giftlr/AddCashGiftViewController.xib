@@ -29,13 +29,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What for?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVA-kT-laB">
-                    <rect key="frame" x="8" y="202.5" width="75" height="20.5"/>
+                    <rect key="frame" x="8" y="202" width="75" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1hg-aP-Noc">
-                    <rect key="frame" x="8" y="124.5" width="97" height="30"/>
+                    <rect key="frame" x="8" y="124" width="97" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="97" id="Gtc-a9-GiX"/>
                         <constraint firstAttribute="height" constant="30" id="jA9-uO-TV8"/>
@@ -60,13 +60,24 @@
                         <action selector="onAddButton:" destination="-1" eventType="touchUpInside" id="iOG-Px-UQb"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctw-ug-IS2">
+                    <rect key="frame" x="264" y="300" width="48" height="30"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onCancelButton:" destination="-1" eventType="touchUpInside" id="0zG-cd-1aT"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="1hg-aP-Noc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="0rK-oZ-vbj"/>
+                <constraint firstItem="ctw-ug-IS2" firstAttribute="top" secondItem="KAx-Bz-pW1" secondAttribute="bottom" constant="39" id="3cz-H0-17e"/>
                 <constraint firstItem="XyN-Rg-pud" firstAttribute="top" secondItem="pmc-hd-7Af" secondAttribute="bottom" constant="35.5" id="5gH-Qm-I2D"/>
                 <constraint firstAttribute="trailing" secondItem="KAx-Bz-pW1" secondAttribute="trailing" constant="8" id="8RI-2l-5Qm"/>
                 <constraint firstItem="XyN-Rg-pud" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="9qh-hQ-ibk"/>
+                <constraint firstAttribute="trailing" secondItem="ctw-ug-IS2" secondAttribute="trailing" constant="8" id="Gu6-9x-nrL"/>
                 <constraint firstItem="nt9-Dq-yIQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="POy-yP-Zds"/>
                 <constraint firstItem="KAx-Bz-pW1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="PtB-pN-ZxC"/>
                 <constraint firstItem="nt9-Dq-yIQ" firstAttribute="top" secondItem="KAx-Bz-pW1" secondAttribute="bottom" constant="39" id="XpQ-b6-GNe"/>
