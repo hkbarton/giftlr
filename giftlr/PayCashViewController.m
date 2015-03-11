@@ -9,11 +9,9 @@
 #import "PayCashViewController.h"
 
 @interface PayCashViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *totalLabel;
-@property (weak, nonatomic) IBOutlet UILabel *fulfilledLabel;
-@property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 - (IBAction)onPayButton:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *amountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 
 @end
 
@@ -21,7 +19,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.nameLabel.text = self.cashGift.name;
+    
+    NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
+    [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
+    self.amountLabel.text = [currencyFormat stringFromNumber:self.cashGift.amount];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,5 +34,10 @@
 }
 
 - (IBAction)onPayButton:(id)sender {
+    self.cashGift.status = CashGiftBought;
+    [self.cashGift saveToParse];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 @end

@@ -15,6 +15,7 @@
 #import "ProductSearchViewController.h"
 #import "AddCashGiftViewController.h"
 #import "ProductDetailViewController.h"
+#import "PayCashViewController.h"
 
 @interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate>
 
@@ -184,6 +185,11 @@
         productGift.hostEvent = self.event;
         ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeView];
         [self.navigationController pushViewController:pdvc animated:YES];
+    } else if (indexPath.row >= [self.productGiftList count] + 2) { // cash gift
+        CashGift *cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
+        PayCashViewController *vc = [[PayCashViewController alloc] init];
+        vc.cashGift = cashGift;
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 

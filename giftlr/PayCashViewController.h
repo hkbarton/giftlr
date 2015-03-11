@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CashGift.h"
 
 @interface PayCashViewController : UIViewController
+
+@property (strong, nonatomic) CashGift *cashGift;
 
 @end
