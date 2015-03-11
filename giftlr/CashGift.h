@@ -27,4 +27,7 @@
 
 @property (strong, nonatomic) PFObject *pfObject;
 
++(void)loadCashGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *cashGifts, NSError *error))callback;
+
+
 @end

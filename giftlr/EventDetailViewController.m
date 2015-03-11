@@ -99,6 +99,15 @@
     }];
     // TODO load cash gift list
     self.cashGiftList = [NSMutableArray array];
+
+    [CashGift loadCashGiftsByEvent:self.event withCallback:^(NSArray *cashGifts, NSError *error) {
+        if (!error) {
+            [self.cashGiftList addObjectsFromArray:cashGifts];
+            [self.tableView reloadData];
+        }
+    }];
+
+
 }
 
 - (void)didReceiveMemoryWarning {
