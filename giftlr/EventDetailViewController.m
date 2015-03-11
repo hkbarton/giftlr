@@ -62,11 +62,13 @@
     self.joinEventControl.tintColor = hotPink;
     self.joinEventControl.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
     if (self.event.isHostEvent == YES) {
-        self.addGiftView.hidden = NO;
+        if ([self.event.startTime compare:[NSDate date]] == NSOrderedDescending) {
+            self.addGiftView.hidden = NO;
+        }
         self.joinEventControl.hidden = YES;
     } else {
         self.addGiftView.hidden = YES;
-        self.joinEventControl.hidden = NO;
+        self.joinEventControl.hidden = YES;
     }
 
     switch (self.event.eventType) {
