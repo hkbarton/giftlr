@@ -20,7 +20,12 @@ NSString *const CashGiftBought = @"Bought";
     cashGift[@"name"] = self.name;
     cashGift[@"amount"] = @([self.amount floatValue]);
     cashGift[@"facebookEventID"] = self.facebookEventID;
+
+    if (!self.status) {
+        self.status = CashGiftStatusUnclaimed;
+    }
     cashGift[@"status"] = self.status;
+
     
     [cashGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
