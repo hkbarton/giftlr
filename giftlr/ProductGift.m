@@ -49,31 +49,29 @@ NSString *const PFObjectClassName = @"ProductGift";
 
 -(void)saveToParse {
     // save gift
-    PFObject *productGift = [PFObject objectWithClassName:PFObjectClassName];
-    if (self.giftID != nil) {
-        productGift.objectId = self.giftID;
+    if (!self.pfObject) {
+        self.pfObject = [PFObject objectWithClassName:PFObjectClassName];
     }
-    productGift[@"name"] = self.name;
+    self.pfObject[@"name"] = self.name;
     if (self.productDescription != nil) {
-        productGift[@"productDescription"] = self.productDescription;
+        self.pfObject[@"productDescription"] = self.productDescription;
     }
-    productGift[@"productURL"] = self.productURL;
-    productGift[@"price"] = @([self.price floatValue]);
-    productGift[@"quantity"] = @(self.quantity);
+    self.pfObject[@"productURL"] = self.productURL;
+    self.pfObject[@"price"] = @([self.price floatValue]);
+    self.pfObject[@"quantity"] = @(self.quantity);
     if (self.imageURLs != nil) {
-        productGift[@"imageURLs"] = self.imageURLs;
+        self.pfObject[@"imageURLs"] = self.imageURLs;
     }
-    productGift[@"status"] = self.status;
+    self.pfObject[@"status"] = self.status;
     if (self.hostEvent != nil) {
-        productGift[@"fbEventId"] = self.hostEvent.fbEventId;
+        self.pfObject[@"fbEventId"] = self.hostEvent.fbEventId;
     }
     if (self.claimerFacebookUserID != nil) {
-        productGift[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
+        self.pfObject[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
     }
-    [productGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            self.giftID = productGift.objectId;
-            self.pfObject = productGift;
+            self.giftID = self.pfObject.objectId;
         } else {
             // TODO
         }
