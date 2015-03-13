@@ -129,7 +129,7 @@
                         <constraint firstAttribute="centerX" secondItem="b9s-xc-gkH" secondAttribute="centerX" id="X7h-sR-IX2"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CqF-pj-rhd">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CqF-pj-rhd">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="259"/>
                 </imageView>
             </subviews>
