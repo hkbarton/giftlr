@@ -16,10 +16,12 @@
 #import "LoginViewController.h"
 #import "User.h"
 #import "Event.h"
+#import "UIColor+giftlr.h"
 
 @interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *invitedButton;
@@ -33,6 +35,7 @@
 @property (assign, nonatomic) BOOL isSearchMode;
 
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
+@property (nonatomic, strong) UIView *searchBgView;
 
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
@@ -56,12 +59,13 @@
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"EventViewCell" bundle:nil] forCellReuseIdentifier:@"EventViewCell"];
     self.tableView.rowHeight = 266;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
 
     self.tabBar.delegate = self;
     [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
     
     self.searchBar.delegate = self;
-    self.searchBar.hidden = YES;
+    self.searchBar.tintColor = [UIColor hotPinkColor];
     self.searchEvents = [NSMutableArray array];
 
     // "pull to refresh" support
@@ -83,18 +87,45 @@
     if ([item.title isEqualToString:@"Events"]) {
         if (self.isSearchMode) {
             self.isSearchMode = NO;
-            self.searchBar.hidden = YES;
-            self.eventSourceTypeView.hidden = NO;
-            [self.tableView reloadData];
+            [self.searchBar resignFirstResponder];
+            self.searchBarTopConstraint.constant = -30;
+            [self.searchBar setNeedsLayout];
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+                [self.searchBar layoutIfNeeded];
+                self.eventSourceTypeView.hidden = NO;
+                self.searchBgView.alpha = 0;
+            } completion:^(BOOL finished) {
+                [self.searchBgView removeFromSuperview];
+                [self.tableView reloadData];
+            }];
         }
     } else if ([item.title isEqualToString:@"Gifts"]) {
         GiftListViewController *vc = [[GiftListViewController alloc] init];
         [self presentViewController:vc animated:YES completion:nil];
     } else if ([item.title isEqualToString:@"Search"]) {
-        self.searchBar.hidden = NO;
-        self.eventSourceTypeView.hidden = YES;
+        if (self.isSearchMode) {
+            return;
+        }
+        
+        if (!self.searchBgView) {
+            self.searchBgView = [[UIView alloc] initWithFrame:self.tableView.bounds];
+            self.searchBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        }
+
+        [self.tableView addSubview:self.searchBgView];
         self.isSearchMode = YES;
-        [self.searchBar becomeFirstResponder];
+        self.searchBarTopConstraint.constant = 20;
+        self.searchBgView.alpha = 0;
+        [self.searchBar setNeedsLayout];
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+            [self.searchBar layoutIfNeeded];
+            self.searchBgView.alpha = 1;
+            self.eventSourceTypeView.hidden = YES;
+            [self.searchBar becomeFirstResponder];
+        } completion:^(BOOL finished) {
+        }];
+        
+        //self.searchBar.hidden = NO;
     } else if ([item.title isEqualToString:@"Logout"]) {
         [self onLogout];
     } else {
@@ -105,14 +136,44 @@
 #pragma mark - search bar control
 
 // Search bar event listener
-- (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text
-{
+- (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text {
+    [self.searchEvents removeAllObjects];
+    
+    if (text.length > 0) {
+        for (Event *event in self.allEvents) {
+            // Search title and host name
+            NSRange nameRange = [event.name rangeOfString:text options:NSCaseInsensitiveSearch];
+            NSRange hostNameRange = [event.eventHostName rangeOfString:text options:NSCaseInsensitiveSearch];
+            if(nameRange.location != NSNotFound || hostNameRange.location != NSNotFound) {
+                [self.searchEvents addObject:event];
+            }
+        }
+    }
+    if (self.searchEvents.count == 0) {
+        [self.tableView addSubview:self.searchBgView];
+    }
+    else {
+        [self.searchBgView removeFromSuperview];
+    }
+
+    [self.tableView reloadData];
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    [searchBar sizeToFit];
-    [searchBar setShowsCancelButton:YES animated:YES];
-    return YES;
+// Reset search bar state after cancel button clicked
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.searchBgView removeFromSuperview];
+    self.searchBar.text = @"";
+    self.isSearchMode = NO;
+    [self.searchBar resignFirstResponder];
+    self.searchBarTopConstraint.constant = -30;
+    [self.searchBar setNeedsLayout];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+        [self.searchBar layoutIfNeeded];
+        self.eventSourceTypeView.hidden = NO;
+    } completion:^(BOOL finished) {
+        [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -123,29 +184,13 @@
         // Search title and host name
         NSRange nameRange = [event.name rangeOfString:text options:NSCaseInsensitiveSearch];
         NSRange hostNameRange = [event.eventHostName rangeOfString:text options:NSCaseInsensitiveSearch];
-        NSRange descriptionRange = [event.eventDescription rangeOfString:text options:NSCaseInsensitiveSearch];
-        if(nameRange.location != NSNotFound || hostNameRange.location != NSNotFound || descriptionRange.location != NSNotFound) {
+        if(nameRange.location != NSNotFound || hostNameRange.location != NSNotFound) {
             [self.searchEvents addObject:event];
         }
     }
     
     [self.tableView reloadData];
 }
-
-// Reset search bar state after cancel button clicked
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [searchBar setShowsCancelButton:NO animated:YES];
-    [searchBar resignFirstResponder];
-    self.searchBar.text = @"";
-    // Select Events
-    [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
-    self.isSearchMode = NO;
-    self.searchBar.hidden = YES;
-    self.eventSourceTypeView.hidden = NO;
-    [self.tableView reloadData];
-    [searchBar sizeToFit];
-}
-
 
 #pragma mark - Table methods
 
@@ -235,31 +280,20 @@
 #pragma mark - helper functions
 
 - (void)setEventSourceSwitchState {
-    // hot pink #ff69b4
-    UIColor *hotPink = [UIColor  colorWithRed:255.0f/255.0f green:105.0f/255.0f blue:180.0f/255.0f alpha:1.0f];
-    // ff5a5f
-    UIColor *redPink = [UIColor  colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-    UIColor *lightGrey = [UIColor  colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f];
-    
     if (self.isMyEventMode) {
-        self.hostingButton.backgroundColor = redPink;
+        self.hostingButton.backgroundColor = [UIColor redPinkColor];
         self.hostingButton.tintColor = [UIColor whiteColor];
-        self.invitedButton.backgroundColor = lightGrey;
-        self.invitedButton.tintColor = hotPink;
+        self.invitedButton.backgroundColor = [UIColor lightGreyBackgroundColor];
+        self.invitedButton.tintColor = [UIColor hotPinkColor];
     } else {
-        self.hostingButton.backgroundColor = lightGrey;
-        self.hostingButton.tintColor = hotPink;
-        self.invitedButton.backgroundColor = redPink;
+        self.hostingButton.backgroundColor = [UIColor lightGreyBackgroundColor];
+        self.hostingButton.tintColor = [UIColor hotPinkColor];
+        self.invitedButton.backgroundColor = [UIColor redPinkColor];
         self.invitedButton.tintColor = [UIColor whiteColor];
     }
 }
 
 - (void)loadCurrentUserFBProfile {
-//    if ([User currentUser] != nil) {
-//        // @TODO: data in Parse may be stale. should we pull the up-to-date data from FB?
-//        NSLog(@"no need to load user profile");
-//        return;
-//    }
     [User fetchFBUserProfileWithCompletion:@"me" completion:^(User *user, NSError *error) {
         user.pfUser = [PFUser currentUser];
         if (!error) {

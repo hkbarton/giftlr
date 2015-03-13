@@ -10,6 +10,7 @@
                 <outlet property="hostingButton" destination="F3t-Ns-k55" id="9P5-oa-5K4"/>
                 <outlet property="invitedButton" destination="nxi-Jn-gCW" id="wmN-Wp-Dvf"/>
                 <outlet property="searchBar" destination="JDv-dN-tOt" id="wfD-bo-fP4"/>
+                <outlet property="searchBarTopConstraint" destination="yXE-eZ-ZEh" id="6eZ-AV-Uuu"/>
                 <outlet property="tabBar" destination="dPX-fn-kan" id="fkB-t0-ddl"/>
                 <outlet property="tableView" destination="HDw-eS-6DJ" id="kmJ-fA-1Tr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -61,8 +62,8 @@
                         <constraint firstAttribute="bottom" secondItem="F3t-Ns-k55" secondAttribute="bottom" id="iqR-37-rKj"/>
                     </constraints>
                 </view>
-                <searchBar contentMode="redraw" placeholder="Type event title" translatesAutoresizingMaskIntoConstraints="NO" id="JDv-dN-tOt">
-                    <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Type event title or host name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDv-dN-tOt">
+                    <rect key="frame" x="0.0" y="-30" width="320" height="30"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="9x2-8y-oRj"/>
@@ -97,7 +98,7 @@
                 <constraint firstItem="JDv-dN-tOt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="akp-zf-1MU"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qNX-Vv-NlC"/>
                 <constraint firstAttribute="bottom" secondItem="dPX-fn-kan" secondAttribute="bottom" id="toM-N3-LYu"/>
-                <constraint firstItem="JDv-dN-tOt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="yXE-eZ-ZEh"/>
+                <constraint firstItem="JDv-dN-tOt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-30" id="yXE-eZ-ZEh"/>
             </constraints>
             <point key="canvasLocation" x="305" y="270"/>
         </view>

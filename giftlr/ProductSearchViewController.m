@@ -9,6 +9,7 @@
 #import "ProductSearchViewController.h"
 #import "ProductGift.h"
 #import "ProductDetailViewController.h"
+#import "UIColor+giftlr.h"
 
 @interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate, ProductDetailViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
@@ -46,14 +47,15 @@ NSString *const AddressHome = @"";
     [super viewDidLoad];
     // navigation bar
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.navigationController.navigationBar.barTintColor = [UIColor redPinkColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
     // address bar
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.keyboardType = UIKeyboardTypeURL;
     self.searchBar.returnKeyType = UIReturnKeyGo;
     self.searchBar.placeholder = @"Search Google Or Enter Address";
-    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+    [self.searchBar setTintColor:[UIColor whiteColor]];
+    
     self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
     // right side buttons

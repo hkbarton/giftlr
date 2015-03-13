@@ -52,6 +52,7 @@
 		9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBED1AACFDE20070CEB8 /* EventDetailViewCell.xib */; };
 		9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */; };
 		9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */; };
+		9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +143,8 @@
 		9602DBF01AAD12F10070CEB8 /* EventDescriptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDescriptionCell.h; sourceTree = "<group>"; };
 		9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDescriptionCell.m; sourceTree = "<group>"; };
 		9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDescriptionCell.xib; sourceTree = "<group>"; };
+		9602DBFF1AB2C4C10070CEB8 /* UIColor+giftlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+giftlr.h"; sourceTree = "<group>"; };
+		9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+giftlr.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,8 @@
 				073B41C11AA8157500139A10 /* Images.xcassets */,
 				073B41C31AA8157500139A10 /* LaunchScreen.xib */,
 				073B41B41AA8157400139A10 /* Supporting Files */,
+				9602DBFF1AB2C4C10070CEB8 /* UIColor+giftlr.h */,
+				9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */,
 			);
 			path = giftlr;
 			sourceTree = "<group>";
@@ -519,6 +524,7 @@
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				33AC4BE81AAD503900438120 /* AddCashGiftViewController.m in Sources */,
+				9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
 				07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */,
 				9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */,

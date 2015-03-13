@@ -23,34 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-//    // Add FB login view
-//    FBLoginView *loginView = [[FBLoginView alloc] init];
-//    loginView.center = self.view.center;
-//    [self.view addSubview:loginView];
-
-//    NSArray *permissions = @[@"email", @"user_friends", @"public_profile", @"user_birthday", @"user_interests", @"user_events"]; // , @"rsvp_event"
-//    [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
-//        if (!user) {
-//            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-//        } else if (user.isNew) {
-//            NSLog(@"User signed up and logged in through Facebook!");
-//            NSLog(@"user data %@", user);
-//            
-//            // To acquire publishing permissions
-//            [PFFacebookUtils reauthorizeUser:[PFUser currentUser]
-//                      withPublishPermissions:@[@"rsvp_event"]
-//                                    audience:FBSessionDefaultAudienceFriends
-//                                       block:^(BOOL succeeded, NSError *error) {
-//                                           if (succeeded) {
-//                                               NSLog(@"got rsvp_event permission");
-//                                               // Your app now has publishing permissions for the user
-//                                           }
-//                                       }];
-//        } else {
-//            NSLog(@"User logged in through Facebook!");
-//        }
-//    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,9 +37,6 @@
             if (!user) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
             } else if (user.isNew) {
-                NSLog(@"User signed up and logged in through Facebook!");
-                NSLog(@"user data %@", user);
-                
                 // To acquire publishing permissions
                 [PFFacebookUtils reauthorizeUser:[PFUser currentUser]
                           withPublishPermissions:@[@"rsvp_event"]
@@ -81,7 +50,6 @@
                                            }];
                 
             } else {
-                NSLog(@"Existing user logged in through Facebook!");
                 [self presentEventListView];
             }
         }];
