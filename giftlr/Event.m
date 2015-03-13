@@ -42,12 +42,20 @@ static NSDateFormatter *df = nil;
         [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
         NSString *startTimeString = data[@"start_time"];
         self.startTime = [df dateFromString:startTimeString];
+        if (self.startTime == nil) {
+            [df setDateFormat:@"yyyy-MM-dd"];
+            NSString *startTimeString = data[@"start_time"];
+            self.startTime = [df dateFromString:startTimeString];
+            [df setDateFormat:@"EEE, MMM dd, yyyy"];
+            self.startTimeString =[df stringFromDate:self.startTime];
+        } else {
+            [df setDateFormat:@"EEE, MMM dd, yyyy 'at' h:mma"];
+            self.startTimeString =[df stringFromDate:self.startTime];
+        }
         [df setDateFormat:@"MMM"];
         self.startTimeMonth =[df stringFromDate:self.startTime];
         [df setDateFormat:@"dd"];
         self.startTimeDay =[df stringFromDate:self.startTime];
-        [df setDateFormat:@"EEEE, MMMM dd 'at' h:mma"];
-        self.startTimeString =[df stringFromDate:self.startTime];
     }
 
     return self;

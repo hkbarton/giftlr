@@ -53,7 +53,7 @@
     self.eventMonthLabel.text = event.startTimeMonth;
     self.eventDayLabel.text = event.startTimeDay;
 
-    [self.eventProfilePicView setImage:nil];
+    [self.eventProfilePicView setImage:[UIImage imageNamed:@"default-event-profile-image"]];
     
     if (event.eventHostId == nil) {
         [event fetchEventDetailWithCompletion:^(NSError *error) {
@@ -65,16 +65,23 @@
 }
 
 - (void) updateEventDetailView {
-    [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
+    if (self.event.profileUrl) {
+        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
+    }
+    
+    for (UIView *view in self.eventHostImageView.subviews) {
+        [view removeFromSuperview];
+    }
+    NSLog(@"host image subview count %ld", self.eventHostImageView.subviews.count);
     [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
     
-    if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
-        self.giftImageView.hidden = YES;
-        self.attendingImageView.hidden = YES;
-    } else {
-        self.giftImageView.hidden = NO;
-        self.attendingImageView.hidden = NO;
-    }
+//    if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
+//        self.giftImageView.hidden = YES;
+//        self.attendingImageView.hidden = YES;
+//    } else {
+//        self.giftImageView.hidden = NO;
+//        self.attendingImageView.hidden = NO;
+//    }
 }
 
 @end
