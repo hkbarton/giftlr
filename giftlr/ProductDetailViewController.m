@@ -7,7 +7,6 @@
 //
 
 #import "ProductDetailViewController.h"
-#import "ProductDetailTextView.h"
 #import "PurchaseViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "User.h"
@@ -17,21 +16,18 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 
 @interface ProductDetailViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *txtName;
+@property (weak, nonatomic) IBOutlet UITextField *txtPrice;
+@property (weak, nonatomic) IBOutlet UITextField *txtQuantity;
+@property (weak, nonatomic) IBOutlet UITextView *txtDescription;
+@property (weak, nonatomic) IBOutlet UIImageView *imageProduct;
 @property (weak, nonatomic) IBOutlet UIView *tabbar;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddGift;
-@property (weak, nonatomic) IBOutlet UIButton *btnBuy;
-@property (weak, nonatomic) IBOutlet UIButton *btnClaim;
-
-@property (strong, nonatomic) UIScrollView *scrollView;
-@property (strong, nonatomic) UIImageView *imageProduct;
-@property (strong, nonatomic) ProductDetailTextView *productDetailTextView;
 
 @property (nonatomic, strong) ProductGift *product;
 @property (nonatomic, strong) NSString *mode;
 
 - (IBAction)onBtnAddGiftClicked:(id)sender;
-- (IBAction)onBtnBuyClicked:(id)sender;
-- (IBAction)onBtnClaimClicked:(id)sender;
 
 @end
 
@@ -45,68 +41,25 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     return self;
 }
 
-- (void) updateActionButtonStatus {
-    if ([self.mode isEqualToString:ProductDetailViewModeAdd]) {
-        self.btnAddGift.hidden = NO;
-        self.btnClaim.hidden = YES;
-        self.btnBuy.hidden = YES;
-    } else if ([self.mode isEqualToString:ProductDetailViewModeView]) {
-        self.btnAddGift.hidden = YES;
-        self.btnClaim.hidden = NO;
-        self.btnBuy.hidden = NO;
-        if ([[User currentUser].fbUserId isEqualToString: self.product.hostEvent.eventHostId]) {
-            self.btnClaim.hidden = YES;
-            self.btnBuy.hidden = YES;
-        } else {
-            if ([self.product.status isEqualToString: ProductGiftStatusClaimed] || [self.product.status isEqualToString:ProductGiftBought]) {
-                self.btnClaim.hidden = YES;
-            }
-            if ([self.product.status isEqualToString: ProductGiftBought] || [self.product.status isEqualToString:ProductGiftStatusUnclaimed]) {
-                self.btnBuy.hidden = YES;
-            }
-        }
-    }
-}
-
-- (void)initSubView {
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    CGFloat navigationBarHeight = self.navigationController.navigationBar.frame.size.height;
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, navigationBarHeight + statusBarHeight, appFrame.size.width, appFrame.size.height - self.tabbar.frame.size.height - navigationBarHeight)];
-    self.imageProduct = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, appFrame.size.width, 300)];
-    self.imageProduct.contentMode = UIViewContentModeScaleAspectFit;
-    self.imageProduct.clipsToBounds = YES;
-    [self.scrollView addSubview:self.imageProduct];
-    self.productDetailTextView = [[ProductDetailTextView alloc] initWithFrame:CGRectMake(0, 300, appFrame.size.width, 300)];
-    [self.scrollView addSubview:self.productDetailTextView];
-    self.scrollView.contentSize = CGSizeMake(appFrame.size.width, 600);
-    [self.view addSubview:self.scrollView];
-    // setup different button by different mode
-    [self updateActionButtonStatus];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // navigation bar
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:90.0f/255.0f green:90.0f/255.0f blue:90.0f/255.0f alpha:1.0f];
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationItem.title = @"Product Gift";
-    // init view
-    [self initSubView];
-    // set data
-    if (self.product.imageURLs!=nil && [self.product.imageURLs count] > 0) {
-        [self loadImage:self.imageProduct withURL:self.product.imageURLs[0]];
-    } else {
-        // TODO set default image
-    }
-    self.productDetailTextView.product = self.product;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [self updateActionButtonStatus];
+- (void)initViewStyle {
+    self.view.layer.cornerRadius = 4.0f;
+    self.view.clipsToBounds = YES;
+    self.txtName.layer.cornerRadius = 4.0f;
+    self.txtPrice.layer.cornerRadius = 4.0f;
+    self.txtQuantity.layer.cornerRadius = 4.0f;
+    self.txtDescription.layer.cornerRadius = 4.0f;
+    self.txtName.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtName.bounds.size.height)];
+    self.txtName.leftViewMode = UITextFieldViewModeAlways;
+    self.txtName.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtName.bounds.size.height)];
+    self.txtName.rightViewMode = UITextFieldViewModeAlways;
+    self.txtPrice.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtPrice.bounds.size.height)];
+    self.txtPrice.leftViewMode = UITextFieldViewModeAlways;
+    self.txtPrice.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtPrice.bounds.size.height)];
+    self.txtPrice.rightViewMode = UITextFieldViewModeAlways;
+    self.txtQuantity.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtQuantity.bounds.size.height)];
+    self.txtQuantity.leftViewMode = UITextFieldViewModeAlways;
+    self.txtQuantity.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtQuantity.bounds.size.height)];
+    self.txtQuantity.rightViewMode = UITextFieldViewModeAlways;
 }
 
 - (void)loadImage:(__weak UIImageView *)imageView withURL:(NSString *)url {
@@ -124,17 +77,44 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     } failure:nil];
 }
 
+-(void)loadData {
+    if (self.product.imageURLs!=nil && [self.product.imageURLs count] > 0) {
+        [self loadImage:self.imageProduct withURL:self.product.imageURLs[0]];
+    } else {
+        // TODO set default image
+    }
+    self.txtName.text = self.product.name;
+    NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
+    [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
+    self.txtPrice.text = [currencyFormat stringFromNumber:self.product.price];
+    self.txtQuantity.text = [NSString stringWithFormat:@"%ld", self.product.quantity];
+    self.txtDescription.text = self.product.productDescription;
+}
+
+-(void)updateProductData {
+    self.product.name = self.txtName.text;
+    self.product.price = [[NSDecimalNumber alloc] initWithString:[self.txtPrice.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
+    self.product.quantity = [self.txtQuantity.text intValue];
+    self.product.productDescription = self.txtDescription.text;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initViewStyle];
+    [self loadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
 - (IBAction)onBtnAddGiftClicked:(id)sender {
-    self.product = [self.productDetailTextView getUpdatedProductGift];
+    [self updateProductData];
     [self.product saveToParse];
     if (self.delegate) {
         [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onBtnBuyClicked:(id)sender {
@@ -147,7 +127,6 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     self.product.claimerFacebookUserID = [User currentUser].fbUserId;
     self.product.status = ProductGiftStatusClaimed;
     [self.product saveToParse];
-    [self updateActionButtonStatus];
 }
 
 @end

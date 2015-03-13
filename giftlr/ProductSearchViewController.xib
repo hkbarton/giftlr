@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductSearchViewController">
             <connections>
+                <outlet property="btnAddProduct" destination="hKz-Cf-D1z" id="UbO-S2-Fe0"/>
                 <outlet property="btnWebBack" destination="0YI-aN-FCd" id="bHO-fQ-B0L"/>
                 <outlet property="btnWebNext" destination="Brb-vb-bhu" id="yP6-Hc-DQf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -24,10 +25,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUr-zM-Gds">
                     <rect key="frame" x="0.0" y="519" width="320" height="49"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKz-Cf-D1z">
-                            <rect key="frame" x="116" y="10" width="89" height="30"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" title="Add Product">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKz-Cf-D1z">
+                            <rect key="frame" x="144" y="10" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="WhD-1P-eJA"/>
+                                <constraint firstAttribute="height" constant="32" id="gxG-cD-jKH"/>
+                            </constraints>
+                            <state key="normal" image="add">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -58,9 +62,9 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="0.3529411764705882" blue="0.37254901960784315" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="centerY" secondItem="hKz-Cf-D1z" secondAttribute="centerY" id="Fm5-RI-5Or"/>
+                        <constraint firstAttribute="centerY" secondItem="hKz-Cf-D1z" secondAttribute="centerY" constant="-1" id="Fm5-RI-5Or"/>
                         <constraint firstAttribute="centerY" secondItem="0YI-aN-FCd" secondAttribute="centerY" id="N1I-nA-krv"/>
                         <constraint firstItem="Brb-vb-bhu" firstAttribute="leading" secondItem="0YI-aN-FCd" secondAttribute="trailing" constant="16" id="d2S-nt-pB6"/>
                         <constraint firstItem="0YI-aN-FCd" firstAttribute="leading" secondItem="sUr-zM-Gds" secondAttribute="leading" constant="8" id="mgu-Kg-Fto"/>
@@ -80,10 +84,11 @@
                 <constraint firstItem="D1y-wj-Npr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rEO-V6-SBF"/>
                 <constraint firstItem="D1y-wj-Npr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xyL-db-yKH"/>
             </constraints>
-            <point key="canvasLocation" x="185" y="442"/>
+            <point key="canvasLocation" x="146" y="434"/>
         </view>
     </objects>
     <resources>
+        <image name="add" width="50" height="50"/>
         <image name="next" width="25" height="25"/>
         <image name="previous" width="25" height="25"/>
     </resources>

@@ -102,6 +102,17 @@ NSString *const PFObjectClassName = @"ProductGift";
     return result;
 }
 
++(BOOL)isProductParseAbleFromWeb:(NSURL *)url withHTML:(NSString *)html {
+    if ([url absoluteString].length == 0) {
+        return NO;
+    }
+    ProductGift *product = [ProductGift parseProductFromWeb:url withHTML:html];
+    if (product.imageURLs != nil && [product.imageURLs count] > 0) {
+        return YES;
+    }
+    return NO;
+}
+
 +(void)loadProductGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *productGifts, NSError *error))callback {
     PFQuery *query = [PFQuery queryWithClassName:PFObjectClassName];
     [query whereKey:@"fbEventId" equalTo:event.fbEventId];
