@@ -72,7 +72,6 @@
     for (UIView *view in self.eventHostImageView.subviews) {
         [view removeFromSuperview];
     }
-    NSLog(@"host image subview count %ld", self.eventHostImageView.subviews.count);
     [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
     
 //    if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
