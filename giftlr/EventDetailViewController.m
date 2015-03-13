@@ -49,10 +49,10 @@
     self.tableView.estimatedRowHeight = 100;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     // hot pink #ff69b4
     UIColor *hotPink = [UIColor  colorWithRed:255.0f/255.0f green:105.0f/255.0f blue:180.0f/255.0f alpha:1.0f];
-    self.navigationController.navigationBar.tintColor = hotPink;
+//    self.navigationController.navigationBar.tintColor = hotPink;
     
     self.addGiftLabel.textColor = hotPink;
     self.addGiftView.layer.cornerRadius = 3;

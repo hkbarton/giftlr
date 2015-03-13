@@ -229,17 +229,19 @@
 - (void)setEventSourceSwitchState {
     // hot pink #ff69b4
     UIColor *hotPink = [UIColor  colorWithRed:255.0f/255.0f green:105.0f/255.0f blue:180.0f/255.0f alpha:1.0f];
+    // ff5a5f
+    UIColor *redPink = [UIColor  colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
     UIColor *lightGrey = [UIColor  colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f];
     
     if (self.isMyEventMode) {
-        self.hostingButton.backgroundColor = hotPink;
+        self.hostingButton.backgroundColor = redPink;
         self.hostingButton.tintColor = [UIColor whiteColor];
         self.invitedButton.backgroundColor = lightGrey;
         self.invitedButton.tintColor = hotPink;
     } else {
         self.hostingButton.backgroundColor = lightGrey;
         self.hostingButton.tintColor = hotPink;
-        self.invitedButton.backgroundColor = hotPink;
+        self.invitedButton.backgroundColor = redPink;
         self.invitedButton.tintColor = [UIColor whiteColor];
     }
 }

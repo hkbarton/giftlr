@@ -29,7 +29,12 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    // ff5a5f
+    UIColor *redPink = [UIColor  colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+    [[UINavigationBar appearance] setTintColor:redPink];
+    
     // Check whether user is logged in
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
