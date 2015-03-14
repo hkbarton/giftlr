@@ -10,11 +10,19 @@
 #import "ProductGift.h"
 #import "Event.h"
 
+
+typedef NS_ENUM(NSInteger, ProductGiftControlType) {
+    ProductGiftControlTypeClaim = 0,
+    ProductGiftControlTypeUnclaim = 1,
+    ProductGiftControlTypeDelete = 2,
+    ProductGiftControlTypeBuy = 3
+};
+
 @class EventProductGiftCell;
 
 @protocol EventProductGiftCellDelegate
 
--(void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didDeleteClicked:(BOOL)value;
+-(void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didControlClicked:(ProductGiftControlType)value;
 
 @end
 

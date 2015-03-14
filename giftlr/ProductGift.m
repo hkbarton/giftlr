@@ -77,6 +77,10 @@ NSString *const PFObjectClassName = @"ProductGift";
     if (self.claimerFacebookUserID != nil) {
         self.pfObject[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
     }
+    if (self.claimerName != nil) {
+        self.pfObject[@"claimerName"] = self.claimerName;
+    }
+    
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             self.giftID = self.pfObject.objectId;

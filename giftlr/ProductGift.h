@@ -26,6 +26,7 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) Event *hostEvent;
 @property (nonatomic, strong) NSString *claimerFacebookUserID;
+@property (nonatomic, strong) NSString *claimerName;
 
 -(void)saveToParse;
 -(void)deleteFromParse;

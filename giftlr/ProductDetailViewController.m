@@ -202,6 +202,7 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 
 - (IBAction)onBtnClaimClicked:(id)sender {
     self.product.claimerFacebookUserID = [User currentUser].fbUserId;
+    self.product.claimerName = [User currentUser].name;
     self.product.status = ProductGiftStatusClaimed;
     [self.product saveToParse];
 }

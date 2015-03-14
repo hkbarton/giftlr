@@ -15,9 +15,11 @@
 #import "ProductSearchViewController.h"
 #import "AddCashGiftViewController.h"
 #import "ProductDetailViewController.h"
+#import "PurchaseViewController.h"
 #import "PayCashViewController.h"
 #import "ModalViewTransition.h"
 #import "UIColor+giftlr.h"
+#import "User.h"
 
 typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeProduct = 0,
@@ -170,13 +172,13 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     }
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.row == 0) {
-//        return 400;
-//    } else {
-//        return 100.0;
-//    }
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return 400;
+    }
+    
+    return 100;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2 + [self.productGiftList count] + [self.cashGiftList count];
@@ -297,11 +299,44 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 #pragma mark - delegate for cells
 
-- (void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didDeleteClicked:(BOOL)value {
+- (void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didControlClicked:(ProductGiftControlType)value {
     ProductGift *gift = eventProductGiftCell.productGift;
-    [self.productGiftList removeObject:gift];
-    [gift deleteFromParse];
-    [self.tableView reloadData];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:eventProductGiftCell];
+    
+    switch (value) {
+        case ProductGiftControlTypeBuy:
+            [eventProductGiftCell hideControlView];
+            {
+                PurchaseViewController *pvc = [[PurchaseViewController alloc] initWithProduct:gift];
+                UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:pvc];
+                [self presentViewController:nvc animated:YES completion:nil];
+            }
+            break;
+        case ProductGiftControlTypeUnclaim:
+            [eventProductGiftCell hideControlView];
+            gift.claimerFacebookUserID = @"";
+            gift.claimerName = @"";
+            gift.status = ProductGiftStatusUnclaimed;
+            [gift saveToParse];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            break;
+        case ProductGiftControlTypeClaim:
+            [eventProductGiftCell hideControlView];
+            gift.claimerFacebookUserID = [User currentUser].fbUserId;
+            gift.claimerName = [User currentUser].name;
+            gift.status = ProductGiftStatusClaimed;
+            [gift saveToParse];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            NSLog(@"product claim");
+            break;
+        case ProductGiftControlTypeDelete:
+            [self.productGiftList removeObject:gift];
+            [gift deleteFromParse];
+            [self.tableView reloadData];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Delegate of other view controllers
