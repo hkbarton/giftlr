@@ -20,6 +20,7 @@
 		073E022C1AAB9044007778F4 /* Html in Resources */ = {isa = PBXBuildFile; fileRef = 073E022B1AAB9044007778F4 /* Html */; };
 		0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
 		0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
+		07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */; };
 		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
 		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
 		07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */; };
@@ -92,6 +93,8 @@
 		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
 		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
 		073E022B1AAB9044007778F4 /* Html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Html; sourceTree = "<group>"; };
+		07C1D3071AB4F0CB00EF171D /* ModalViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewTransition.h; sourceTree = "<group>"; };
+		07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewTransition.m; sourceTree = "<group>"; };
 		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
 		07E52B801AAD37B700B67296 /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		07E52B811AAD37B700B67296 /* PurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseViewController.xib; sourceTree = "<group>"; };
@@ -311,6 +314,7 @@
 		073B41DD1AA815BA00139A10 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */,
 				33AC4BCE1AAD219900438120 /* Gift */,
 				072FC3AF1AABA3C100E7A1D5 /* Product */,
 				9602DBD11AA96C970070CEB8 /* LoginViewController.h */,
@@ -327,6 +331,15 @@
 				3344044C1AB40284008B2A73 /* MainViewController.xib */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */ = {
+			isa = PBXGroup;
+			children = (
+				07C1D3071AB4F0CB00EF171D /* ModalViewTransition.h */,
+				07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */,
+			);
+			name = ViewControllerTransitionStyle;
 			sourceTree = "<group>";
 		};
 		33AC4BCE1AAD219900438120 /* Gift */ = {
@@ -517,6 +530,7 @@
 				9602DBE01AABAFCB0070CEB8 /* Event.m in Sources */,
 				9602DBDD1AAB8E530070CEB8 /* User.m in Sources */,
 				07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */,
+				07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */,
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,

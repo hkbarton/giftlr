@@ -10,8 +10,9 @@
 #import "ProductGift.h"
 #import "ProductDetailViewController.h"
 #import "UIColor+giftlr.h"
+#import "ModalViewTransition.h"
 
-@interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate, ProductDetailViewControllerDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
+@interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate, ProductDetailViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *btnWebBack;
@@ -19,12 +20,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnAddProduct;
 
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UIView *modalBgView;
 
 @property (nonatomic, strong) NSString *curAddress;
 @property (nonatomic, strong) Event *hostEvent;
 
-@property (nonatomic, assign) BOOL isPresenting;
+@property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
 
 - (IBAction)onAddProductClicked:(id)sender;
 - (IBAction)btnWebBackClicked:(id)sender;
@@ -111,7 +111,8 @@ NSString *const AddressHome = @"";
     ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeAdd];
     pdvc.delegate = self;
     pdvc.modalPresentationStyle = UIModalPresentationCustom;
-    pdvc.transitioningDelegate = self;
+    self.productDetailViewTransition = [ModalViewTransition newTransitionWithTargetViewController:pdvc];
+    pdvc.transitioningDelegate = self.productDetailViewTransition;
     [self presentViewController:pdvc animated:YES completion:nil];
 }
 
@@ -180,58 +181,5 @@ NSString *const AddressHome = @"";
         [self.webView goForward];
     }
 }
-
-#pragma mark custom transition animation
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source{
-    self.isPresenting = YES;
-    return self;
-}
-
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
-    self.isPresenting = NO;
-    return self;
-}
-
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    if (self.isPresenting) {
-        return 0.7;
-    }
-    return 0.3;
-}
-
-- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
-    UIView *containerView = [transitionContext containerView];
-    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
-    if (self.isPresenting) {
-        if (!self.modalBgView) {
-            self.modalBgView = [[UIView alloc] initWithFrame:fromViewController.view.bounds];
-            self.modalBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
-        }
-        [containerView addSubview:self.modalBgView];
-        [containerView addSubview:toViewController.view];
-        toViewController.view.center = containerView.center;
-        toViewController.view.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
-        self.modalBgView.alpha = 0;
-        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
-            self.modalBgView.alpha = 1;
-            toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
-        } completion:^(BOOL finished){
-            [transitionContext completeTransition:YES];
-        }];
-    } else {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.modalBgView.alpha = 0;
-            fromViewController.view.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-            [self.modalBgView removeFromSuperview];
-            [fromViewController.view removeFromSuperview];
-        }];
-    }
-}
-
 
 @end
