@@ -16,17 +16,21 @@
 #import "AddCashGiftViewController.h"
 #import "ProductDetailViewController.h"
 #import "PayCashViewController.h"
+#import "UIColor+giftlr.h"
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate>
+typedef NS_ENUM(NSInteger, AddGiftActionType) {
+    AddGiftActionTypeProduct = 0,
+    AddGiftActionTypeCash = 1,
+    AddGiftActionTypeCancel = 2
+};
+
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *addGiftView;
-@property (weak, nonatomic) IBOutlet UILabel *addGiftLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
 - (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender;
 
 @property (strong, nonatomic) NSArray *gifts;
-- (IBAction)onAddCashGiftButton:(id)sender;
 
 @property (nonatomic, strong) NSMutableArray *productGiftList;
 @property (nonatomic, strong) NSMutableArray *cashGiftList;
@@ -50,26 +54,15 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
-    // hot pink #ff69b4
-    UIColor *hotPink = [UIColor  colorWithRed:255.0f/255.0f green:105.0f/255.0f blue:180.0f/255.0f alpha:1.0f];
-//    self.navigationController.navigationBar.tintColor = hotPink;
     
-    self.addGiftLabel.textColor = hotPink;
-    self.addGiftView.layer.cornerRadius = 3;
-    self.addGiftView.clipsToBounds = YES;
-    self.addGiftView.layer.borderColor = hotPink.CGColor;
-    self.addGiftView.layer.borderWidth = 1.5;
-    self.addGiftView.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
-    
-    self.joinEventControl.tintColor = hotPink;
+    self.joinEventControl.tintColor = [UIColor hotPinkColor];
     self.joinEventControl.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
     if (self.event.isHostEvent == YES) {
         if ([self.event.startTime compare:[NSDate date]] == NSOrderedDescending) {
-            self.addGiftView.hidden = NO;
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Gift-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onPlus)];
         }
         self.joinEventControl.hidden = YES;
     } else {
-        self.addGiftView.hidden = YES;
         self.joinEventControl.hidden = YES;
     }
 
@@ -108,8 +101,6 @@
             [self.tableView reloadData];
         }
     }];
-
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -204,23 +195,48 @@
     self.title = event.name;
 }
 
-#pragma mark - Navigation
+#pragma mark - action handlers
 
-- (void) onBack {
+- (void)onBack {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender {
+- (void)onPlus {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"What gift do you want to add?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Product", @"Cash", nil];
+    
+    [actionSheet showInView:self.view];
+}
+
+- (void)onAddProductGift {
     ProductSearchViewController *psvc = [[ProductSearchViewController alloc] initWithHostEvent:self.event];
     psvc.delegate = self;
     UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
     [self presentViewController:psnvc animated:YES completion:nil];
 }
 
-- (IBAction)onAddCashGiftButton:(id)sender {
+- (void)onAddCashGift {
     AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
     vc.event = self.event;
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+# pragma mark - actionSheet delegate
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case AddGiftActionTypeProduct:
+            [self onAddProductGift];
+            break;
+        case AddGiftActionTypeCash:
+            [self onAddCashGift];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Delegate of other view controllers

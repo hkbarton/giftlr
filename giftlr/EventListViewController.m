@@ -18,7 +18,7 @@
 #import "Event.h"
 #import "UIColor+giftlr.h"
 
-@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UISearchBarDelegate>
+@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
@@ -60,7 +60,10 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"EventViewCell" bundle:nil] forCellReuseIdentifier:@"EventViewCell"];
     self.tableView.rowHeight = 266;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
-
+    UIPanGestureRecognizer *tablePanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    tablePanGestureRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
+    
     self.tabBar.delegate = self;
     [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
     
@@ -130,6 +133,29 @@
         [self onLogout];
     } else {
         
+    }
+}
+
+#pragma mark - gesture control
+
+#pragma mark - gesture controls
+
+// Need to allow parent container to handle pan gesture while the table view scroll still working
+// See http://stackoverflow.com/questions/17614609/table-view-doesnt-scroll-when-i-use-gesture-recognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void)onPan:(UIPanGestureRecognizer *)sender {
+    CGPoint velocity = [sender velocityInView:self.view];
+    NSLog(@"on pan");
+    if (sender.state == UIGestureRecognizerStateBegan) {
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+    } else if (sender.state == UIGestureRecognizerStateEnded) {
+//        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//            [self.view layoutIfNeeded];
+//        } completion:^(BOOL finished) {
+//        }];
     }
 }
 

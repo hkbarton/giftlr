@@ -32,7 +32,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
-    [[UINavigationBar appearance] setTintColor:[UIColor redPinkColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor hotPinkColor]];
     
     // Check whether user is logged in
     PFUser *currentUser = [PFUser currentUser];
