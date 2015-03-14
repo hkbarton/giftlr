@@ -12,6 +12,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "EventListViewController.h"
+#import "MainViewController.h"
 
 @interface LoginViewController ()
 
@@ -57,8 +58,8 @@
 }
 
 - (void)presentEventListView {
-    EventListViewController *evc = [[EventListViewController alloc] init];
-    [self presentViewController:evc animated:YES completion:^{
+    MainViewController *mvc = [[MainViewController alloc] init];
+    [self presentViewController:mvc animated:YES completion:^{
     }];
 }
 

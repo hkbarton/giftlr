@@ -12,6 +12,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "LoginViewController.h"
 #import "EventListViewController.h"
+#import "MainViewController.h"
 #import "UIColor+giftlr.h"
 
 @interface AppDelegate ()
@@ -37,8 +38,8 @@
     // Check whether user is logged in
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
-        EventListViewController *evc = [[EventListViewController alloc] init];
-        self.window.rootViewController = evc;
+        MainViewController *mvc = [[MainViewController alloc] init];
+        self.window.rootViewController = mvc;
     } else {
         LoginViewController *lvc = [[LoginViewController alloc] init];
         self.window.rootViewController = lvc;

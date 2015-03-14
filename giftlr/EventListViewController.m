@@ -18,7 +18,7 @@
 #import "Event.h"
 #import "UIColor+giftlr.h"
 
-@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
+@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
@@ -36,8 +36,6 @@
 
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic, strong) UIView *searchBgView;
-
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 - (IBAction)onInvitedClicked:(id)sender;
 - (IBAction)onHostingClicked:(id)sender;
@@ -63,10 +61,6 @@
     UIPanGestureRecognizer *tablePanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     tablePanGestureRecognizer.delegate = self;
     [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
-    
-    self.tabBar.delegate = self;
-    [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
-    
     self.searchBar.delegate = self;
     self.searchBar.tintColor = [UIColor hotPinkColor];
     self.searchEvents = [NSMutableArray array];
@@ -85,54 +79,44 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Tab bar
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if ([item.title isEqualToString:@"Events"]) {
-        if (self.isSearchMode) {
-            self.isSearchMode = NO;
-            [self.searchBar resignFirstResponder];
-            self.searchBarTopConstraint.constant = -30;
-            [self.searchBar setNeedsLayout];
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
-                [self.searchBar layoutIfNeeded];
-                self.eventSourceTypeView.hidden = NO;
-                self.searchBgView.alpha = 0;
-            } completion:^(BOOL finished) {
-                [self.searchBgView removeFromSuperview];
-                [self.tableView reloadData];
-            }];
-        }
-    } else if ([item.title isEqualToString:@"Gifts"]) {
-        GiftListViewController *vc = [[GiftListViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
-    } else if ([item.title isEqualToString:@"Search"]) {
-        if (self.isSearchMode) {
-            return;
-        }
-        
-        if (!self.searchBgView) {
-            self.searchBgView = [[UIView alloc] initWithFrame:self.tableView.bounds];
-            self.searchBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-        }
+- (void)showSearchBar {
+    if (self.isSearchMode) {
+        return;
+    }
+    
+    if (!self.searchBgView) {
+        self.searchBgView = [[UIView alloc] initWithFrame:self.tableView.bounds];
+        self.searchBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+    }
+    
+    [self.tableView addSubview:self.searchBgView];
+    self.isSearchMode = YES;
+    self.searchBarTopConstraint.constant = 20;
+    self.searchBgView.alpha = 0;
+    [self.searchBar setNeedsLayout];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+        [self.searchBar layoutIfNeeded];
+        self.searchBgView.alpha = 1;
+        self.eventSourceTypeView.hidden = YES;
+        [self.searchBar becomeFirstResponder];
+    } completion:^(BOOL finished) {
+    }];
+}
 
-        [self.tableView addSubview:self.searchBgView];
-        self.isSearchMode = YES;
-        self.searchBarTopConstraint.constant = 20;
-        self.searchBgView.alpha = 0;
+- (void)hideSearchBar {
+    if (self.isSearchMode) {
+        self.isSearchMode = NO;
+        [self.searchBar resignFirstResponder];
+        self.searchBarTopConstraint.constant = -30;
         [self.searchBar setNeedsLayout];
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
             [self.searchBar layoutIfNeeded];
-            self.searchBgView.alpha = 1;
-            self.eventSourceTypeView.hidden = YES;
-            [self.searchBar becomeFirstResponder];
+            self.eventSourceTypeView.hidden = NO;
+            self.searchBgView.alpha = 0;
         } completion:^(BOOL finished) {
+            [self.searchBgView removeFromSuperview];
+            [self.tableView reloadData];
         }];
-        
-        //self.searchBar.hidden = NO;
-    } else if ([item.title isEqualToString:@"Logout"]) {
-        [self onLogout];
-    } else {
-        
     }
 }
 
@@ -197,7 +181,6 @@
         [self.searchBar layoutIfNeeded];
         self.eventSourceTypeView.hidden = NO;
     } completion:^(BOOL finished) {
-        [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:0]];
         [self.tableView reloadData];
     }];
 }

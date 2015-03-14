@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventListViewController">
@@ -11,7 +11,6 @@
                 <outlet property="invitedButton" destination="nxi-Jn-gCW" id="wmN-Wp-Dvf"/>
                 <outlet property="searchBar" destination="JDv-dN-tOt" id="wfD-bo-fP4"/>
                 <outlet property="searchBarTopConstraint" destination="yXE-eZ-ZEh" id="6eZ-AV-Uuu"/>
-                <outlet property="tabBar" destination="dPX-fn-kan" id="fkB-t0-ddl"/>
                 <outlet property="tableView" destination="HDw-eS-6DJ" id="kmJ-fA-1Tr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -70,19 +69,6 @@
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
-                <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPX-fn-kan">
-                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="l6q-G4-niD"/>
-                    </constraints>
-                    <items>
-                        <tabBarItem title="Events" image="Gift-26-pink" id="gib-aY-8gB"/>
-                        <tabBarItem title="Gifts" image="Gift-26-pink" id="ypB-Db-oid"/>
-                        <tabBarItem title="Search" image="Gift-26-pink" id="RvD-4U-RVD"/>
-                        <tabBarItem title="Logout" image="Gift-26-pink" id="wmO-hy-QKC"/>
-                    </items>
-                </tabBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -93,19 +79,13 @@
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="bottom" id="KAE-xW-pWJ"/>
                 <constraint firstItem="HHA-Rs-dsk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="MJv-e0-3Np"/>
                 <constraint firstAttribute="trailing" secondItem="HDw-eS-6DJ" secondAttribute="trailing" id="N12-WO-6or"/>
-                <constraint firstAttribute="trailing" secondItem="dPX-fn-kan" secondAttribute="trailing" id="Wv7-gu-6GK"/>
-                <constraint firstItem="dPX-fn-kan" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XRe-Pe-xz4"/>
                 <constraint firstItem="JDv-dN-tOt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="akp-zf-1MU"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qNX-Vv-NlC"/>
-                <constraint firstAttribute="bottom" secondItem="dPX-fn-kan" secondAttribute="bottom" id="toM-N3-LYu"/>
                 <constraint firstItem="JDv-dN-tOt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-30" id="yXE-eZ-ZEh"/>
             </constraints>
             <point key="canvasLocation" x="305" y="270"/>
         </view>
     </objects>
-    <resources>
-        <image name="Gift-26-pink" width="26" height="26"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

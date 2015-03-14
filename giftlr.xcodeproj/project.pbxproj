@@ -26,6 +26,8 @@
 		07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */; };
 		07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */; };
 		07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */; };
+		3344044D1AB40284008B2A73 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3344044B1AB40283008B2A73 /* MainViewController.m */; };
+		3344044E1AB40284008B2A73 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3344044C1AB40284008B2A73 /* MainViewController.xib */; };
 		33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD01AAD21B900438120 /* GiftListViewController.m */; };
 		33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33AC4BD11AAD21B900438120 /* GiftListViewController.xib */; };
 		33AC4BD71AAD222300438120 /* CashGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD61AAD222300438120 /* CashGift.m */; };
@@ -100,6 +102,9 @@
 		07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCashGiftCell.m; sourceTree = "<group>"; };
 		07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCashGiftCell.xib; sourceTree = "<group>"; };
 		31F1E81EBE4E83E81F5D889F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3344044A1AB40283008B2A73 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		3344044B1AB40283008B2A73 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		3344044C1AB40284008B2A73 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		33AC4BCF1AAD21B900438120 /* GiftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftListViewController.h; sourceTree = "<group>"; };
 		33AC4BD01AAD21B900438120 /* GiftListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftListViewController.m; sourceTree = "<group>"; };
 		33AC4BD11AAD21B900438120 /* GiftListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftListViewController.xib; sourceTree = "<group>"; };
@@ -317,6 +322,9 @@
 				9602DBE61AACEC640070CEB8 /* EventDetailViewController.h */,
 				9602DBE71AACEC640070CEB8 /* EventDetailViewController.m */,
 				9602DBE81AACEC640070CEB8 /* EventDetailViewController.xib */,
+				3344044A1AB40283008B2A73 /* MainViewController.h */,
+				3344044B1AB40283008B2A73 /* MainViewController.m */,
+				3344044C1AB40284008B2A73 /* MainViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -443,6 +451,7 @@
 				0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */,
 				9602DBE51AABD7380070CEB8 /* EventViewCell.xib in Resources */,
 				9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */,
+				3344044E1AB40284008B2A73 /* MainViewController.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
@@ -518,6 +527,7 @@
 				33AC4BDB1AAD226800438120 /* ProductGiftCell.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
 				33AC4BD71AAD222300438120 /* CashGift.m in Sources */,
+				3344044D1AB40284008B2A73 /* MainViewController.m in Sources */,
 				07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */,
 				072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */,
 				33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */,

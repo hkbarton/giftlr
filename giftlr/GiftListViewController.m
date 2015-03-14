@@ -14,15 +14,13 @@
 #import "CashGift.h"
 #import "ProductGift.h"
 
-@interface GiftListViewController () <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate>
+@interface GiftListViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *emptyView;
 - (IBAction)onGiveButton:(id)sender;
 
 @property (strong, nonatomic) NSMutableArray* productGifts;
 @property (strong, nonatomic) NSMutableArray* cashGifts;
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
-
 
 @end
 
@@ -41,9 +39,6 @@ const int CASH_GIFT_SECTION_INDEX = 1;
     [self.tableView registerNib:[UINib nibWithNibName:@"ProductGiftCell" bundle:nil] forCellReuseIdentifier:@"ProductGiftCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"CashGiftCell" bundle:nil] forCellReuseIdentifier:@"CashGiftCell"];
 
-    [self.tabBar setSelectedItem:[self.tabBar.items objectAtIndex:1]];
-    self.tabBar.delegate = self;
-    
     self.productGifts = [NSMutableArray array];
     self.cashGifts = [NSMutableArray array];
     
@@ -126,22 +121,6 @@ const int CASH_GIFT_SECTION_INDEX = 1;
         return @"Cash Gifts";
     }
     return @"";
-}
-
-#pragma mark - Tab Bar methods
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if ([item.title isEqualToString:@"Events"]) {
-        EventListViewController *vc = [[EventListViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
-    } else if ([item.title isEqualToString:@"Gifts"]) {
-    } else if ([item.title isEqualToString:@"Search"]) {
-        EventListViewController *vc = [[EventListViewController alloc] init];
-        [self presentViewController:vc animated:YES completion:nil];
-    } else if ([item.title isEqualToString:@"Logout"]) {
-    } else {
-        
-    }
 }
 
 @end
