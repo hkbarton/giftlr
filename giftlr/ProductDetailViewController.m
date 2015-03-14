@@ -9,13 +9,16 @@
 #import "ProductDetailViewController.h"
 #import "PurchaseViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIColor+giftlr.h"
 #import "User.h"
 
 NSString *const ProductDetailViewModeAdd = @"ProductDetailViewModeAdd";
 NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 
-@interface ProductDetailViewController ()
+@interface ProductDetailViewController () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *labelTitle;
+@property (weak, nonatomic) IBOutlet UIView *containerDetail;
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 @property (weak, nonatomic) IBOutlet UITextField *txtPrice;
 @property (weak, nonatomic) IBOutlet UITextField *txtQuantity;
@@ -23,11 +26,15 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 @property (weak, nonatomic) IBOutlet UIImageView *imageProduct;
 @property (weak, nonatomic) IBOutlet UIView *tabbar;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddGift;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightConstraintOfTabbar;
 
 @property (nonatomic, strong) ProductGift *product;
 @property (nonatomic, strong) NSString *mode;
+@property (nonatomic, assign) CGPoint oriCenterOfView;
 
 - (IBAction)onBtnAddGiftClicked:(id)sender;
+- (IBAction)onCloseButtonClicked:(id)sender;
+- (IBAction)onMainViewTap:(id)sender;
 
 @end
 
@@ -44,6 +51,8 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 - (void)initViewStyle {
     self.view.layer.cornerRadius = 4.0f;
     self.view.clipsToBounds = YES;
+    self.containerDetail.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.tabbar.backgroundColor = [UIColor redPinkColor];
     self.txtName.layer.cornerRadius = 4.0f;
     self.txtPrice.layer.cornerRadius = 4.0f;
     self.txtQuantity.layer.cornerRadius = 4.0f;
@@ -60,6 +69,18 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     self.txtQuantity.leftViewMode = UITextFieldViewModeAlways;
     self.txtQuantity.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 5, self.txtQuantity.bounds.size.height)];
     self.txtQuantity.rightViewMode = UITextFieldViewModeAlways;
+    self.heightConstraintOfTabbar.constant = 49;
+    self.labelTitle.text = @"Edit Gift";
+    // set read only mode
+    if ([self.mode isEqualToString:ProductDetailViewModeView]) {
+        self.heightConstraintOfTabbar.constant = 0;
+        [self.tabbar setNeedsUpdateConstraints];
+        self.txtName.enabled = NO;
+        self.txtPrice.enabled = NO;
+        self.txtQuantity.enabled = NO;
+        [self.txtDescription setEditable:NO];
+        self.labelTitle.text = @"View Gift";
+    }
 }
 
 - (void)loadImage:(__weak UIImageView *)imageView withURL:(NSString *)url {
@@ -102,10 +123,58 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     [super viewDidLoad];
     [self initViewStyle];
     [self loadData];
+    // deal with keyboard
+    self.txtName.delegate = self;
+    self.txtPrice.delegate = self;
+    self.txtQuantity.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    self.oriCenterOfView = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (UIView *)findFirstResponderInDetailView {
+    UIView *result = nil;
+    for (int i=0;i<self.containerDetail.subviews.count;i++) {
+        UIView *subView = self.containerDetail.subviews[i];
+        if ([subView isFirstResponder]) {
+            result = subView;
+            break;
+        }
+    }
+    return result;
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    UIView *curResponder = [self findFirstResponderInDetailView];
+    if (curResponder) {
+        CGFloat bottomOfCurResponder = curResponder.frame.origin.y + curResponder.frame.size.height + self.containerDetail.frame.origin.y + self.view.frame.origin.y;
+        CGFloat topOfKeyboard = [[UIScreen mainScreen] applicationFrame].size.height - kbSize.height;
+        if (bottomOfCurResponder > topOfKeyboard) {
+            [UIView animateWithDuration:0.3 animations:^{
+                self.view.center = CGPointMake(self.oriCenterOfView.x, self.oriCenterOfView.y - bottomOfCurResponder + topOfKeyboard);
+            }];
+        }
+    }
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.center = self.oriCenterOfView;
+    }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
 }
 
 - (IBAction)onBtnAddGiftClicked:(id)sender {
@@ -115,6 +184,14 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
         [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onCloseButtonClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)onMainViewTap:(id)sender {
+    [[self findFirstResponderInDetailView] resignFirstResponder];
 }
 
 - (IBAction)onBtnBuyClicked:(id)sender {
