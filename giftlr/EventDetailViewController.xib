@@ -45,11 +45,6 @@
             </constraints>
             <point key="canvasLocation" x="433" y="239"/>
         </view>
-        <tapGestureRecognizer id="17V-QB-abE">
-            <connections>
-                <action selector="onAddGiftsClicked:" destination="-1" id="awr-TW-w2Y"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

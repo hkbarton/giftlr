@@ -24,11 +24,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
-- (IBAction)onAddGiftsClicked:(UITapGestureRecognizer *)sender;
 
 @property (strong, nonatomic) NSArray *gifts;
 
@@ -84,6 +83,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             break;
     }
     
+    [self setupSwipeGuestures];
+    
     // load data
     self.productGiftList = [NSMutableArray array];
     [ProductGift loadProductGiftsByEvent:self.event withCallback:^(NSArray *productGifts, NSError *error) {
@@ -106,6 +107,50 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - swipe guestures
+
+// Need to allow parent container to handle pan gesture while the table view scroll still working
+// See http://stackoverflow.com/questions/17614609/table-view-doesnt-scroll-when-i-use-gesture-recognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (void) setupSwipeGuestures {
+    UISwipeGestureRecognizer *leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(leftSwipe:)];
+    [leftSwipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    leftSwipeRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:leftSwipeRecognizer];
+    UISwipeGestureRecognizer *rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                              action:@selector(rightSwipe:)];
+    [rightSwipeRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    rightSwipeRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:rightSwipeRecognizer];
+}
+
+- (void)leftSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
+    //do you right swipe stuff here. Something usually using theindexPath that you get that way
+    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    //gestureRecognizer
+    if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
+        EventProductGiftCell *cell = (EventProductGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell showControlView];
+    }
+    
+}
+
+- (void)rightSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
+    //do you right swipe stuff here. Something usually using theindexPath that you get that way
+    CGPoint location = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    //gestureRecognizer
+    if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
+        EventProductGiftCell *cell = (EventProductGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell hideControlView];
+    }
 }
 
 #pragma mark - Table methods
@@ -156,6 +201,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
         EventProductGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventProductGiftCell"];
         cell.event = self.event;
+        cell.delegate = self;
         cell.productGift = self.productGiftList[indexPath.row - 2];
         return cell;
     // load CashGift list
@@ -172,6 +218,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
+        EventProductGiftCell *cell = (EventProductGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        if (cell.isControlMode) {
+            return;
+        }
         ProductGift *productGift = self.productGiftList[indexPath.row - 2];
         productGift.hostEvent = self.event;
         ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeView];
@@ -226,7 +276,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 # pragma mark - actionSheet delegate
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
         case AddGiftActionTypeProduct:
             [self onAddProductGift];
@@ -239,9 +289,18 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     }
 }
 
+#pragma mark - delegate for cells
+
+- (void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didDeleteClicked:(BOOL)value {
+    ProductGift *gift = eventProductGiftCell.productGift;
+    [self.productGiftList removeObject:gift];
+    [gift deleteFromParse];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Delegate of other view controllers
 
--(void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift {
+- (void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift {
     [self.productGiftList addObject:productGift];
     [self.tableView reloadData];
 }

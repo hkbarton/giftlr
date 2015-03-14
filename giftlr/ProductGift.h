@@ -28,6 +28,7 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, strong) NSString *claimerFacebookUserID;
 
 -(void)saveToParse;
+-(void)deleteFromParse;
 -(PFObject *)getPFObject;
 -(id)initWithPFObject:(PFObject *)pfObject;
 

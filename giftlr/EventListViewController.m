@@ -120,8 +120,6 @@
     }
 }
 
-#pragma mark - gesture control
-
 #pragma mark - gesture controls
 
 // Need to allow parent container to handle pan gesture while the table view scroll still working

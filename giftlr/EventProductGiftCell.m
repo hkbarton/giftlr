@@ -10,7 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ProductHTMLParser.h"
 
-@interface EventProductGiftCell()
+@interface EventProductGiftCell() <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgProduct;
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
@@ -18,6 +18,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDomain;
 @property (weak, nonatomic) IBOutlet UIButton *btnClaim;
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIView *controlView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewLeadingContraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewTrailingConstraint;
+
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureReconginzer;
 
 @end
 
@@ -27,6 +33,10 @@
     self.imgProduct.layer.cornerRadius = 4.0f;
     self.imgProduct.clipsToBounds = YES;
     self.labelName.preferredMaxLayoutWidth = self.labelName.frame.size.width;
+    self.controlView.hidden = YES;
+    self.tapGestureReconginzer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideControlView)];
+    self.tapGestureReconginzer.delegate = self;
+    self.isControlMode = NO;
 }
 
 - (void)layoutSubviews {
@@ -48,7 +58,51 @@
     }
 }
 
+- (void) showControlView {
+    if (!self.event.isHostEvent) {
+        return;
+    }
+    
+    self.containerViewLeadingContraint.constant = -80;
+    self.containerViewTrailingConstraint.constant = 80;
+    [self.containerView setNeedsLayout];
+    self.isControlMode = YES;
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        [self.containerView layoutIfNeeded];
+        self.controlView.hidden = NO;
+    } completion:^(BOOL finished) {
+        [self.containerView addGestureRecognizer:self.tapGestureReconginzer];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }];
+}
+
+- (void) hideControlView {
+    if (!self.event.isHostEvent) {
+        return;
+    }
+    
+    self.isControlMode = NO;
+    [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
+    self.containerViewLeadingContraint.constant = 0;
+    self.containerViewTrailingConstraint.constant = 0;
+    [self.containerView setNeedsLayout];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
+        [self.containerView layoutIfNeeded];
+        self.controlView.hidden = YES;
+    } completion:^(BOOL finished) {
+        [self.containerView removeGestureRecognizer:self.tapGestureReconginzer];
+    }];
+}
+
 - (void)setProductGift:(ProductGift *)productGift {
+    // Reset all the layout to default
+    self.isControlMode = NO;
+    [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
+    self.containerViewLeadingContraint.constant = 0;
+    self.containerViewTrailingConstraint.constant = 0;
+    [self.containerView setNeedsLayout];
+    [self.containerView layoutIfNeeded];
+    
     _productGift = productGift;
     [self.imgProduct setImageWithURL:[NSURL URLWithString:productGift.imageURLs[0]]];
     self.labelName.text = productGift.name;
@@ -65,6 +119,12 @@
         [self.btnClaim setImage:[UIImage imageNamed:@"Hearts-26-pink"] forState:UIControlStateNormal];
         [self.btnBuy setImage:[UIImage imageNamed:@"Buy-24-pink"] forState:UIControlStateNormal];
     }
+}
+
+#pragma mark - actions
+
+- (IBAction)onDeleteGift:(id)sender {
+    [self.delegate eventProductGiftCell:self didDeleteClicked:YES];
 }
 
 @end

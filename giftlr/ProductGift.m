@@ -25,6 +25,7 @@ NSString *const PFObjectClassName = @"ProductGift";
 
 -(id)initWithPFObject:(PFObject *)pfObject {
     if (self = [super init]) {
+        self.pfObject = pfObject;
         self.giftID = pfObject.objectId;
         self.name = pfObject[@"name"];
         self.productDescription = pfObject[@"productDescription"];
@@ -45,6 +46,13 @@ NSString *const PFObjectClassName = @"ProductGift";
 
 -(PFObject *)getPFObject {
     return self.pfObject;
+}
+
+-(void)deleteFromParse {
+    NSLog(@"try to delete %@", self.pfObject.objectId);
+    [self.pfObject deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"deleted with error %@", error);
+    }];
 }
 
 -(void)saveToParse {

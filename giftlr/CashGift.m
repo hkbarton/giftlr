@@ -16,20 +16,22 @@ NSString *const CashGiftBought = @"Bought";
 @implementation CashGift
 
 -(void)saveToParse {
-    PFObject *cashGift = [PFObject objectWithClassName:@"CashGift"];
-    cashGift[@"name"] = self.name;
-    cashGift[@"amount"] = @([self.amount floatValue]);
-    cashGift[@"facebookEventID"] = self.facebookEventID;
+    if (!self.pfObject) {
+        self.pfObject = [PFObject objectWithClassName:@"CashGift"];
+    }
+
+    self.pfObject[@"name"] = self.name;
+    self.pfObject[@"amount"] = @([self.amount floatValue]);
+    self.pfObject[@"facebookEventID"] = self.facebookEventID;
 
     if (!self.status) {
         self.status = CashGiftStatusUnclaimed;
     }
-    cashGift[@"status"] = self.status;
+    self.pfObject[@"status"] = self.status;
 
     
-    [cashGift saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            self.pfObject = cashGift;
         } else {
             NSLog(@"error saving CashGift = %@", error);
         }
