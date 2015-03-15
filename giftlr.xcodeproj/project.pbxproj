@@ -64,6 +64,11 @@
 		9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */; };
 		96AB29D01AB6313E00FB64AD /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB29CE1AB6313E00FB64AD /* EventKit.framework */; };
 		96AB29D11AB6313E00FB64AD /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB29CF1AB6313E00FB64AD /* EventKitUI.framework */; };
+		96AB29D51AB65AB600FB64AD /* EventInviteGuestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29D31AB65AB600FB64AD /* EventInviteGuestViewController.m */; };
+		96AB29D61AB65AB600FB64AD /* EventInviteGuestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29D41AB65AB600FB64AD /* EventInviteGuestViewController.xib */; };
+		96AB29DB1AB6738C00FB64AD /* CheckBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29D91AB6738C00FB64AD /* CheckBoxCell.m */; };
+		96AB29DC1AB6738C00FB64AD /* CheckBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29DA1AB6738C00FB64AD /* CheckBoxCell.xib */; };
+		96AB29DF1AB67EE200FB64AD /* EventInvite.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29DE1AB67EE200FB64AD /* EventInvite.m */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -172,6 +177,14 @@
 		9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+giftlr.m"; sourceTree = "<group>"; };
 		96AB29CE1AB6313E00FB64AD /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		96AB29CF1AB6313E00FB64AD /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		96AB29D21AB65AB600FB64AD /* EventInviteGuestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventInviteGuestViewController.h; sourceTree = "<group>"; };
+		96AB29D31AB65AB600FB64AD /* EventInviteGuestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInviteGuestViewController.m; sourceTree = "<group>"; };
+		96AB29D41AB65AB600FB64AD /* EventInviteGuestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventInviteGuestViewController.xib; sourceTree = "<group>"; };
+		96AB29D81AB6738C00FB64AD /* CheckBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckBoxCell.h; sourceTree = "<group>"; };
+		96AB29D91AB6738C00FB64AD /* CheckBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckBoxCell.m; sourceTree = "<group>"; };
+		96AB29DA1AB6738C00FB64AD /* CheckBoxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckBoxCell.xib; sourceTree = "<group>"; };
+		96AB29DD1AB67EE200FB64AD /* EventInvite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventInvite.h; sourceTree = "<group>"; };
+		96AB29DE1AB67EE200FB64AD /* EventInvite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInvite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +317,8 @@
 				072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */,
 				33AC4BD51AAD222300438120 /* CashGift.h */,
 				33AC4BD61AAD222300438120 /* CashGift.m */,
+				96AB29DD1AB67EE200FB64AD /* EventInvite.h */,
+				96AB29DE1AB67EE200FB64AD /* EventInvite.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -318,16 +333,8 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29D71AB672E800FB64AD /* EventView */,
 				0729D5BB1AB613BB00E7C26A /* SettingView */,
-				9602DBE11AABD7380070CEB8 /* EventViewCell.h */,
-				9602DBE21AABD7380070CEB8 /* EventViewCell.m */,
-				9602DBE31AABD7380070CEB8 /* EventViewCell.xib */,
-				9602DBEB1AACFDE20070CEB8 /* EventDetailViewCell.h */,
-				9602DBEC1AACFDE20070CEB8 /* EventDetailViewCell.m */,
-				9602DBED1AACFDE20070CEB8 /* EventDetailViewCell.xib */,
-				9602DBF01AAD12F10070CEB8 /* EventDescriptionCell.h */,
-				9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */,
-				9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */,
 				33AC4BD81AAD226800438120 /* ProductGiftCell.h */,
 				33AC4BD91AAD226800438120 /* ProductGiftCell.m */,
 				33AC4BDA1AAD226800438120 /* ProductGiftCell.xib */,
@@ -410,8 +417,30 @@
 				9602DBE61AACEC640070CEB8 /* EventDetailViewController.h */,
 				9602DBE71AACEC640070CEB8 /* EventDetailViewController.m */,
 				9602DBE81AACEC640070CEB8 /* EventDetailViewController.xib */,
+				96AB29D21AB65AB600FB64AD /* EventInviteGuestViewController.h */,
+				96AB29D31AB65AB600FB64AD /* EventInviteGuestViewController.m */,
+				96AB29D41AB65AB600FB64AD /* EventInviteGuestViewController.xib */,
 			);
 			name = Event;
+			sourceTree = "<group>";
+		};
+		96AB29D71AB672E800FB64AD /* EventView */ = {
+			isa = PBXGroup;
+			children = (
+				96AB29D81AB6738C00FB64AD /* CheckBoxCell.h */,
+				96AB29D91AB6738C00FB64AD /* CheckBoxCell.m */,
+				96AB29DA1AB6738C00FB64AD /* CheckBoxCell.xib */,
+				9602DBE11AABD7380070CEB8 /* EventViewCell.h */,
+				9602DBE21AABD7380070CEB8 /* EventViewCell.m */,
+				9602DBE31AABD7380070CEB8 /* EventViewCell.xib */,
+				9602DBEB1AACFDE20070CEB8 /* EventDetailViewCell.h */,
+				9602DBEC1AACFDE20070CEB8 /* EventDetailViewCell.m */,
+				9602DBED1AACFDE20070CEB8 /* EventDetailViewCell.xib */,
+				9602DBF01AAD12F10070CEB8 /* EventDescriptionCell.h */,
+				9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */,
+				9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */,
+			);
+			name = EventView;
 			sourceTree = "<group>";
 		};
 		D3923DAA5882719613D4CDA1 /* Pods */ = {
@@ -510,6 +539,7 @@
 				9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */,
 				0729D5C01AB6149600E7C26A /* SettingMenuHeaderView.xib in Resources */,
 				9602DBEA1AACEC640070CEB8 /* EventDetailViewController.xib in Resources */,
+				96AB29DC1AB6738C00FB64AD /* CheckBoxCell.xib in Resources */,
 				0729D5CA1AB6173A00E7C26A /* SettingMenuTableViewCell.xib in Resources */,
 				0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */,
 				9602DBE51AABD7380070CEB8 /* EventViewCell.xib in Resources */,
@@ -520,6 +550,7 @@
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
+				96AB29D61AB65AB600FB64AD /* EventInviteGuestViewController.xib in Resources */,
 				073E022C1AAB9044007778F4 /* Html in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
@@ -584,6 +615,7 @@
 				0729D5B91AB60C6E00E7C26A /* SettingViewController.m in Sources */,
 				07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */,
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
+				96AB29D51AB65AB600FB64AD /* EventInviteGuestViewController.m in Sources */,
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
 				0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */,
@@ -599,6 +631,7 @@
 				33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */,
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
+				96AB29DB1AB6738C00FB64AD /* CheckBoxCell.m in Sources */,
 				33AC4BE81AAD503900438120 /* AddCashGiftViewController.m in Sources */,
 				9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
@@ -609,6 +642,7 @@
 				33AC4BE01AAD227C00438120 /* CashGiftCell.m in Sources */,
 				33AC4BED1AAD531400438120 /* PayCashViewController.m in Sources */,
 				072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */,
+				96AB29DF1AB67EE200FB64AD /* EventInvite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

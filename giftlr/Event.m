@@ -114,7 +114,7 @@ static NSDateFormatter *df = nil;
         self.startTimeMonth =[df stringFromDate:self.startTime];
         [df setDateFormat:@"dd"];
         self.startTimeDay =[df stringFromDate:self.startTime];
-        [df setDateFormat:@"EEEE, MMMM dd 'at' h:mma"];
+        [df setDateFormat:@"EEE, MMM dd, yyyy 'at' h:mma"];
         self.startTimeString =[df stringFromDate:self.startTime];
         
         self.eventHostName = pfObject[@"eventHostName"];

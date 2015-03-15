@@ -12,6 +12,7 @@
 #import "Event.h"
 #import "EventProductGiftCell.h"
 #import "EventCashGiftCell.h"
+#import "EventInviteGuestViewController.h"
 #import "ProductSearchViewController.h"
 #import "AddCashGiftViewController.h"
 #import "ProductDetailViewController.h"
@@ -63,7 +64,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     self.joinEventControl.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
     if (self.event.isHostEvent == YES) {
         if ([self.event.startTime compare:[NSDate date]] == NSOrderedDescending) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Gift-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onPlus)];
+            UIBarButtonItem *addGiftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Gift-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddGift)];
+            UIBarButtonItem *addGuestItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddUser-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onInviteGuest)];
+            
+            self.navigationItem.rightBarButtonItems = @[addGuestItem, addGiftItem];
         }
         self.joinEventControl.hidden = YES;
     } else {
@@ -259,7 +263,14 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)onPlus {
+- (void)onInviteGuest {
+    EventInviteGuestViewController *vc = [[EventInviteGuestViewController alloc] init];
+    vc.event = self.event;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)onAddGift {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"What gift do you want to add?"
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"

@@ -94,6 +94,34 @@
     }
 }
 
+- (void)linkUserWithFbFriend:(NSString *)fbUserId {
+    PFQuery *parseQuery = [PFUser query];
+    [parseQuery whereKey:@"fbUserId" equalTo:fbUserId];
+    [parseQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        PFRelation *relation = [self.pfUser relationForKey:@"friends"];
+        for (PFUser *user in objects) {
+            [relation addObject:user];
+        }
+        [self.pfUser saveInBackground];
+    }];
+}
+
+- (void)getFriendsWithCompletion:(void (^)(NSArray *friends, NSError *error))completion {
+    PFRelation *relation = [self.pfUser relationForKey:@"friends"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *pfUsers, NSError *error) {
+        if (error) {
+            completion(nil, error);
+        } else {
+            NSMutableArray *friends = [NSMutableArray array];
+            for (PFUser *pfUser in pfUsers) {
+                User *user = [[User alloc] initWithPFUser:pfUser];
+                [friends addObject:user];
+                completion(friends, nil);
+            }
+        }
+    }];
+}
+
 # pragma mark - fb related helpers
 
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion {
@@ -108,6 +136,28 @@
             completion(nil, error);
         }
     }];
+}
+
++ (void)fetchFBFriendsWithCompletion:(User *)user completion:(void (^)(NSError *error))completion {
+    NSString *fbUserId = user.fbUserId;
+    if (user == [User currentUser]) {
+        fbUserId = @"me";
+    }
+    NSString *friendsGraphPath = [NSString stringWithFormat:@"%@/friends?limit=100", fbUserId];
+    [FBRequestConnection startWithGraphPath:friendsGraphPath
+                          completionHandler:^(FBRequestConnection *connection, NSDictionary *result, NSError *error) {
+                              if (!error) {
+                                  NSLog(@"friend list %@", result);
+                                  NSArray *friends = result[@"data"];
+                                  for (NSDictionary *friend in friends) {
+                                      [user linkUserWithFbFriend:friend[@"id"]];
+                                  }
+                                  completion(nil);
+                              } else {
+                                  NSLog(@"failed to get friends list %@", error);
+                                  completion(error);
+                              }
+                          }];
 }
 
 #pragma mark - current user methods

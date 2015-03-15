@@ -6,6 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventListViewController">
             <connections>
+                <outlet property="eventNotificationButton" destination="wGo-pu-wGc" id="KBs-L4-zwn"/>
+                <outlet property="eventNotificationTopConstraint" destination="Fnt-Oa-1KM" id="eVt-75-oaN"/>
+                <outlet property="eventSourceBottomBorderView" destination="M6R-ec-xQV" id="nl1-5X-Qb4"/>
                 <outlet property="eventSourceTypeView" destination="HHA-Rs-dsk" id="H7z-iG-uWy"/>
                 <outlet property="hostingButton" destination="F3t-Ns-k55" id="9P5-oa-5K4"/>
                 <outlet property="invitedButton" destination="nxi-Jn-gCW" id="wmN-Wp-Dvf"/>
@@ -43,23 +46,33 @@
                                 <action selector="onHostingClicked:" destination="-1" eventType="touchUpInside" id="hMW-XB-hbp"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6R-ec-xQV" userLabel="Source Type Bottom Border View">
+                            <rect key="frame" x="0.0" y="29" width="320" height="1"/>
+                            <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="MbL-jz-aKj"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="nxi-Jn-gCW" secondAttribute="bottom" id="AYs-Fq-kGi"/>
                         <constraint firstItem="nxi-Jn-gCW" firstAttribute="width" secondItem="F3t-Ns-k55" secondAttribute="width" id="CsG-jy-j3z"/>
                         <constraint firstAttribute="trailing" secondItem="F3t-Ns-k55" secondAttribute="trailing" id="EYp-Wl-Nuk"/>
+                        <constraint firstItem="M6R-ec-xQV" firstAttribute="leading" secondItem="HHA-Rs-dsk" secondAttribute="leading" id="EwR-ts-aEl"/>
                         <constraint firstItem="nxi-Jn-gCW" firstAttribute="leading" secondItem="HHA-Rs-dsk" secondAttribute="leading" id="RqO-bd-ReM"/>
                         <constraint firstItem="nxi-Jn-gCW" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="top" id="TSQ-8e-ATl"/>
                         <constraint firstItem="F3t-Ns-k55" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="top" id="Yo3-Ee-Nwq"/>
+                        <constraint firstAttribute="trailing" secondItem="M6R-ec-xQV" secondAttribute="trailing" id="ZEB-y9-qbP"/>
                         <constraint firstItem="F3t-Ns-k55" firstAttribute="leading" secondItem="nxi-Jn-gCW" secondAttribute="trailing" id="aE0-cZ-wNL"/>
                         <constraint firstAttribute="height" constant="30" id="ewu-VA-sjt"/>
                         <constraint firstAttribute="bottom" secondItem="F3t-Ns-k55" secondAttribute="bottom" id="iqR-37-rKj"/>
+                        <constraint firstAttribute="bottom" secondItem="M6R-ec-xQV" secondAttribute="bottom" id="thx-vm-hGG"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="HDw-eS-6DJ">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="HDw-eS-6DJ">
                     <rect key="frame" x="0.0" y="94" width="320" height="474"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
                 <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Type event title or host name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDv-dN-tOt">
                     <rect key="frame" x="0.0" y="-30" width="320" height="30"/>
@@ -69,6 +82,20 @@
                     </constraints>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-pu-wGc">
+                    <rect key="frame" x="100" y="94" width="120" height="27"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="ZsG-sE-gYg"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="New invites found!">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onEventNotificaionClicked:" destination="-1" eventType="touchUpInside" id="E5W-8Q-yyp"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -77,13 +104,15 @@
                 <constraint firstItem="HHA-Rs-dsk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6U7-GA-jMh"/>
                 <constraint firstItem="HHA-Rs-dsk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="7Mu-Rx-Mij"/>
                 <constraint firstAttribute="trailing" secondItem="JDv-dN-tOt" secondAttribute="trailing" id="B1K-uv-dT5"/>
+                <constraint firstItem="wGo-pu-wGc" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="bottom" id="Fnt-Oa-1KM"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="bottom" id="KAE-xW-pWJ"/>
+                <constraint firstAttribute="centerX" secondItem="wGo-pu-wGc" secondAttribute="centerX" id="MP4-22-c0C"/>
                 <constraint firstAttribute="trailing" secondItem="HDw-eS-6DJ" secondAttribute="trailing" id="N12-WO-6or"/>
                 <constraint firstItem="JDv-dN-tOt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="akp-zf-1MU"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qNX-Vv-NlC"/>
                 <constraint firstItem="JDv-dN-tOt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-30" id="yXE-eZ-ZEh"/>
             </constraints>
-            <point key="canvasLocation" x="287" y="267"/>
+            <point key="canvasLocation" x="287" y="263"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

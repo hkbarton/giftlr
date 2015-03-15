@@ -20,12 +20,30 @@
 #import "LoginViewController.h"
 #import "User.h"
 #import "Event.h"
+#import "EventInvite.h"
 #import "UIColor+giftlr.h"
+
+typedef NS_ENUM(NSInteger, EventListWithPendingSectionIndex) {
+    EventListWithPendingSectionIndexPending = 0,
+    EventListWithPendingSectionIndexUpcoming = 1,
+    EventListWithPendingSectionIndexPast = 2,
+    EventListWithPendingSectionIndexMax = 3
+};
+
+typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
+    EventListWithoutPendingSectionIndexUpcoming = 0,
+    EventListWithoutPendingSectionIndexPast = 1,
+    EventListWithoutPendingSectionIndexMax = 2
+};
+
 
 @interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, EKEventEditViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
+@property (weak, nonatomic) IBOutlet UIView *eventSourceBottomBorderView;
+@property (weak, nonatomic) IBOutlet UIButton *eventNotificationButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventNotificationTopConstraint;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *invitedButton;
@@ -33,10 +51,20 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) NSMutableArray *allEvents;
+@property (strong, nonatomic) NSMutableArray *pendingEvents;
+@property (strong, nonatomic) NSMutableArray *upcomingEvents;
+@property (strong, nonatomic) NSMutableArray *pastEvents;
+@property (assign, nonatomic) NSInteger upcomingEventsCount;
+@property (assign, nonatomic) NSInteger pastEventsCount;
+
 @property (strong, nonatomic) NSMutableArray *myEvents;
 @property (strong, nonatomic) NSMutableArray *searchEvents;
+@property (assign, nonatomic) NSInteger upcomingMyEventsCount;
+@property (assign, nonatomic) NSInteger pastMyEventsCount;
+
 @property (assign, nonatomic) BOOL isMyEventMode;
 @property (assign, nonatomic) BOOL isSearchMode;
+@property (assign, nonatomic) BOOL showPendingEvents;
 
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic, strong) UIView *searchBgView;
@@ -60,7 +88,14 @@
     self.allEvents = [[NSMutableArray alloc] init];
     self.isMyEventMode = NO;
     self.isSearchMode = NO;
+    self.showPendingEvents = NO;
+    self.upcomingEventsCount = self.pastEventsCount = self.pastMyEventsCount = self.upcomingMyEventsCount = 0;
     self.eventSourceTypeView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.eventSourceBottomBorderView.backgroundColor = [UIColor redPinkColor];
+    self.eventNotificationButton.hidden = YES;
+    self.eventNotificationButton.layer.cornerRadius = 10;
+    self.eventNotificationButton.clipsToBounds = YES;
+    self.eventNotificationButton.tintColor = [UIColor hotPinkColor];
     [self setEventSourceSwitchState];
     
     self.tableView.dataSource = self;
@@ -80,6 +115,7 @@
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    
     self.title = @"Events";
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Plus-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddEvent)];
@@ -93,7 +129,7 @@
     self.eventStore = [[EKEventStore alloc] init];
     self.defaultCalendar = [self.eventStore defaultCalendarForNewEvents];
     
-    [self loadCurrentUserFBProfile];
+    [self loadCurrentUserFBData];
     [self fetchParseEvents];
 }
 
@@ -273,6 +309,47 @@
 
 #pragma mark - Table methods
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (self.isSearchMode) {
+        return 1;
+    }
+    
+    if (self.showPendingEvents) {
+        return EventListWithPendingSectionIndexMax;
+    } else {
+        return EventListWithoutPendingSectionIndexMax;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (self.isSearchMode) {
+        return @"";
+    }
+    
+    if (!self.isMyEventMode && self.showPendingEvents) {
+        switch (section) {
+            case EventListWithPendingSectionIndexUpcoming:
+                return @"Upcoming events";
+            case EventListWithPendingSectionIndexPending:
+                return @"New invites";
+            case EventListWithPendingSectionIndexPast:
+                return @"Past events";
+            default:
+                return @"";
+        }
+    }
+
+    switch (section) {
+        case EventListWithoutPendingSectionIndexUpcoming:
+            return @"Upcoming events";
+        case EventListWithoutPendingSectionIndexPast:
+            return @"Past events";
+        default:
+            return @"";
+    }
+}
+
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
@@ -288,10 +365,39 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.isSearchMode) {
         return self.searchEvents.count;
-    } else if (self.isMyEventMode) {
-        return self.myEvents.count;
-    } else {
-        return self.allEvents.count;
+    }
+
+    if (self.isMyEventMode) {
+        switch (section) {
+            case EventListWithoutPendingSectionIndexUpcoming:
+                return self.upcomingMyEventsCount;
+            case EventListWithoutPendingSectionIndexPast:
+                return self.pastMyEventsCount;
+            default:
+                return 0;
+        }
+    }
+    
+    if (self.showPendingEvents) {
+        switch (section) {
+            case EventListWithPendingSectionIndexPending:
+                return self.pendingEvents.count;
+            case EventListWithPendingSectionIndexUpcoming:
+                return self.upcomingEventsCount;
+            case EventListWithPendingSectionIndexPast:
+                return self.pastEventsCount;
+            default:
+                return 0;
+        }
+    }
+    
+    switch (section) {
+        case EventListWithoutPendingSectionIndexUpcoming:
+            return self.upcomingEventsCount;
+        case EventListWithoutPendingSectionIndexPast:
+            return self.pastEventsCount;
+        default:
+            return 0;
     }
 }
 
@@ -300,15 +406,54 @@
     Event *event = nil;
     if (self.isSearchMode) {
         event = self.searchEvents[indexPath.row];
+        cell.event = event;
+        return cell;
     } else if (self.isMyEventMode) {
-        event = self.myEvents[indexPath.row];
+        switch (indexPath.section) {
+            case EventListWithoutPendingSectionIndexUpcoming:
+                event = self.myEvents[indexPath.row];
+                break;
+            case EventListWithoutPendingSectionIndexPast:
+                event = self.myEvents[indexPath.row + self.upcomingMyEventsCount];
+                break;
+            default:
+                break;
+        }
+        
+        cell.event = event;
+        return cell;
     } else {
-        event = self.allEvents[indexPath.row];
+        if (self.showPendingEvents) {
+            switch (indexPath.section) {
+                case EventListWithPendingSectionIndexPending:
+                    event = self.pendingEvents[indexPath.row];
+                    break;
+                case EventListWithPendingSectionIndexUpcoming:
+                    event = self.allEvents[indexPath.row];
+                    break;
+                case EventListWithPendingSectionIndexPast:
+                    event = self.allEvents[indexPath.row + self.upcomingEventsCount];
+                    break;
+                default:
+                    break;
+            }
+            cell.event = event;
+            return cell;
+        }
+        
+        switch (indexPath.section) {
+            case EventListWithoutPendingSectionIndexUpcoming:
+                event = self.allEvents[indexPath.row];
+                break;
+            case EventListWithoutPendingSectionIndexPast:
+                event = self.allEvents[indexPath.row + self.upcomingEventsCount];
+                break;
+            default:
+                break;
+        }
+        cell.event = event;
+        return cell;
     }
-    
-    cell.event = event;
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -351,7 +496,14 @@
     }
 }
 
+- (IBAction)onEventNotificaionClicked:(id)sender {
+    self.eventNotificationButton.hidden = YES;
+    self.showPendingEvents = YES;
+    [self.tableView reloadData];
+}
+
 - (void)onRefresh {
+    self.showPendingEvents = NO;
     [self fetchParseEvents];
 }
 
@@ -372,7 +524,10 @@
     }
 }
 
-- (void)loadCurrentUserFBProfile {
+// TODO: move this to somewhere else
+- (void)loadCurrentUserFBData {
+    [User fetchFBFriendsWithCompletion:[User currentUser] completion:^(NSError *error) {
+    }];
     [User fetchFBUserProfileWithCompletion:@"me" completion:^(User *user, NSError *error) {
         user.pfUser = [PFUser currentUser];
         if (!error) {
@@ -443,6 +598,13 @@
                     [self.tableRefreshControl endRefreshing];
                     [self sortEvents];
                     [self.tableView reloadData];
+                    [EventInvite fetchPendingInvitesWithCompletion:[User currentUser] completion:^(NSArray *events, NSError *error) {
+                        if (events.count > 0) {
+                            NSLog(@"pending request found");
+                            self.pendingEvents = [NSMutableArray arrayWithArray:events];
+                            self.eventNotificationButton.hidden = NO;
+                        }
+                    }];
                 } else {
                     NSLog(@"failed get fb event %@", error);
                 }
@@ -455,9 +617,33 @@
     [self.allEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
     }];
+    
+    self.upcomingEventsCount = 0;
+    NSDate *now = [NSDate date];
+    for (int i = 0; i < self.allEvents.count; i ++) {
+        Event *event = self.allEvents[i];
+        if ([event.startTime compare:now] != NSOrderedAscending) {
+            self.upcomingEventsCount ++;
+        } else {
+            break;
+        }
+    }
+    self.pastEventsCount = self.allEvents.count - self.upcomingEventsCount;
+    
     [self.myEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
     }];
+
+    self.upcomingMyEventsCount = 0;
+    for (int i = 0; i < self.myEvents.count; i ++) {
+        Event *event = self.myEvents[i];
+        if ([event.startTime compare:now] != NSOrderedAscending) {
+            self.upcomingMyEventsCount ++;
+        } else {
+            break;
+        }
+    }
+    self.pastMyEventsCount = self.myEvents.count - self.upcomingMyEventsCount;
 }
 
 @end
