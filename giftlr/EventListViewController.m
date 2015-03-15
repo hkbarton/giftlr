@@ -36,6 +36,7 @@
 
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic, strong) UIView *searchBgView;
+@property (nonatomic, weak) UIImageView *navBarHairlineImageView;
 
 - (IBAction)onInvitedClicked:(id)sender;
 - (IBAction)onHostingClicked:(id)sender;
@@ -51,6 +52,7 @@
     self.allEvents = [[NSMutableArray alloc] init];
     self.isMyEventMode = NO;
     self.isSearchMode = NO;
+    self.eventSourceTypeView.backgroundColor = [UIColor lightGreyBackgroundColor];
     [self setEventSourceSwitchState];
     
     self.tableView.dataSource = self;
@@ -63,8 +65,17 @@
     [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
     self.searchBar.delegate = self;
     self.searchBar.tintColor = [UIColor hotPinkColor];
+    self.searchBar.backgroundColor = [UIColor lightGreyBackgroundColor];
     self.searchEvents = [NSMutableArray array];
-
+    
+//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+    // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
+    self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    self.title = @"Events";
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
+    self.navigationItem.rightBarButtonItems = @[searchItem];
+    
     // "pull to refresh" support
     self.tableRefreshControl = [[UIRefreshControl alloc] init];
     [self.tableRefreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
@@ -79,6 +90,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navBarHairlineImageView.hidden = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navBarHairlineImageView.hidden = NO;
+}
+
 - (void)showSearchBar {
     if (self.isSearchMode) {
         return;
@@ -91,33 +125,13 @@
     
     [self.tableView addSubview:self.searchBgView];
     self.isSearchMode = YES;
-    self.searchBarTopConstraint.constant = 20;
-    self.searchBgView.alpha = 0;
+    self.searchBarTopConstraint.constant = 64;
     [self.searchBar setNeedsLayout];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromTop animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self.searchBar layoutIfNeeded];
-        self.searchBgView.alpha = 1;
-        self.eventSourceTypeView.hidden = YES;
         [self.searchBar becomeFirstResponder];
     } completion:^(BOOL finished) {
     }];
-}
-
-- (void)hideSearchBar {
-    if (self.isSearchMode) {
-        self.isSearchMode = NO;
-        [self.searchBar resignFirstResponder];
-        self.searchBarTopConstraint.constant = -30;
-        [self.searchBar setNeedsLayout];
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
-            [self.searchBar layoutIfNeeded];
-            self.eventSourceTypeView.hidden = NO;
-            self.searchBgView.alpha = 0;
-        } completion:^(BOOL finished) {
-            [self.searchBgView removeFromSuperview];
-            [self.tableView reloadData];
-        }];
-    }
 }
 
 #pragma mark - gesture controls
@@ -175,9 +189,8 @@
     [self.searchBar resignFirstResponder];
     self.searchBarTopConstraint.constant = -30;
     [self.searchBar setNeedsLayout];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         [self.searchBar layoutIfNeeded];
-        self.eventSourceTypeView.hidden = NO;
     } completion:^(BOOL finished) {
         [self.tableView reloadData];
     }];

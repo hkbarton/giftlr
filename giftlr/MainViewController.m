@@ -18,6 +18,7 @@
 
 @property (strong, nonatomic) EventListViewController *eventListViewController;
 @property (strong, nonatomic) GiftListViewController *giftListViewController;
+@property (strong, nonatomic) UINavigationController *eventNavigationController;
 @property (strong, nonatomic) UIViewController *currentViewController;
 @property (weak, nonatomic) IBOutlet UITabBarItem *eventListTabBarItem;
 
@@ -32,9 +33,10 @@
     
     self.eventListViewController = [[EventListViewController alloc] init];
     self.giftListViewController = [[GiftListViewController alloc] init];
+    self.eventNavigationController = [[UINavigationController alloc] initWithRootViewController:self.eventListViewController];
     
     [self.tabBar setSelectedItem:self.eventListTabBarItem];
-    [self showContentViewController:self.eventListViewController];
+    [self showContentViewController:self.eventNavigationController];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -73,7 +75,7 @@
 #pragma mark - Tab bar
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
     if ([item.title isEqualToString:@"Events"]) {
-        [self goToViewController:self.eventListViewController];
+        [self goToViewController:self.eventNavigationController];
     } else if ([item.title isEqualToString:@"Gifts"]) {
         [self goToViewController:self.giftListViewController];
     } else if ([item.title isEqualToString:@"Logout"]) {

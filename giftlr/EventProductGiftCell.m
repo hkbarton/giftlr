@@ -9,6 +9,7 @@
 #import "EventProductGiftCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ProductHTMLParser.h"
+#import "UIColor+giftlr.h"
 
 @interface EventProductGiftCell() <UIGestureRecognizerDelegate>
 
@@ -46,6 +47,8 @@
     self.claimedByLabel.hidden = YES;
     self.buyStatus.hidden = YES;
     self.claimStatus.hidden = YES;
+    self.btnBuy.backgroundColor = [UIColor redPinkColor];
+    self.btnClaim.backgroundColor = [UIColor redPinkColor];
     [self hideAllControlButtons];
 }
 

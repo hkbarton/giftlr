@@ -33,6 +33,7 @@ NSString *const PFObjectClassName = @"ProductGift";
         self.price = [[NSDecimalNumber alloc] initWithFloat:[pfObject[@"price"] floatValue]];
         self.imageURLs = pfObject[@"imageURLs"];
         self.status = pfObject[@"status"];
+        self.claimerName = pfObject[@"claimerName"];
         NSString *fbEventId = pfObject[@"fbEventId"];
         if (fbEventId!=nil) {
             // TODO change to load event from Event object
