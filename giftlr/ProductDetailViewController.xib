@@ -10,6 +10,7 @@
                 <outlet property="containerDetail" destination="aoi-M1-cWt" id="fE6-VA-DBg"/>
                 <outlet property="heightConstraintOfTabbar" destination="FrF-KR-3vs" id="dTv-jd-XZN"/>
                 <outlet property="imageProduct" destination="CqF-pj-rhd" id="Nc5-zF-DXD"/>
+                <outlet property="labelQuantity" destination="xQs-eY-aUj" id="WIT-QH-qEO"/>
                 <outlet property="labelTitle" destination="ZCm-Cj-KSo" id="VZL-NP-6yR"/>
                 <outlet property="tabbar" destination="3jA-0N-14D" id="EsB-Hj-R6C"/>
                 <outlet property="txtDescription" destination="etc-xZ-PFi" id="wSH-UO-gG6"/>

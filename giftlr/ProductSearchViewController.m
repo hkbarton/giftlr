@@ -11,6 +11,7 @@
 #import "ProductDetailViewController.h"
 #import "UIColor+giftlr.h"
 #import "ModalViewTransition.h"
+#import "SVProgressHUD.h"
 
 @interface ProductSearchViewController () <UIWebViewDelegate, UISearchBarDelegate, ProductDetailViewControllerDelegate>
 
@@ -23,6 +24,8 @@
 
 @property (nonatomic, strong) NSString *curAddress;
 @property (nonatomic, strong) Event *hostEvent;
+@property (nonatomic, assign) BOOL isWebViewLoading;
+@property (nonatomic, assign) BOOL needAddProductAfterWebLoading;
 
 @property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
 
@@ -46,27 +49,29 @@ NSString *const AddressHome = @"";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // navigation bar
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.navigationController.navigationBar.barTintColor = [UIColor redPinkColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-    // address bar
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.keyboardType = UIKeyboardTypeURL;
     self.searchBar.returnKeyType = UIReturnKeyGo;
     self.searchBar.placeholder = @"Search Google Or Enter Address";
-    [self.searchBar setTintColor:[UIColor whiteColor]];
-    
+    for (UIView *subView in [[[self.searchBar subviews] objectAtIndex:0] subviews]) {
+        if ([subView isKindOfClass:[UITextField class]]){
+            subView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+            subView.layer.borderWidth = 1;
+            subView.layer.cornerRadius = 3.0f;
+            break;
+        }
+    }
     self.searchBar.delegate = self;
     self.navigationItem.titleView = self.searchBar;
-    // right side buttons
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onCloseClicked)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"home"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(onHomeClicked)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(onCloseClicked)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"home"] style:UIBarButtonItemStylePlain target:self action:@selector(onHomeClicked)];
     // web view
     self.webView.delegate = self;
     [self loadHomeWeb];
     // tab bar
     self.btnAddProduct.enabled = NO;
     // init data
+    self.isWebViewLoading = NO;
     self.curAddress = AddressHome;
 }
 
@@ -74,9 +79,9 @@ NSString *const AddressHome = @"";
     [super didReceiveMemoryWarning];
 }
 
--(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(ProductGift *)productGift {
+-(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(NSArray *)products {
     if (self.delegate) {
-        [self.delegate productSearchViewController:self didProductGiftAdd:productGift];
+        [self.delegate productSearchViewController:self didProductGiftAdd:products];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -120,6 +125,7 @@ NSString *const AddressHome = @"";
 #pragma mark web view
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    self.isWebViewLoading = YES;
     [self refreshWebToolbarStatus];
     [self.searchBar resignFirstResponder];
 }
@@ -130,21 +136,19 @@ NSString *const AddressHome = @"";
         self.curAddress = AddressHome;
     }
     self.searchBar.text = self.curAddress;
-    self.btnAddProduct.enabled = [ProductGift isProductParseAbleFromWeb:[NSURL URLWithString:self.curAddress] withHTML:[self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"]];
+    self.isWebViewLoading = NO;
+    if (self.needAddProductAfterWebLoading) {
+        self.needAddProductAfterWebLoading = NO;
+        [SVProgressHUD dismiss];
+        [self addProduct];
+    } else {
+        self.btnAddProduct.enabled = [ProductGift isProductParseAbleFromWeb:[NSURL URLWithString:self.curAddress] withHTML:[self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.innerHTML"]];
+    }
 }
 
 #pragma mark - Search Bar
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
-    searchBar.showsCancelButton = YES;
-    return YES;
-}
-
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
-    searchBar.showsCancelButton = NO;
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     searchBar.text = self.curAddress;
     [searchBar resignFirstResponder];
 }
@@ -167,7 +171,12 @@ NSString *const AddressHome = @"";
 
 - (IBAction)onAddProductClicked:(id)sender {
     if (self.btnAddProduct.enabled) {
-        [self addProduct];
+        if (self.isWebViewLoading) {
+            [SVProgressHUD show];
+            self.needAddProductAfterWebLoading = YES;
+        } else {
+            [self addProduct];
+        }
     }
 }
 

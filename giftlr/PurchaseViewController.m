@@ -33,11 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // navigation bar
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:90.0f/255.0f green:90.0f/255.0f blue:90.0f/255.0f alpha:1.0f];
-//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
-//    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationItem.title = @"Buy Product";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onCloseClicked)];
     // set view style
     self.tabbar.backgroundColor = [UIColor redPinkColor];
     // load web view
@@ -46,6 +43,10 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)onCloseClicked {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)btnDoneClicked:(id)sender {

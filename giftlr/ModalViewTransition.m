@@ -52,7 +52,7 @@
         toViewController.view.center = containerView.center;
         toViewController.view.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
         self.modalBgView.alpha = 0;
-        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:0 options:0 animations:^{
+        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
             self.modalBgView.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
         } completion:^(BOOL finished){

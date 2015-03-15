@@ -17,7 +17,7 @@ extern NSString *const ProductDetailViewModeView;
 @protocol ProductDetailViewControllerDelegate
 
 @optional
--(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(ProductGift *)productGift;
+-(void)productDetailViewController:(ProductDetailViewController *)productDetailViewController didProductGiftAdd:(NSArray *)products;
 
 @end
 

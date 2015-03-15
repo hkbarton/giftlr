@@ -15,7 +15,7 @@
 @protocol ProductSearchViewControllerDelegate
 
 @optional
--(void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift;
+-(void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(NSArray *)products;
 
 @end
 

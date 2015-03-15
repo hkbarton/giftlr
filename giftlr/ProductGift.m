@@ -31,7 +31,6 @@ NSString *const PFObjectClassName = @"ProductGift";
         self.productDescription = pfObject[@"productDescription"];
         self.productURL = pfObject[@"productURL"];
         self.price = [[NSDecimalNumber alloc] initWithFloat:[pfObject[@"price"] floatValue]];
-        self.quantity = [pfObject[@"quantity"] integerValue];
         self.imageURLs = pfObject[@"imageURLs"];
         self.status = pfObject[@"status"];
         NSString *fbEventId = pfObject[@"fbEventId"];
@@ -44,6 +43,23 @@ NSString *const PFObjectClassName = @"ProductGift";
     return self;
 }
 
+-(id)clone {
+    ProductGift *result = [[ProductGift alloc] init];
+    result.name = self.name;
+    result.productDescription = self.productDescription;
+    result.productURL = self.productURL;
+    result.price = [[NSDecimalNumber alloc] initWithFloat: [self.price floatValue]];
+    result.imageURLs = [NSMutableArray arrayWithArray:self.imageURLs];
+    result.status = self.status;
+    if (self.hostEvent) {
+        result.hostEvent = [[Event alloc] init];
+        result.hostEvent.fbEventId = self.hostEvent.fbEventId;
+    }
+    result.claimerFacebookUserID = self.claimerFacebookUserID;
+    result.claimerName = self.claimerName;
+    return result;
+}
+
 -(PFObject *)getPFObject {
     return self.pfObject;
 }
@@ -51,7 +67,9 @@ NSString *const PFObjectClassName = @"ProductGift";
 -(void)deleteFromParse {
     NSLog(@"try to delete %@", self.pfObject.objectId);
     [self.pfObject deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        NSLog(@"deleted with error %@", error);
+        if (error) {
+            NSLog(@"deleted with error %@", error);
+        }
     }];
 }
 
@@ -66,7 +84,6 @@ NSString *const PFObjectClassName = @"ProductGift";
     }
     self.pfObject[@"productURL"] = self.productURL;
     self.pfObject[@"price"] = @([self.price floatValue]);
-    self.pfObject[@"quantity"] = @(self.quantity);
     if (self.imageURLs != nil) {
         self.pfObject[@"imageURLs"] = self.imageURLs;
     }
@@ -105,7 +122,6 @@ NSString *const PFObjectClassName = @"ProductGift";
     } else {
         result.price = [[NSDecimalNumber alloc] initWithFloat:0];
     }
-    result.quantity = 1;
     NSString *imageURL = [ProductHTMLParser parseData:html withParsePatterns:parser.imageURLParsePatterns];
     if (imageURL != nil) {
         result.imageURLs = [NSMutableArray arrayWithObjects:imageURL, nil];
@@ -117,6 +133,11 @@ NSString *const PFObjectClassName = @"ProductGift";
 +(BOOL)isProductParseAbleFromWeb:(NSURL *)url withHTML:(NSString *)html {
     if ([url absoluteString].length == 0) {
         return NO;
+    }
+    // TODO remove this logic to ProductHTMLParser
+    NSString *domain = [ProductHTMLParser getDomainFromURL:url];
+    if ([domain isEqualToString:@"bloomingdales.com"]) {
+        return YES;
     }
     ProductGift *product = [ProductGift parseProductFromWeb:url withHTML:html];
     if (product.imageURLs != nil && [product.imageURLs count] > 0) {

@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIColor+giftlr.h"
 #import "User.h"
+#import "ProductHTMLParser.h"
 
 NSString *const ProductDetailViewModeAdd = @"ProductDetailViewModeAdd";
 NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
@@ -21,6 +22,7 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 @property (weak, nonatomic) IBOutlet UIView *containerDetail;
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 @property (weak, nonatomic) IBOutlet UITextField *txtPrice;
+@property (weak, nonatomic) IBOutlet UILabel *labelQuantity;
 @property (weak, nonatomic) IBOutlet UITextField *txtQuantity;
 @property (weak, nonatomic) IBOutlet UITextView *txtDescription;
 @property (weak, nonatomic) IBOutlet UIImageView *imageProduct;
@@ -74,12 +76,15 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     // set read only mode
     if ([self.mode isEqualToString:ProductDetailViewModeView]) {
         self.heightConstraintOfTabbar.constant = 0;
+        self.btnAddGift.hidden = YES;
+        self.labelQuantity.hidden = YES;
+        self.txtQuantity.hidden = YES;
         [self.tabbar setNeedsUpdateConstraints];
         self.txtName.enabled = NO;
         self.txtPrice.enabled = NO;
         self.txtQuantity.enabled = NO;
         [self.txtDescription setEditable:NO];
-        self.labelTitle.text = @"View Gift";
+        self.labelTitle.text = [NSString stringWithFormat:@"%@",[ProductHTMLParser getDomainFromURL:[NSURL URLWithString:self.product.productURL]]];
     }
 }
 
@@ -108,14 +113,13 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
     [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
     self.txtPrice.text = [currencyFormat stringFromNumber:self.product.price];
-    self.txtQuantity.text = [NSString stringWithFormat:@"%ld", self.product.quantity];
+    self.txtQuantity.text = @"1";
     self.txtDescription.text = self.product.productDescription;
 }
 
 -(void)updateProductData {
     self.product.name = self.txtName.text;
     self.product.price = [[NSDecimalNumber alloc] initWithString:[self.txtPrice.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
-    self.product.quantity = [self.txtQuantity.text intValue];
     self.product.productDescription = self.txtDescription.text;
 }
 
@@ -178,11 +182,17 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 }
 
 - (IBAction)onBtnAddGiftClicked:(id)sender {
+    NSInteger quatity = [self.txtQuantity.text intValue];
     [self updateProductData];
-    [self.product saveToParse];
+    NSMutableArray *products = [NSMutableArray array];
+    for (int i = 0; i < quatity; i++) {
+        ProductGift *clonedProduct = [self.product clone];
+        [products addObject:clonedProduct];
+        [clonedProduct saveToParse];
+    }
     [self dismissViewControllerAnimated:YES completion:^{
         if (self.delegate) {
-            [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
+            [self.delegate productDetailViewController:self didProductGiftAdd:products];
         }
     }];
 }

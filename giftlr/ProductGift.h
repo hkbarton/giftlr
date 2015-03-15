@@ -21,7 +21,6 @@ extern NSString *const ProductGiftBought;
 @property (nonatomic, strong) NSString *productDescription;
 @property (nonatomic, strong) NSString *productURL;
 @property (nonatomic, strong) NSDecimalNumber *price;
-@property (nonatomic, assign) NSInteger quantity;
 @property (nonatomic, strong) NSMutableArray *imageURLs;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) Event *hostEvent;
@@ -32,6 +31,7 @@ extern NSString *const ProductGiftBought;
 -(void)deleteFromParse;
 -(PFObject *)getPFObject;
 -(id)initWithPFObject:(PFObject *)pfObject;
+-(id)clone;
 
 +(ProductGift*)parseProductFromWeb:(NSURL *)url withHTML:(NSString *)html;
 +(BOOL)isProductParseAbleFromWeb:(NSURL *)url withHTML:(NSString *)html;

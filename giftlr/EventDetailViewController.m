@@ -341,8 +341,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 #pragma mark - Delegate of other view controllers
 
-- (void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(ProductGift *)productGift {
-    [self.productGiftList addObject:productGift];
+- (void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(NSArray *)products {
+    [self.productGiftList addObjectsFromArray:products];
     [self.tableView reloadData];
 }
 
