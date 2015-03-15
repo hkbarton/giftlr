@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
+                <outlet property="btnTabEvent" destination="cW1-aQ-PB7" id="QT8-ps-8VN"/>
+                <outlet property="btnTabGifts" destination="OdB-Dp-8ci" id="3zd-0T-WXZ"/>
+                <outlet property="btnTabProfile" destination="NaO-YV-tPk" id="53F-kd-AHF"/>
                 <outlet property="contentView" destination="KWz-mO-Ony" id="llC-fT-EPv"/>
-                <outlet property="eventListTabBarItem" destination="DPo-r0-5tX" id="KKt-Gd-AJA"/>
-                <outlet property="tabBar" destination="nfL-u5-Bb7" id="Mxf-1C-Hdo"/>
+                <outlet property="tabbar" destination="F0i-C7-SvB" id="yBQ-tw-Urd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,37 +20,81 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KWz-mO-Ony">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="521"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfL-u5-Bb7">
-                    <rect key="frame" x="0.0" y="519" width="320" height="49"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0i-C7-SvB">
+                    <rect key="frame" x="0.0" y="521" width="320" height="47"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cW1-aQ-PB7">
+                            <rect key="frame" x="20" y="11" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="TKR-BD-KwW"/>
+                                <constraint firstAttribute="height" constant="25" id="wPF-Hd-nGr"/>
+                            </constraints>
+                            <state key="normal" image="event-tab-normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onTabItemClick:" destination="-1" eventType="touchUpInside" id="uWl-sn-Zs0"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-Dp-8ci">
+                            <rect key="frame" x="90" y="11" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="NZa-AP-MZ1"/>
+                                <constraint firstAttribute="width" constant="25" id="Q3y-44-JMm"/>
+                            </constraints>
+                            <state key="normal" image="gift-tab-normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onTabItemClick:" destination="-1" eventType="touchUpInside" id="wSV-Um-CDC"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-YV-tPk">
+                            <rect key="frame" x="275" y="11" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="gUp-ja-qed"/>
+                                <constraint firstAttribute="width" constant="25" id="the-IR-fHy"/>
+                            </constraints>
+                            <state key="normal" image="profile-tab-normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onTabItemClick:" destination="-1" eventType="touchUpInside" id="nMC-Xr-cJa"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="xGq-q7-uFb"/>
+                        <constraint firstAttribute="height" constant="47" id="EOA-74-CUP"/>
+                        <constraint firstItem="cW1-aQ-PB7" firstAttribute="leading" secondItem="F0i-C7-SvB" secondAttribute="leading" constant="20" id="G0O-f9-T81"/>
+                        <constraint firstAttribute="trailing" secondItem="NaO-YV-tPk" secondAttribute="trailing" constant="20" id="HnD-Wg-cAk"/>
+                        <constraint firstAttribute="centerY" secondItem="cW1-aQ-PB7" secondAttribute="centerY" id="U9z-TQ-WGm"/>
+                        <constraint firstAttribute="centerY" secondItem="NaO-YV-tPk" secondAttribute="centerY" id="iUF-Ic-oEL"/>
+                        <constraint firstAttribute="centerY" secondItem="OdB-Dp-8ci" secondAttribute="centerY" id="pbw-Ob-FAg"/>
+                        <constraint firstItem="OdB-Dp-8ci" firstAttribute="leading" secondItem="cW1-aQ-PB7" secondAttribute="trailing" constant="45" id="tvO-5S-h6S"/>
                     </constraints>
-                    <items>
-                        <tabBarItem title="Events" image="Gift-26-pink" id="DPo-r0-5tX"/>
-                        <tabBarItem title="Gifts" image="Gift-26-pink" id="Ujt-Ta-20r"/>
-                        <tabBarItem title="Logout" image="Gift-26-pink" id="bLO-j5-oPn"/>
-                    </items>
-                </tabBar>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="nfL-u5-Bb7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="3R1-UZ-xZY"/>
                 <constraint firstItem="KWz-mO-Ony" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="5IE-Zl-N6L"/>
-                <constraint firstAttribute="bottom" secondItem="nfL-u5-Bb7" secondAttribute="bottom" id="5sJ-3T-hQi"/>
-                <constraint firstItem="nfL-u5-Bb7" firstAttribute="top" secondItem="KWz-mO-Ony" secondAttribute="bottom" id="MaE-RH-gD6"/>
+                <constraint firstAttribute="trailing" secondItem="F0i-C7-SvB" secondAttribute="trailing" id="9FQ-5g-nld"/>
+                <constraint firstItem="F0i-C7-SvB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SRC-JU-4ji"/>
                 <constraint firstAttribute="trailing" secondItem="KWz-mO-Ony" secondAttribute="trailing" id="T33-eD-91v"/>
-                <constraint firstAttribute="trailing" secondItem="nfL-u5-Bb7" secondAttribute="trailing" id="oP8-MS-ZcY"/>
+                <constraint firstItem="F0i-C7-SvB" firstAttribute="top" secondItem="KWz-mO-Ony" secondAttribute="bottom" id="aFd-69-INQ"/>
+                <constraint firstAttribute="bottom" secondItem="F0i-C7-SvB" secondAttribute="bottom" id="aKy-kU-dzA"/>
                 <constraint firstItem="KWz-mO-Ony" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="v3R-zw-oVi"/>
             </constraints>
-            <point key="canvasLocation" x="174" y="398"/>
+            <point key="canvasLocation" x="174" y="551"/>
         </view>
     </objects>
     <resources>
-        <image name="Gift-26-pink" width="26" height="26"/>
+        <image name="event-tab-normal" width="25" height="25"/>
+        <image name="gift-tab-normal" width="25" height="25"/>
+        <image name="profile-tab-normal" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -55,6 +55,8 @@
 		9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DBF11AAD12F10070CEB8 /* EventDescriptionCell.m */; };
 		9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */; };
 		9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */ = {isa = PBXBuildFile; fileRef = 9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */; };
+		96AB29D01AB6313E00FB64AD /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB29CE1AB6313E00FB64AD /* EventKit.framework */; };
+		96AB29D11AB6313E00FB64AD /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AB29CF1AB6313E00FB64AD /* EventKitUI.framework */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -150,6 +152,8 @@
 		9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventDescriptionCell.xib; sourceTree = "<group>"; };
 		9602DBFF1AB2C4C10070CEB8 /* UIColor+giftlr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+giftlr.h"; sourceTree = "<group>"; };
 		9602DC001AB2C4C10070CEB8 /* UIColor+giftlr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+giftlr.m"; sourceTree = "<group>"; };
+		96AB29CE1AB6313E00FB64AD /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		96AB29CF1AB6313E00FB64AD /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96AB29D01AB6313E00FB64AD /* EventKit.framework in Frameworks */,
+				96AB29D11AB6313E00FB64AD /* EventKitUI.framework in Frameworks */,
 				E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,18 +315,13 @@
 		073B41DD1AA815BA00139A10 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29CD1AB6309E00FB64AD /* Event */,
 				07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */,
 				33AC4BCE1AAD219900438120 /* Gift */,
 				072FC3AF1AABA3C100E7A1D5 /* Product */,
 				9602DBD11AA96C970070CEB8 /* LoginViewController.h */,
 				9602DBD21AA96C970070CEB8 /* LoginViewController.m */,
 				9602DBD31AA96C970070CEB8 /* LoginViewController.xib */,
-				9602DBD61AAB51E50070CEB8 /* EventListViewController.h */,
-				9602DBD71AAB51E50070CEB8 /* EventListViewController.m */,
-				9602DBD81AAB51E50070CEB8 /* EventListViewController.xib */,
-				9602DBE61AACEC640070CEB8 /* EventDetailViewController.h */,
-				9602DBE71AACEC640070CEB8 /* EventDetailViewController.m */,
-				9602DBE81AACEC640070CEB8 /* EventDetailViewController.xib */,
 				3344044A1AB40283008B2A73 /* MainViewController.h */,
 				3344044B1AB40283008B2A73 /* MainViewController.m */,
 				3344044C1AB40284008B2A73 /* MainViewController.xib */,
@@ -356,9 +357,24 @@
 		4948AD42E08B503D3A371C65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29CE1AB6313E00FB64AD /* EventKit.framework */,
+				96AB29CF1AB6313E00FB64AD /* EventKitUI.framework */,
 				31F1E81EBE4E83E81F5D889F /* libPods.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		96AB29CD1AB6309E00FB64AD /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				9602DBD61AAB51E50070CEB8 /* EventListViewController.h */,
+				9602DBD71AAB51E50070CEB8 /* EventListViewController.m */,
+				9602DBD81AAB51E50070CEB8 /* EventListViewController.xib */,
+				9602DBE61AACEC640070CEB8 /* EventDetailViewController.h */,
+				9602DBE71AACEC640070CEB8 /* EventDetailViewController.m */,
+				9602DBE81AACEC640070CEB8 /* EventDetailViewController.xib */,
+			);
+			name = Event;
 			sourceTree = "<group>";
 		};
 		D3923DAA5882719613D4CDA1 /* Pods */ = {

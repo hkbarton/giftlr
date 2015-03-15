@@ -5,6 +5,10 @@
 //  Created by Yingming Chen on 3/7/15.
 //  Copyright (c) 2015 kenayi. All rights reserved.
 //
+
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
+
 #import <Parse/Parse.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
@@ -18,7 +22,7 @@
 #import "Event.h"
 #import "UIColor+giftlr.h"
 
-@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate>
+@interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, EKEventEditViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
@@ -37,6 +41,10 @@
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
 @property (nonatomic, strong) UIView *searchBgView;
 @property (nonatomic, weak) UIImageView *navBarHairlineImageView;
+
+//@property (nonatomic, strong) EKEventEditViewController *eventEditViewController;
+@property (nonatomic, retain) EKEventStore *eventStore;
+@property (nonatomic, retain) EKCalendar *defaultCalendar;
 
 - (IBAction)onInvitedClicked:(id)sender;
 - (IBAction)onHostingClicked:(id)sender;
@@ -74,12 +82,16 @@
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     self.title = @"Events";
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Plus-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddEvent)];
     self.navigationItem.rightBarButtonItems = @[searchItem];
     
     // "pull to refresh" support
     self.tableRefreshControl = [[UIRefreshControl alloc] init];
     [self.tableRefreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.tableRefreshControl atIndex:0];
+    
+    self.eventStore = [[EKEventStore alloc] init];
+    self.defaultCalendar = [self.eventStore defaultCalendarForNewEvents];
     
     [self loadCurrentUserFBProfile];
     [self fetchParseEvents];
@@ -111,6 +123,53 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.navBarHairlineImageView.hidden = NO;
+}
+
+# pragma mark - navigation bar actions
+
+// https://developer.apple.com/library/mac/documentation/DataManagement/Conceptual/EventKitProgGuide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004759-SW1
+// TODO: create a giftlr calendar
+- (void)onAddEvent {
+    [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+        if (granted) {
+            EKEventEditViewController *eventEditViewController = [[EKEventEditViewController alloc] init];
+            eventEditViewController.eventStore = self.eventStore;
+            eventEditViewController.editViewDelegate = self;
+            [self presentViewController:eventEditViewController animated:YES completion:^{
+            }];
+        } else {
+            NSLog(@"no access granted");
+        }
+    }];
+}
+
+- (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action {
+    EKEvent *ekEvent = controller.event;
+    switch (action) {
+        case EKEventEditViewActionCanceled:
+            NSLog(@"event creation cancel");
+            break;
+        case EKEventEditViewActionSaved:
+            NSLog(@"event created %@", ekEvent);
+            [self addEventWithEKEvent:ekEvent];
+            break;
+        default:
+            break;
+    }
+    [controller dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void) addEventWithEKEvent:(EKEvent *)ekEvent {
+    Event *event = [[Event alloc] initWithEKEvent:ekEvent type:EventTypeCreated];
+    [event saveToParseWithCompletion:^(NSError *error) {
+        // save the relations
+        [[User currentUser] linkUserWithEvent:event];
+        [self.allEvents addObject:event];
+        [self.myEvents addObject:event];
+        [self sortEvents];
+        [self.tableView reloadData];
+    }];
 }
 
 - (void)showSearchBar {
@@ -381,21 +440,23 @@
                     // Save the new event data
                     self.allEvents = allEvents;
                     self.myEvents = myEvents;
-                    
-                    [self.allEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
-                    }];
-                    [self.myEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
-                    }];
-                    
                     [self.tableRefreshControl endRefreshing];
+                    [self sortEvents];
                     [self.tableView reloadData];
                 } else {
                     NSLog(@"failed get fb event %@", error);
                 }
             }];
         }
+    }];
+}
+
+- (void) sortEvents {
+    [self.allEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
+    }];
+    [self.myEvents sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
     }];
 }
 

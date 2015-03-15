@@ -61,6 +61,41 @@ static NSDateFormatter *df = nil;
     return self;
 }
 
+- (id)initWithEKEvent:(EKEvent *)event type:(EventType)type {
+    self = [super init];
+    
+    if (self) {
+        self.pfObject = nil;
+
+        // @TODO: maybe use some different id filed?
+        self.fbEventId = [NSString stringWithFormat:@"EKEvent-%@", [[NSUUID UUID] UUIDString]];
+        self.location = event.location;
+        self.name = event.title;
+        if (df == nil) {
+            df = [[NSDateFormatter alloc] init];
+        }
+        self.eventType = type;
+        self.isHostEvent = (self.eventType == EventTypeCreated);
+        
+        if (self.isHostEvent) {
+            self.eventHostId = [User currentUser].fbUserId;
+            self.eventHostName = [User currentUser].name;
+        }
+        
+        self.startTime = event.startDate;
+        [df setDateFormat:@"EEE, MMM dd, yyyy 'at' h:mma"];
+        self.startTimeString =[df stringFromDate:self.startTime];
+        [df setDateFormat:@"MMM"];
+        self.startTimeMonth =[df stringFromDate:self.startTime];
+        [df setDateFormat:@"dd"];
+        self.startTimeDay =[df stringFromDate:self.startTime];
+        
+        self.eventDescription = event.notes;
+    }
+    
+    return self;
+}
+
 - (id)initWithPFObject:(PFObject*)pfObject {
     self = [super init];
     if (self) {

@@ -5,7 +5,7 @@
 //  Created by Yingming Chen on 3/7/15.
 //  Copyright (c) 2015 kenayi. All rights reserved.
 //
-
+#import <EventKit/EventKit.h>
 #import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 
@@ -48,6 +48,8 @@ typedef NS_ENUM(NSInteger, EventType) {
 - (id)initWithPFObject:(PFObject *)pfObject;
 
 - (id)initWithData:(NSDictionary *)data type:(EventType)type;
+
+- (id)initWithEKEvent:(EKEvent *)event type:(EventType)type;
 
 - (void)saveToParse;
 
