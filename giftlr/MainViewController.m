@@ -11,16 +11,22 @@
 #import "User.h"
 #import "EventListViewController.h"
 #import "GiftListViewController.h"
+#import "UIColor+giftlr.h"
 
 @interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
+@property (weak, nonatomic) IBOutlet UIView *tabbar;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabEvent;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabGifts;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabProfile;
 
 @property (strong, nonatomic) EventListViewController *eventListViewController;
 @property (strong, nonatomic) GiftListViewController *giftListViewController;
 @property (strong, nonatomic) UINavigationController *eventNavigationController;
 @property (strong, nonatomic) UIViewController *currentViewController;
-@property (weak, nonatomic) IBOutlet UITabBarItem *eventListTabBarItem;
+
+- (IBAction)onTabItemClick:(id)sender;
 
 @end
 
@@ -28,16 +34,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tabBar.delegate = self;
-    
+    // tabbar
+    self.tabbar.backgroundColor = [UIColor lightGreyBackgroundColor];
+    [self.btnTabEvent setImage:[UIImage imageNamed:@"event-tab-select"] forState:UIControlStateSelected];
+    [self.btnTabGifts setImage:[UIImage imageNamed:@"gift-tab-select"] forState:UIControlStateSelected];
+    [self.btnTabProfile setImage:[UIImage imageNamed:@"profile-tab-select"] forState:UIControlStateSelected];
+    self.btnTabEvent.selected = YES;
+    // container view controller
     self.eventListViewController = [[EventListViewController alloc] init];
     self.giftListViewController = [[GiftListViewController alloc] init];
     self.eventNavigationController = [[UINavigationController alloc] initWithRootViewController:self.eventListViewController];
     self.giftListViewController.delegate = self;
-    
-    [self.tabBar setSelectedItem:self.eventListTabBarItem];
     [self showContentViewController:self.eventNavigationController];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    // tabbar shadow
+    self.tabbar.layer.masksToBounds = NO;
+    self.tabbar.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.tabbar.layer.shadowOffset = CGSizeMake(0, 2.5);
+    self.tabbar.layer.shadowOpacity = 0.5f;
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.tabbar.bounds];
+    self.tabbar.layer.shadowPath = shadowPath.CGPath;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,26 +92,31 @@
 }
 
 #pragma mark - Tab bar
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if ([item.title isEqualToString:@"Events"]) {
-        [self goToViewController:self.eventNavigationController];
-    } else if ([item.title isEqualToString:@"Gifts"]) {
+
+- (IBAction)onTabItemClick:(id)sender {
+    [self setSelectedTabButton:sender];
+    if (sender == self.btnTabEvent) {
+       [self goToViewController:self.eventNavigationController];
+    } else if (sender == self.btnTabGifts) {
         [self goToViewController:self.giftListViewController];
-    } else if ([item.title isEqualToString:@"Logout"]) {
+    } else if (sender == self.btnTabProfile) {
         // TODO: Replace Logout with Settings
         [self onLogout];
-    } else {
-        
     }
+}
+
+-(void)setSelectedTabButton:(id)sender {
+    self.btnTabEvent.selected = NO;
+    self.btnTabGifts.selected = NO;
+    self.btnTabProfile.selected = NO;
+    UIButton *button = (UIButton *)sender;
+    button.selected = YES;
 }
 
 #pragma mark - Gift List View Controller
 - (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
     [self goToViewController:self.eventListViewController];
-    [self.tabBar setSelectedItem:self.eventListTabBarItem];
+    [self setSelectedTabButton:self.btnTabEvent];
 }
-
-
-
 
 @end
