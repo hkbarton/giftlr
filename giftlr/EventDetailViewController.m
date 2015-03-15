@@ -16,6 +16,7 @@
 #import "AddCashGiftViewController.h"
 #import "ProductDetailViewController.h"
 #import "PayCashViewController.h"
+#import "ModalViewTransition.h"
 #import "UIColor+giftlr.h"
 
 typedef NS_ENUM(NSInteger, AddGiftActionType) {
@@ -33,6 +34,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 @property (nonatomic, strong) NSMutableArray *productGiftList;
 @property (nonatomic, strong) NSMutableArray *cashGiftList;
+
+@property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
 
 @end
 
@@ -225,7 +228,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
         ProductGift *productGift = self.productGiftList[indexPath.row - 2];
         productGift.hostEvent = self.event;
         ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeView];
-        [self.navigationController pushViewController:pdvc animated:YES];
+        pdvc.modalPresentationStyle = UIModalPresentationCustom;
+        self.productDetailViewTransition = [ModalViewTransition newTransitionWithTargetViewController:pdvc];
+        pdvc.transitioningDelegate = self.productDetailViewTransition;
+        [self presentViewController:pdvc animated:YES completion:nil];
     } else if (indexPath.row >= [self.productGiftList count] + 2) { // cash gift
         CashGift *cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
         

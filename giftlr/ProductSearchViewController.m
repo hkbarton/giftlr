@@ -78,6 +78,7 @@ NSString *const AddressHome = @"";
     if (self.delegate) {
         [self.delegate productSearchViewController:self didProductGiftAdd:productGift];
     }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark event handle
