@@ -180,10 +180,11 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
 - (IBAction)onBtnAddGiftClicked:(id)sender {
     [self updateProductData];
     [self.product saveToParse];
-    if (self.delegate) {
-        [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.delegate) {
+            [self.delegate productDetailViewController:self didProductGiftAdd:self.product];
+        }
+    }];
 }
 
 - (IBAction)onCloseButtonClicked:(id)sender {

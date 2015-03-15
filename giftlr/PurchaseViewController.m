@@ -7,10 +7,12 @@
 //
 
 #import "PurchaseViewController.h"
+#import "UIColor+giftlr.h"
 
 @interface PurchaseViewController ()
 
 @property (weak, nonatomic) IBOutlet UIWebView *webview;
+@property (weak, nonatomic) IBOutlet UIView *tabbar;
 @property (weak, nonatomic) IBOutlet UIButton *btnDone;
 
 @property (nonatomic, strong) ProductGift *product;
@@ -36,6 +38,8 @@
 //    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
 //    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationItem.title = @"Buy Product";
+    // set view style
+    self.tabbar.backgroundColor = [UIColor redPinkColor];
     // load web view
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.product.productURL]]];
 }
