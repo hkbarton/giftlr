@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0729D5B91AB60C6E00E7C26A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5B71AB60C6E00E7C26A /* SettingViewController.m */; };
+		0729D5BA1AB60C6E00E7C26A /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */; };
+		0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5BD1AB6141D00E7C26A /* SettingMenuHeaderView.m */; };
+		0729D5C01AB6149600E7C26A /* SettingMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0729D5BF1AB6149600E7C26A /* SettingMenuHeaderView.xib */; };
+		0729D5C91AB6173A00E7C26A /* SettingMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5C71AB6173A00E7C26A /* SettingMenuTableViewCell.m */; };
+		0729D5CA1AB6173A00E7C26A /* SettingMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0729D5C81AB6173A00E7C26A /* SettingMenuTableViewCell.xib */; };
+		0729D5CD1AB638AC00E7C26A /* SideViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5CC1AB638AC00E7C26A /* SideViewTransition.m */; };
 		072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */; };
 		072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B61AABBDCD00E7A1D5 /* ProductGift.m */; };
 		072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 072FC3B91AABC6A300E7A1D5 /* ProductHTMLParser.m */; };
@@ -71,6 +78,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0729D5B61AB60C6E00E7C26A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		0729D5B71AB60C6E00E7C26A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		0729D5BC1AB6141D00E7C26A /* SettingMenuHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMenuHeaderView.h; sourceTree = "<group>"; };
+		0729D5BD1AB6141D00E7C26A /* SettingMenuHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMenuHeaderView.m; sourceTree = "<group>"; };
+		0729D5BF1AB6149600E7C26A /* SettingMenuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMenuHeaderView.xib; sourceTree = "<group>"; };
+		0729D5C61AB6173A00E7C26A /* SettingMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingMenuTableViewCell.h; sourceTree = "<group>"; };
+		0729D5C71AB6173A00E7C26A /* SettingMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingMenuTableViewCell.m; sourceTree = "<group>"; };
+		0729D5C81AB6173A00E7C26A /* SettingMenuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMenuTableViewCell.xib; sourceTree = "<group>"; };
+		0729D5CB1AB638AC00E7C26A /* SideViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideViewTransition.h; sourceTree = "<group>"; };
+		0729D5CC1AB638AC00E7C26A /* SideViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideViewTransition.m; sourceTree = "<group>"; };
 		072FC3B01AABA3E300E7A1D5 /* ProductDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDetailViewController.h; sourceTree = "<group>"; };
 		072FC3B11AABA3E300E7A1D5 /* ProductDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDetailViewController.m; sourceTree = "<group>"; };
 		072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailViewController.xib; sourceTree = "<group>"; };
@@ -177,6 +195,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0729D5BB1AB613BB00E7C26A /* SettingView */ = {
+			isa = PBXGroup;
+			children = (
+				0729D5BC1AB6141D00E7C26A /* SettingMenuHeaderView.h */,
+				0729D5BD1AB6141D00E7C26A /* SettingMenuHeaderView.m */,
+				0729D5BF1AB6149600E7C26A /* SettingMenuHeaderView.xib */,
+				0729D5C61AB6173A00E7C26A /* SettingMenuTableViewCell.h */,
+				0729D5C71AB6173A00E7C26A /* SettingMenuTableViewCell.m */,
+				0729D5C81AB6173A00E7C26A /* SettingMenuTableViewCell.xib */,
+			);
+			name = SettingView;
+			sourceTree = "<group>";
+		};
 		072FC3AF1AABA3C100E7A1D5 /* Product */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +318,7 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0729D5BB1AB613BB00E7C26A /* SettingView */,
 				9602DBE11AABD7380070CEB8 /* EventViewCell.h */,
 				9602DBE21AABD7380070CEB8 /* EventViewCell.m */,
 				9602DBE31AABD7380070CEB8 /* EventViewCell.xib */,
@@ -325,6 +357,9 @@
 				3344044A1AB40283008B2A73 /* MainViewController.h */,
 				3344044B1AB40283008B2A73 /* MainViewController.m */,
 				3344044C1AB40284008B2A73 /* MainViewController.xib */,
+				0729D5B61AB60C6E00E7C26A /* SettingViewController.h */,
+				0729D5B71AB60C6E00E7C26A /* SettingViewController.m */,
+				0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -334,6 +369,8 @@
 			children = (
 				07C1D3071AB4F0CB00EF171D /* ModalViewTransition.h */,
 				07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */,
+				0729D5CB1AB638AC00E7C26A /* SideViewTransition.h */,
+				0729D5CC1AB638AC00E7C26A /* SideViewTransition.m */,
 			);
 			name = ViewControllerTransitionStyle;
 			sourceTree = "<group>";
@@ -471,10 +508,13 @@
 				073B41C51AA8157500139A10 /* LaunchScreen.xib in Resources */,
 				9602DBDA1AAB51E50070CEB8 /* EventListViewController.xib in Resources */,
 				9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */,
+				0729D5C01AB6149600E7C26A /* SettingMenuHeaderView.xib in Resources */,
 				9602DBEA1AACEC640070CEB8 /* EventDetailViewController.xib in Resources */,
+				0729D5CA1AB6173A00E7C26A /* SettingMenuTableViewCell.xib in Resources */,
 				0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */,
 				9602DBE51AABD7380070CEB8 /* EventViewCell.xib in Resources */,
 				9602DBF41AAD12F10070CEB8 /* EventDescriptionCell.xib in Resources */,
+				0729D5BA1AB60C6E00E7C26A /* SettingViewController.xib in Resources */,
 				3344044E1AB40284008B2A73 /* MainViewController.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
@@ -541,10 +581,12 @@
 				9602DBE01AABAFCB0070CEB8 /* Event.m in Sources */,
 				9602DBDD1AAB8E530070CEB8 /* User.m in Sources */,
 				07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */,
+				0729D5B91AB60C6E00E7C26A /* SettingViewController.m in Sources */,
 				07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */,
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
+				0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */,
 				9602DBD91AAB51E50070CEB8 /* EventListViewController.m in Sources */,
 				9602DBEE1AACFDE20070CEB8 /* EventDetailViewCell.m in Sources */,
 				9602DBE41AABD7380070CEB8 /* EventViewCell.m in Sources */,
@@ -561,7 +603,9 @@
 				9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
 				07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */,
+				0729D5C91AB6173A00E7C26A /* SettingMenuTableViewCell.m in Sources */,
 				9602DBD41AA96C970070CEB8 /* LoginViewController.m in Sources */,
+				0729D5CD1AB638AC00E7C26A /* SideViewTransition.m in Sources */,
 				33AC4BE01AAD227C00438120 /* CashGiftCell.m in Sources */,
 				33AC4BED1AAD531400438120 /* PayCashViewController.m in Sources */,
 				072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */,

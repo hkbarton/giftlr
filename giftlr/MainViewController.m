@@ -11,9 +11,11 @@
 #import "User.h"
 #import "EventListViewController.h"
 #import "GiftListViewController.h"
+#import "SettingViewController.h"
+#import "SideViewTransition.h"
 #import "UIColor+giftlr.h"
 
-@interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate>
+@interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate, SettingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *tabbar;
@@ -25,6 +27,8 @@
 @property (strong, nonatomic) GiftListViewController *giftListViewController;
 @property (strong, nonatomic) UINavigationController *eventNavigationController;
 @property (strong, nonatomic) UIViewController *currentViewController;
+
+@property (strong, nonatomic) SideViewTransition *menuViewTransition;
 
 - (IBAction)onTabItemClick:(id)sender;
 
@@ -94,14 +98,27 @@
 #pragma mark - Tab bar
 
 - (IBAction)onTabItemClick:(id)sender {
-    [self setSelectedTabButton:sender];
+    if (sender != self.btnTabProfile) {
+        [self setSelectedTabButton:sender];
+    }
     if (sender == self.btnTabEvent) {
        [self goToViewController:self.eventNavigationController];
     } else if (sender == self.btnTabGifts) {
         [self goToViewController:self.giftListViewController];
     } else if (sender == self.btnTabProfile) {
-        // TODO: Replace Logout with Settings
+        SettingViewController *svc = [[SettingViewController alloc] init];
+        self.menuViewTransition = [SideViewTransition newTransitionWithTargetViewController:svc andSideDirection:RightSideDirection];
+        svc.transitioningDelegate = self.menuViewTransition;
+        svc.delegate = self;
+        [self presentViewController:svc animated:YES completion:nil];
+    }
+}
+
+-(void)settingViewController:(SettingViewController *)settingViewController didMenuItemSelected:(NSString *)menuID {
+    if ([menuID isEqualToString:SettingMenuLogout]) {
         [self onLogout];
+    } else if ([menuID isEqualToString:SettingMenuPayment]) {
+        
     }
 }
 
