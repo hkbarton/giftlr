@@ -36,8 +36,7 @@
     
     cashGift.name = self.nameTextField.text;
     cashGift.amount = [[NSDecimalNumber alloc] initWithString:self.priceTextField.text];
-    cashGift.facebookEventID = self.event.fbEventId;
-    cashGift.hostName = self.event.eventHostName;
+    cashGift.hostEvent = self.event;
     
     [cashGift saveToParse];
     

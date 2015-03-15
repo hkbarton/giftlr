@@ -39,6 +39,7 @@ NSString *const PFObjectClassName = @"ProductGift";
             // TODO change to load event from Event object
             self.hostEvent = [[Event alloc] init];
             self.hostEvent.fbEventId = fbEventId;
+            self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
         }
     }
     return self;
@@ -55,6 +56,7 @@ NSString *const PFObjectClassName = @"ProductGift";
     if (self.hostEvent) {
         result.hostEvent = [[Event alloc] init];
         result.hostEvent.fbEventId = self.hostEvent.fbEventId;
+        result.hostEvent.eventHostId = self.hostEvent.eventHostId;
     }
     result.claimerFacebookUserID = self.claimerFacebookUserID;
     result.claimerName = self.claimerName;
@@ -91,6 +93,9 @@ NSString *const PFObjectClassName = @"ProductGift";
     self.pfObject[@"status"] = self.status;
     if (self.hostEvent != nil) {
         self.pfObject[@"fbEventId"] = self.hostEvent.fbEventId;
+        if (self.hostEvent.eventHostId != nil) {
+            self.pfObject[@"hostFacebookUserID"] = self.hostEvent.eventHostId;
+        }
     }
     if (self.claimerFacebookUserID != nil) {
         self.pfObject[@"claimerFacebookUserID"] = self.claimerFacebookUserID;

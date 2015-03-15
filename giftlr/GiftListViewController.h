@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class GiftListViewController;
+
+@protocol GiftListViewControllerDelegate
+
+-(void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController;
+
+@end
+
 @interface GiftListViewController : UIViewController
+
+@property (weak, nonatomic) id<GiftListViewControllerDelegate> delegate;
 
 @end

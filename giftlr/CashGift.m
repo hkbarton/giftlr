@@ -22,12 +22,25 @@ NSString *const CashGiftBought = @"Bought";
 
     self.pfObject[@"name"] = self.name;
     self.pfObject[@"amount"] = @([self.amount floatValue]);
-    self.pfObject[@"facebookEventID"] = self.facebookEventID;
 
     if (!self.status) {
         self.status = CashGiftStatusUnclaimed;
     }
     self.pfObject[@"status"] = self.status;
+
+    if (self.hostEvent != nil) {
+        self.pfObject[@"facebookEventID"] = self.hostEvent.fbEventId;
+        if (self.hostEvent.eventHostId != nil) {
+            self.pfObject[@"hostFacebookUserID"] = self.hostEvent.eventHostId;
+        }
+    }
+    
+    if (self.claimerFacebookUserID != nil) {
+        self.pfObject[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
+    }
+    if (self.claimerName != nil) {
+        self.pfObject[@"claimerName"] = self.claimerName;
+    }
 
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -49,8 +62,16 @@ NSString *const CashGiftBought = @"Bought";
         
         self.name = [pfObject objectForKey:@"name"];
         self.amount = [pfObject objectForKey:@"amount"];
-        self.facebookEventID = [pfObject objectForKey:@"facebookEventID"];
         self.status = [pfObject objectForKey:@"status"];
+
+        NSString *facebookEventID = [pfObject objectForKey:@"facebookEventID"];
+        if (facebookEventID!=nil) {
+            // TODO change to load event from Event object
+            self.hostEvent = [[Event alloc] init];
+            self.hostEvent.fbEventId = facebookEventID;
+            self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
+        }
+
     }
     
     return self;

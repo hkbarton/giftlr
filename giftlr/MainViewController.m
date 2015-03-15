@@ -12,7 +12,7 @@
 #import "EventListViewController.h"
 #import "GiftListViewController.h"
 
-@interface MainViewController () <UITabBarDelegate>
+@interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
@@ -34,6 +34,7 @@
     self.eventListViewController = [[EventListViewController alloc] init];
     self.giftListViewController = [[GiftListViewController alloc] init];
     self.eventNavigationController = [[UINavigationController alloc] initWithRootViewController:self.eventListViewController];
+    self.giftListViewController.delegate = self;
     
     [self.tabBar setSelectedItem:self.eventListTabBarItem];
     [self showContentViewController:self.eventNavigationController];
@@ -84,6 +85,12 @@
     } else {
         
     }
+}
+
+#pragma mark - Gift List View Controller
+- (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
+    [self goToViewController:self.eventListViewController];
+    [self.tabBar setSelectedItem:self.eventListTabBarItem];
 }
 
 

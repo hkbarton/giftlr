@@ -7,6 +7,7 @@
 //
 
 #import "PayCashViewController.h"
+#import "User.h"
 
 @interface PayCashViewController ()
 - (IBAction)onPayButton:(id)sender;
@@ -38,6 +39,8 @@
 
 - (IBAction)onPayButton:(id)sender {
     self.cashGift.status = CashGiftBought;
+    self.cashGift.claimerFacebookUserID = [User currentUser].fbUserId;
+    self.cashGift.claimerName = [User currentUser].name;
     [self.cashGift saveToParse];
     
     [self dismissViewControllerAnimated:YES completion:nil];

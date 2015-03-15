@@ -21,9 +21,10 @@ extern NSString *const CashGiftBought;
 @property (strong, nonatomic) NSMutableArray *imageURLs;
 @property (strong, nonatomic) NSString *hostName;
 @property (strong, nonatomic) NSString *hostProfileImageURL;
-@property (strong, nonatomic) NSString *facebookEventID;
 @property (strong, nonatomic) NSString *claimerFacebookUserID;
+@property (nonatomic, strong) NSString *claimerName;
 @property (nonatomic, strong) NSString *status;
+@property (nonatomic, strong) Event *hostEvent;
 
 -(void)saveToParse;
 -(PFObject *)getPFObject;
