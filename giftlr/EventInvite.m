@@ -36,12 +36,6 @@
         self.eventId = pfObject[@"eventId"];
         self.guestUserId = pfObject[@"guestUserId"];
         self.inviteDate = pfObject[@"inviteDate"];
-        PFRelation *relation = [self.pfObject relationForKey:@"event"];
-//        [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *pfEvents, NSError *error) {
-//            if (!error && pfEvents.count > 0) {
-//                self.event = [[Event alloc] initWithPFObject:pfEvents[0]];
-//            }
-//        }];
     }
     
     return self;

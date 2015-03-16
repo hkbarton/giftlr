@@ -403,11 +403,24 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     EventViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventViewCell"];
+    cell.event = [self getEventForCell:indexPath];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
+    edvc.event = [self getEventForCell:indexPath];
+    [self presentViewController:nvc animated:YES completion:^{
+    }];
+}
+
+- (Event *)getEventForCell:(NSIndexPath *)indexPath {
     Event *event = nil;
     if (self.isSearchMode) {
         event = self.searchEvents[indexPath.row];
-        cell.event = event;
-        return cell;
+        return event;
     } else if (self.isMyEventMode) {
         switch (indexPath.section) {
             case EventListWithoutPendingSectionIndexUpcoming:
@@ -419,9 +432,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
             default:
                 break;
         }
-        
-        cell.event = event;
-        return cell;
+        return event;
     } else {
         if (self.showPendingEvents) {
             switch (indexPath.section) {
@@ -437,8 +448,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
                 default:
                     break;
             }
-            cell.event = event;
-            return cell;
+            return event;
         }
         
         switch (indexPath.section) {
@@ -451,24 +461,9 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
             default:
                 break;
         }
-        cell.event = event;
-        return cell;
-    }
-}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
-    Event *event = nil;
-    if (self.isMyEventMode) {
-        event = self.myEvents[indexPath.row];
-    } else {
-        event = self.allEvents[indexPath.row];
+        return event;
     }
-    edvc.event = event;
-    [self presentViewController:nvc animated:YES completion:^{
-    }];
 }
 
 #pragma mark - event handlers
