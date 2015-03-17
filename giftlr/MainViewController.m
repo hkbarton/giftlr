@@ -134,7 +134,7 @@
 
 #pragma mark - Gift List View Controller
 - (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
-    [self goToViewController:self.eventListViewController];
+    [self goToViewController:self.eventNavigationController];
     [self setSelectedTabButton:self.btnTabEvent];
 }
 

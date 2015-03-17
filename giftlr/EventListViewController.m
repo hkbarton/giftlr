@@ -115,6 +115,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
     self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    self.navBarHairlineImageView.hidden = YES;
     
     self.title = @"Events";
     UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
@@ -152,13 +153,14 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    if (self.isSearchMode) {
+        [self.searchBar becomeFirstResponder];
+    }
     [super viewWillAppear:animated];
-    self.navBarHairlineImageView.hidden = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.navBarHairlineImageView.hidden = NO;
 }
 
 # pragma mark - navigation bar actions
@@ -216,6 +218,9 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     if (!self.searchBgView) {
         self.searchBgView = [[UIView alloc] initWithFrame:self.tableView.bounds];
         self.searchBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        UITapGestureRecognizer *searchBgViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSearchBgViewTap)];
+        searchBgViewTapGestureRecognizer.delegate = self;
+        [self.searchBgView addGestureRecognizer:searchBgViewTapGestureRecognizer];
     }
     
     [self.tableView addSubview:self.searchBgView];
@@ -239,7 +244,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 - (void)onPan:(UIPanGestureRecognizer *)sender {
     CGPoint velocity = [sender velocityInView:self.view];
-    NSLog(@"on pan");
     if (sender.state == UIGestureRecognizerStateBegan) {
     } else if (sender.state == UIGestureRecognizerStateChanged) {
     } else if (sender.state == UIGestureRecognizerStateEnded) {
@@ -248,6 +252,10 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 //        } completion:^(BOOL finished) {
 //        }];
     }
+}
+
+- (void)onSearchBgViewTap {
+    [self cancelSearch];
 }
 
 #pragma mark - search bar control
@@ -278,21 +286,11 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 // Reset search bar state after cancel button clicked
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self.searchBgView removeFromSuperview];
-    self.searchBar.text = @"";
-    self.isSearchMode = NO;
-    [self.searchBar resignFirstResponder];
-    self.searchBarTopConstraint.constant = -30;
-    [self.searchBar setNeedsLayout];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.searchBar layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [self.tableView reloadData];
-    }];
+    [self cancelSearch];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [searchBar resignFirstResponder];
+    //[searchBar resignFirstResponder];
     [self.searchEvents removeAllObjects];
     NSString *text = searchBar.text;
     for (Event *event in self.allEvents) {
@@ -305,6 +303,20 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     }
     
     [self.tableView reloadData];
+}
+
+- (void)cancelSearch {
+    [self.searchBgView removeFromSuperview];
+    self.searchBar.text = @"";
+    self.isSearchMode = NO;
+    [self.searchBar resignFirstResponder];
+    self.searchBarTopConstraint.constant = -30;
+    [self.searchBar setNeedsLayout];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [self.searchBar layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Table methods
