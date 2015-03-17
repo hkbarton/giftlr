@@ -12,6 +12,7 @@
 #import "EventListViewController.h"
 #import "GiftListViewController.h"
 #import "SettingViewController.h"
+#import "PaymentSettingViewController.h"
 #import "SideViewTransition.h"
 #import "UIColor+giftlr.h"
 
@@ -118,7 +119,8 @@
     if ([menuID isEqualToString:SettingMenuLogout]) {
         [self onLogout];
     } else if ([menuID isEqualToString:SettingMenuPayment]) {
-        
+        PaymentSettingViewController *psvc = [[PaymentSettingViewController alloc] init];
+        [self presentViewController:psvc animated:YES completion:nil];
     }
 }
 

@@ -14,10 +14,13 @@
 #import "EventListViewController.h"
 #import "MainViewController.h"
 #import "UIColor+giftlr.h"
+#import "Stripe.h"
 
 @interface AppDelegate ()
 
 @end
+
+NSString * const StripePublishableKey = @"pk_test_0kSKLkULVcRJ4PvPcFH7Qpy5";
 
 @implementation AppDelegate
 
@@ -46,6 +49,10 @@
     }
     
     [self.window makeKeyAndVisible];
+    
+    // Setup Stripe
+    [Stripe setDefaultPublishableKey:StripePublishableKey];
+    
     return YES;
 }
 
