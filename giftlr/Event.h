@@ -44,12 +44,17 @@ typedef NS_ENUM(NSInteger, EventType) {
 @property (nonatomic, strong) NSString *profileUrl;
 
 @property (strong, nonatomic) PFObject *pfObject;
+@property (strong, nonatomic) NSMutableDictionary *guests;
 
 - (id)initWithPFObject:(PFObject *)pfObject;
 
 - (id)initWithData:(NSDictionary *)data type:(EventType)type;
 
 - (id)initWithEKEvent:(EKEvent *)event type:(EventType)type;
+
+- (void)inviteGuests:(NSArray *)guests;
+
+- (void)getInvitedGuestsWithCompletion:(void (^)(NSDictionary *guests, NSError *error))completion;
 
 - (void)saveToParse;
 

@@ -69,16 +69,6 @@
     }];
 }
 
-+ (void)inviteGuests:(Event *)event guests:(NSArray *)guests {
-    PFRelation *relation = [event.pfObject relationForKey:@"invitedGuests"];
-    for (User *guest in guests) {
-        EventInvite *invite = [[EventInvite alloc] initWithEvent:event guest:guest];
-        [invite saveToParse];
-        [relation addObject:guest.pfUser];
-    }
-    [event.pfObject saveInBackground];
-}
-
 // Fetch the pending invites. It will then delete those invites and add events into user's event field
 + (void)fetchPendingInvitesWithCompletion:(User *)user completion:(void (^)(NSArray *events, NSError *error))completion {
     PFQuery *inviteQuery = [PFQuery queryWithClassName:@"EventInvite"];

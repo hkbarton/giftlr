@@ -207,6 +207,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
         [self.myEvents addObject:event];
         [self sortEvents];
         [self.tableView reloadData];
+        [self presentEventDetailViewController:event];
     }];
 }
 
@@ -421,11 +422,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
-    edvc.event = [self getEventForCell:indexPath];
-    [self presentViewController:nvc animated:YES completion:^{
-    }];
+    [self presentEventDetailViewController:[self getEventForCell:indexPath]];
 }
 
 - (Event *)getEventForCell:(NSIndexPath *)indexPath {
@@ -516,6 +513,14 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 
 #pragma mark - helper functions
+
+- (void)presentEventDetailViewController:(Event *)event {
+    EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
+    edvc.event = event;
+    [self presentViewController:nvc animated:YES completion:^{
+    }];
+}
 
 - (void)setEventSourceSwitchState {
     if (self.isMyEventMode) {

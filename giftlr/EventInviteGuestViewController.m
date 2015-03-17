@@ -12,14 +12,18 @@
 #import "EventInvite.h"
 
 typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
-    FriendsSectionIndexGiftlr = 0,
-    FriendsSectionIndexMax = 1
+    FriendsSectionIndexInvited = 0,
+    FriendsSectionIndexGiftlrCandidates = 1,
+    FriendsSectionIndexMax = 2
 };
 
 @interface EventInviteGuestViewController () <UITableViewDataSource, UITableViewDelegate, CheckBoxCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableDictionary *guestsToInvite;
+@property (strong, nonatomic) NSMutableDictionary *guestsInvited;
+@property (strong, nonatomic) NSArray *guestsInvitedArray;
+@property (strong, nonatomic) NSMutableArray *guestCandidatesToInviteArray;
 @property (strong, nonatomic) NSArray *giftlrFriends;
 
 @end
@@ -38,16 +42,43 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onCheck)];
     
-    self.giftlrFriends = [[NSArray alloc] init];
     self.guestsToInvite = [NSMutableDictionary dictionary];
+    self.giftlrFriends = nil;
+    self.guestsInvited = nil;
+    self.guestsInvitedArray = [[NSArray alloc] init];
+    self.guestCandidatesToInviteArray = [NSMutableArray array];
+    
+    [self.event getInvitedGuestsWithCompletion:^(NSDictionary *guests, NSError *error) {
+        if (error) {
+            NSLog(@"failed to get invited guests");
+        } else {
+            self.guestsInvited = [[NSMutableDictionary alloc] initWithDictionary:guests];
+            self.guestsInvitedArray = self.guestsInvited.allValues;
+            if (self.giftlrFriends) {
+                [self decideGuestsToInvite];
+                [self.tableView reloadData];
+            }
+        }
+    }];
     [[User currentUser] getFriendsWithCompletion:^(NSArray *friends, NSError *error) {
         if (error) {
             NSLog(@"failed to get friends");
         } else {
             self.giftlrFriends = friends;
-            [self.tableView reloadData];
+            if (self.guestsInvited) {
+                [self decideGuestsToInvite];
+                [self.tableView reloadData];
+            }
         }
     }];
+}
+
+- (void) decideGuestsToInvite {
+    for (User *friend in self.giftlrFriends) {
+        if ([self.guestsInvited valueForKey:friend.fbUserId] == nil) {
+            [self.guestCandidatesToInviteArray addObject:friend];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +93,14 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"Friends on giftlr";
+    switch (section) {
+        case FriendsSectionIndexGiftlrCandidates:
+            return @"Invite other giftlr friends";
+        case FriendsSectionIndexInvited:
+            return @"Giftlr friends invited";
+        default:
+            return @"";
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -79,8 +117,18 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case FriendsSectionIndexGiftlr:
-            return self.giftlrFriends.count;
+        case FriendsSectionIndexGiftlrCandidates:
+            if (self.guestCandidatesToInviteArray) {
+                return self.guestCandidatesToInviteArray.count;
+            } else {
+                return 0;
+            }
+        case FriendsSectionIndexInvited:
+            if (self.guestsInvitedArray) {
+                return self.guestsInvitedArray.count;
+            } else {
+                return 0;
+            }
         default:
             return 0;
     }
@@ -89,10 +137,25 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CheckBoxCell *checkBoxCell = [tableView dequeueReusableCellWithIdentifier:@"CheckBoxCell"];
     checkBoxCell.delegate = self;
-    User *user = (User *)self.giftlrFriends[indexPath.row];
+    User *user;
+    
+    switch (indexPath.section) {
+        case FriendsSectionIndexGiftlrCandidates:
+            user = (User *)self.guestCandidatesToInviteArray[indexPath.row];
+            checkBoxCell.checked = NO;
+            break;
+        case FriendsSectionIndexInvited:
+            user = (User *)self.guestsInvitedArray[indexPath.row];
+            checkBoxCell.checked = YES;
+            // TODO: support uninvite friends
+            checkBoxCell.lockValue = YES;
+            break;
+        default:
+            return 0;
+    }
+    
     checkBoxCell.titleLabel.text = user.name;
     checkBoxCell.user = user;
-    checkBoxCell.checked = NO;
     return checkBoxCell;
 }
 
@@ -106,7 +169,7 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:checkBoxCell];
     
     switch (indexPath.section) {
-        case FriendsSectionIndexGiftlr:
+        case FriendsSectionIndexGiftlrCandidates:
             if (!value) {
                 [self.guestsToInvite removeObjectForKey:checkBoxCell.user.fbUserId];
             } else {
@@ -130,7 +193,16 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
 }
 
 - (void)onCheck {
-    [EventInvite inviteGuests:self.event guests:self.guestsToInvite.allValues];
+    NSArray * guestsToInviteArray = self.guestsToInvite.allValues;
+    [self.event inviteGuests:guestsToInviteArray];
+    if (guestsToInviteArray.count > 0) {
+        for (User *guest in guestsToInviteArray) {
+            [self.guestCandidatesToInviteArray removeObject:guest];
+            [self.guestsInvited setObject:guest forKey:guest.fbUserId];
+        }
+        self.guestsInvitedArray = self.guestsInvited.allValues;
+        [self.tableView reloadData];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

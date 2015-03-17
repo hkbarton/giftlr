@@ -24,6 +24,7 @@
 - (void)awakeFromNib {
     // Initialization code
     self.checked = NO;
+    self.lockValue = NO;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -34,10 +35,11 @@
 }
 
 - (IBAction)onTouch:(id)sender {
-    NSLog(@"on touch");
-    self.checked = !self.checked;
-    // Trigger the event to delegate
-    [self.delegate checkBoxCell:self didUpdateValue:self.checked];
+    if (!self.lockValue) {
+        self.checked = !self.checked;
+        // Trigger the event to delegate
+        [self.delegate checkBoxCell:self didUpdateValue:self.checked];
+    }
 }
 
 - (void)setChecked:(BOOL)checked {

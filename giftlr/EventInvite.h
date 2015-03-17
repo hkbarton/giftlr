@@ -23,7 +23,6 @@
 - (id)initWithPFObject:(PFObject *)pfObject;
 - (void)saveToParse;
 
-+ (void)inviteGuests:(Event *)event guests:(NSArray *)guests;
 + (void)fetchPendingInvitesWithCompletion:(User *)user completion:(void (^)(NSArray *events, NSError *error))completion;
 
 @end

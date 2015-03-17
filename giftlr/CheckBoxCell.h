@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) BOOL checked;
 
+@property (nonatomic, assign) BOOL lockValue;
+
 @property (nonatomic, strong) User *user;
 
 @property (nonatomic, weak) id<CheckBoxCellDelegate> delegate;

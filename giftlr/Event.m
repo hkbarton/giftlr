@@ -12,6 +12,7 @@
 
 #import "Event.h"
 #import "User.h"
+#import "EventInvite.h"
 
 @interface Event ()
 
@@ -26,6 +27,7 @@ static NSDateFormatter *df = nil;
 
     if (self) {
         self.pfObject = nil;
+        self.guests = [NSMutableDictionary dictionary];
         
         self.fbEventId = data[@"id"];
         self.location = data[@"location"];
@@ -66,6 +68,7 @@ static NSDateFormatter *df = nil;
     
     if (self) {
         self.pfObject = nil;
+        self.guests = [NSMutableDictionary dictionary];
 
         // @TODO: maybe use some different id filed?
         self.fbEventId = [NSString stringWithFormat:@"EKEvent-%@", [[NSUUID UUID] UUIDString]];
@@ -100,6 +103,7 @@ static NSDateFormatter *df = nil;
     self = [super init];
     if (self) {
         self.pfObject = pfObject;
+        self.guests = [NSMutableDictionary dictionary];
         
         self.fbEventId = pfObject[@"fbEventId"];
         self.location = pfObject[@"location"];
@@ -172,6 +176,35 @@ static NSDateFormatter *df = nil;
     }];
 }
 
+- (void)inviteGuests:(NSArray *)guests {
+    PFRelation *relation = [self.pfObject relationForKey:@"invitedGuests"];
+    for (User *guest in guests) {
+        // Make sure we don't invite one person twice
+        if ([self.guests objectForKey:guest.fbUserId] == nil) {
+            EventInvite *invite = [[EventInvite alloc] initWithEvent:self guest:guest];
+            [invite saveToParse];
+            [relation addObject:guest.pfUser];
+            [self.guests setObject:guest forKey:guest.fbUserId];
+        }
+    }
+    [self saveToParse];
+}
+
+- (void)getInvitedGuestsWithCompletion:(void (^)(NSDictionary *guests, NSError *error))completion {
+    PFRelation *relation = [self.pfObject relationForKey:@"invitedGuests"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *pfUsers, NSError *error) {
+        if (error) {
+            NSLog(@"Failed to get guest lists with error %@", error);
+            completion(nil, error);
+        } else {
+            for (PFUser *pfUser in pfUsers) {
+                User *user = [[User alloc] initWithPFUser:pfUser];
+                [self.guests setObject:user forKey:user.fbUserId];
+            }
+            completion(self.guests, nil);
+        }
+    }];
+}
 
 # pragma mark -- helper functions to fetch from FB
 
