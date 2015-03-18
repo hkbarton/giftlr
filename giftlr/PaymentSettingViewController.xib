@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentSettingViewController">
             <connections>
+                <outlet property="tableView" destination="XOp-zE-FVR" id="36g-bK-HT3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -13,10 +14,60 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Lb-ER-rsY">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaC-Ez-fBW">
+                            <rect key="frame" x="102" y="13" width="116" height="18"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O30-c7-xcn">
+                            <rect key="frame" x="285" y="9" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="SGB-iD-qIw"/>
+                                <constraint firstAttribute="width" constant="25" id="aqx-zL-RYa"/>
+                            </constraints>
+                            <state key="normal" image="close">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="onCloseButtonClicked:" destination="-1" eventType="touchUpInside" id="4Ts-Md-bE2"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.91200972579999995" green="0.33126988439999999" blue="0.35106738780000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="VaC-Ez-fBW" secondAttribute="centerY" id="Aik-U9-4zX"/>
+                        <constraint firstAttribute="centerY" secondItem="O30-c7-xcn" secondAttribute="centerY" id="BLp-gx-f3v"/>
+                        <constraint firstAttribute="trailing" secondItem="O30-c7-xcn" secondAttribute="trailing" constant="10" id="Ekr-0N-WqT"/>
+                        <constraint firstAttribute="height" constant="43" id="eYi-iM-9cI"/>
+                        <constraint firstAttribute="centerX" secondItem="VaC-Ez-fBW" secondAttribute="centerX" id="sXJ-BP-3wb"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="XOp-zE-FVR">
+                    <rect key="frame" x="0.0" y="43" width="320" height="525"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XOp-zE-FVR" firstAttribute="top" secondItem="4Lb-ER-rsY" secondAttribute="bottom" id="0Pd-p5-zbb"/>
+                <constraint firstItem="4Lb-ER-rsY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5ci-6o-tWR"/>
+                <constraint firstAttribute="bottom" secondItem="XOp-zE-FVR" secondAttribute="bottom" id="7go-ZR-4ov"/>
+                <constraint firstItem="4Lb-ER-rsY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Cbl-oT-tFc"/>
+                <constraint firstAttribute="trailing" secondItem="XOp-zE-FVR" secondAttribute="trailing" id="gpO-66-xQ5"/>
+                <constraint firstAttribute="trailing" secondItem="4Lb-ER-rsY" secondAttribute="trailing" id="kR9-Zw-Chc"/>
+                <constraint firstItem="XOp-zE-FVR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rDb-Bx-uHl"/>
+            </constraints>
             <point key="canvasLocation" x="231" y="425"/>
         </view>
     </objects>
+    <resources>
+        <image name="close" width="25" height="25"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

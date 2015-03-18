@@ -13,8 +13,6 @@ NSString *const ProductGiftStatusUnclaimed = @"Unclaimed";
 NSString *const ProductGiftStatusClaimed = @"Claimed";
 NSString *const ProductGiftBought = @"Bought";
 
-NSString *const PFObjectClassName = @"ProductGift";
-
 @interface ProductGift()
 
 @property (nonatomic, strong) PFObject *pfObject;
@@ -22,6 +20,8 @@ NSString *const PFObjectClassName = @"ProductGift";
 @end
 
 @implementation ProductGift
+
+NSString *const PFObjectClassName = @"ProductGift";
 
 -(id)initWithPFObject:(PFObject *)pfObject {
     if (self = [super init]) {
@@ -68,7 +68,6 @@ NSString *const PFObjectClassName = @"ProductGift";
 }
 
 -(void)deleteFromParse {
-    NSLog(@"try to delete %@", self.pfObject.objectId);
     [self.pfObject deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (error) {
             NSLog(@"deleted with error %@", error);

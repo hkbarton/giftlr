@@ -14,6 +14,7 @@
 #import "SettingViewController.h"
 #import "PaymentSettingViewController.h"
 #import "SideViewTransition.h"
+#import "BottomUpTransition.h"
 #import "UIColor+giftlr.h"
 
 @interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate, SettingViewControllerDelegate>
@@ -30,6 +31,7 @@
 @property (strong, nonatomic) UIViewController *currentViewController;
 
 @property (strong, nonatomic) SideViewTransition *menuViewTransition;
+@property (strong, nonatomic) BottomUpTransition *paymentSettingViewTransition;
 
 - (IBAction)onTabItemClick:(id)sender;
 
@@ -120,6 +122,8 @@
         [self onLogout];
     } else if ([menuID isEqualToString:SettingMenuPayment]) {
         PaymentSettingViewController *psvc = [[PaymentSettingViewController alloc] init];
+        self.paymentSettingViewTransition = [BottomUpTransition newTransitionWithTargetViewController:psvc];
+        psvc.transitioningDelegate = self.paymentSettingViewTransition;
         [self presentViewController:psvc animated:YES completion:nil];
     }
 }

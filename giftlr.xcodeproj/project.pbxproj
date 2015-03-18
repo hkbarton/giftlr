@@ -29,6 +29,8 @@
 		073E022C1AAB9044007778F4 /* Html in Resources */ = {isa = PBXBuildFile; fileRef = 073E022B1AAB9044007778F4 /* Html */; };
 		0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
 		0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
+		079CF3D41AB94D8600C2752D /* PaymentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D31AB94D8600C2752D /* PaymentInfo.m */; };
+		079CF3D71AB9518100C2752D /* BottomUpTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D61AB9518100C2752D /* BottomUpTransition.m */; };
 		07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */; };
 		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
 		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
@@ -122,6 +124,10 @@
 		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
 		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
 		073E022B1AAB9044007778F4 /* Html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Html; sourceTree = "<group>"; };
+		079CF3D21AB94D8600C2752D /* PaymentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentInfo.h; sourceTree = "<group>"; };
+		079CF3D31AB94D8600C2752D /* PaymentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentInfo.m; sourceTree = "<group>"; };
+		079CF3D51AB9518100C2752D /* BottomUpTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomUpTransition.h; sourceTree = "<group>"; };
+		079CF3D61AB9518100C2752D /* BottomUpTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomUpTransition.m; sourceTree = "<group>"; };
 		07C1D3071AB4F0CB00EF171D /* ModalViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewTransition.h; sourceTree = "<group>"; };
 		07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewTransition.m; sourceTree = "<group>"; };
 		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
@@ -334,6 +340,8 @@
 				33AC4BD61AAD222300438120 /* CashGift.m */,
 				96AB29DD1AB67EE200FB64AD /* EventInvite.h */,
 				96AB29DE1AB67EE200FB64AD /* EventInvite.m */,
+				079CF3D21AB94D8600C2752D /* PaymentInfo.h */,
+				079CF3D31AB94D8600C2752D /* PaymentInfo.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -394,6 +402,8 @@
 				07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */,
 				0729D5CB1AB638AC00E7C26A /* SideViewTransition.h */,
 				0729D5CC1AB638AC00E7C26A /* SideViewTransition.m */,
+				079CF3D51AB9518100C2752D /* BottomUpTransition.h */,
+				079CF3D61AB9518100C2752D /* BottomUpTransition.m */,
 			);
 			name = ViewControllerTransitionStyle;
 			sourceTree = "<group>";
@@ -634,8 +644,10 @@
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
 				96AB29D51AB65AB600FB64AD /* EventInviteGuestViewController.m in Sources */,
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
+				079CF3D71AB9518100C2752D /* BottomUpTransition.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
 				0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */,
+				079CF3D41AB94D8600C2752D /* PaymentInfo.m in Sources */,
 				9602DBD91AAB51E50070CEB8 /* EventListViewController.m in Sources */,
 				9602DBEE1AACFDE20070CEB8 /* EventDetailViewCell.m in Sources */,
 				9602DBE41AABD7380070CEB8 /* EventViewCell.m in Sources */,
