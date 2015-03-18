@@ -5,3 +5,4 @@ giftlr.xcodeproj/xcuserdata/
 Pods/
 Podfile.lock
 *.swp
+.DS_Store
