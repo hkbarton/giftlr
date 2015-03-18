@@ -38,6 +38,11 @@
     self.isControlMode = NO;
     self.claimByLabel.hidden = YES;
     self.btnClaim.backgroundColor = [UIColor redPinkColor];
+    self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.containerView.layer.cornerRadius = 3.0f;
+    self.containerView.clipsToBounds = YES;
+    self.controlView.layer.cornerRadius = 3.0f;
+    self.controlView.clipsToBounds = YES;
     [self hideAllControlButtons];
 }
 
@@ -66,7 +71,7 @@
 - (void)showControlView {
     NSInteger newConstraint;
     [self hideAllControlButtons];
-    newConstraint = -80;
+    newConstraint = -88;
     if (self.event.isHostEvent) {
         self.btnDelete.hidden = NO;
     } else {
@@ -95,8 +100,8 @@
 - (void)hideControlView {
     self.isControlMode = NO;
     [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
-    self.containerViewLeadingContraint.constant = 0;
-    self.containerViewTrailingConstraint.constant = 0;
+    self.containerViewLeadingContraint.constant = 8;
+    self.containerViewTrailingConstraint.constant = 8;
     [self.containerView setNeedsLayout];
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
         [self.containerView layoutIfNeeded];

@@ -7,13 +7,13 @@
 //
 
 #import "EventDescriptionCell.h"
+#import "UIColor+giftlr.h"
 
 @implementation EventDescriptionCell
 
 - (void)awakeFromNib {
     // Initialization code
-    UIColor *lightGrey = [UIColor  colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f];
-    self.backgroundColor = lightGrey;
+    self.backgroundColor = [UIColor lightGreyBackgroundColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

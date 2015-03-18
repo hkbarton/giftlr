@@ -6,18 +6,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="KGk-i7-Jjw" customClass="EventCashGiftCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="88" id="KGk-i7-Jjw" customClass="EventCashGiftCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8g9-fm-SLe" userLabel="Control View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                        <rect key="frame" x="8" y="4" width="304" height="79.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i62-a9-dDy" userLabel="Claim Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="79.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="79.5"/>
                                 <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="8oh-hm-7MM"/>
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqh-K5-ubs" userLabel="Unclaim Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="79.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="79.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="e2d-1v-m6a"/>
@@ -57,7 +57,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQw-aJ-OrJ" userLabel="Delete Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="79.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="79.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="fJr-Y0-hmu"/>
@@ -91,7 +91,7 @@
                         </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K6-1J-bxx" userLabel="Container View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="79.5"/>
+                        <rect key="frame" x="8" y="4" width="304" height="79.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="Mrk-cS-qjG">
                                 <rect key="frame" x="8" y="8" width="63" height="63.5"/>
@@ -109,13 +109,13 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip to Hawaii" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aj-yJ-o2X">
-                                <rect key="frame" x="79" y="8" width="233" height="17"/>
+                                <rect key="frame" x="79" y="8" width="217" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bih-n6-5bt">
-                                <rect key="frame" x="79" y="33" width="233" height="17"/>
+                                <rect key="frame" x="79" y="33" width="217" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -152,14 +152,14 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="9K6-1J-bxx" secondAttribute="trailing" id="AQN-ed-LbZ"/>
-                    <constraint firstItem="8g9-fm-SLe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="D17-FH-EVM"/>
-                    <constraint firstAttribute="bottom" secondItem="8g9-fm-SLe" secondAttribute="bottom" id="G9C-NL-5Lh"/>
-                    <constraint firstAttribute="bottom" secondItem="9K6-1J-bxx" secondAttribute="bottom" id="OQd-bK-aqc"/>
-                    <constraint firstAttribute="trailing" secondItem="8g9-fm-SLe" secondAttribute="trailing" id="fLO-ed-IMN"/>
-                    <constraint firstItem="9K6-1J-bxx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="fX3-yF-8mG"/>
-                    <constraint firstItem="8g9-fm-SLe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="hDN-3V-Qhe"/>
-                    <constraint firstItem="9K6-1J-bxx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wNx-SA-Ny6"/>
+                    <constraint firstAttribute="trailing" secondItem="9K6-1J-bxx" secondAttribute="trailing" constant="8" id="AQN-ed-LbZ"/>
+                    <constraint firstItem="8g9-fm-SLe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="D17-FH-EVM"/>
+                    <constraint firstAttribute="bottom" secondItem="8g9-fm-SLe" secondAttribute="bottom" constant="4" id="G9C-NL-5Lh"/>
+                    <constraint firstAttribute="bottom" secondItem="9K6-1J-bxx" secondAttribute="bottom" constant="4" id="OQd-bK-aqc"/>
+                    <constraint firstAttribute="trailing" secondItem="8g9-fm-SLe" secondAttribute="trailing" constant="8" id="fLO-ed-IMN"/>
+                    <constraint firstItem="9K6-1J-bxx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="fX3-yF-8mG"/>
+                    <constraint firstItem="8g9-fm-SLe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="hDN-3V-Qhe"/>
+                    <constraint firstItem="9K6-1J-bxx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="wNx-SA-Ny6"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -171,6 +171,7 @@
                 <outlet property="containerView" destination="9K6-1J-bxx" id="svR-DD-ASj"/>
                 <outlet property="containerViewLeadingContraint" destination="wNx-SA-Ny6" id="6L8-eQ-efT"/>
                 <outlet property="containerViewTrailingConstraint" destination="AQN-ed-LbZ" id="TAF-QK-6xC"/>
+                <outlet property="contentView" destination="H2p-sc-9uM" id="VMk-Rv-Wch"/>
                 <outlet property="controlView" destination="8g9-fm-SLe" id="fyA-5p-V1c"/>
                 <outlet property="nameLabel" destination="2aj-yJ-o2X" id="vWh-Gd-1U0"/>
             </connections>

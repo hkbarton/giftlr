@@ -98,6 +98,8 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.eventNotificationButton.tintColor = [UIColor hotPinkColor];
     [self setEventSourceSwitchState];
     
+    self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"EventViewCell" bundle:nil] forCellReuseIdentifier:@"EventViewCell"];

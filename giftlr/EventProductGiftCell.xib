@@ -6,18 +6,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="EventProductGiftCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="108" id="KGk-i7-Jjw" customClass="EventProductGiftCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="108"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itf-jt-4PJ" userLabel="Control View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                        <rect key="frame" x="8" y="4" width="304" height="99.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvf-ci-UKr" userLabel="Claim Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="99.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="99.5"/>
                                 <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="GOX-rM-zrf"/>
@@ -32,7 +32,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Se-Nr-NZ2" userLabel="Unclaim Button">
-                                <rect key="frame" x="160" y="0.5" width="80" height="99.5"/>
+                                <rect key="frame" x="144" y="0.0" width="80" height="99.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="FPj-SC-QI8"/>
@@ -52,7 +52,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="355-WH-2yQ" userLabel="Delete Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="99.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="99.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="5pg-95-auA"/>
@@ -66,7 +66,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPh-RI-9LT" userLabel="Buy Button">
-                                <rect key="frame" x="240" y="0.0" width="80" height="99.5"/>
+                                <rect key="frame" x="224" y="0.0" width="80" height="99.5"/>
                                 <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="X6a-1L-NM4"/>
@@ -109,7 +109,7 @@
                         </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TPD-ru-CAW" userLabel="Container View">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                        <rect key="frame" x="8" y="4" width="304" height="99.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vfB-3B-aR6">
                                 <rect key="frame" x="8" y="15" width="70" height="70"/>
@@ -119,7 +119,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Title Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRD-l3-h46" userLabel="Title Label">
-                                <rect key="frame" x="86" y="8" width="226" height="17"/>
+                                <rect key="frame" x="86" y="8" width="210" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.090282206632653073" green="0.090282206632653073" blue="0.090282206632653073" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -210,15 +210,16 @@
                         </variation>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.89345503829999995" green="0.89345503829999995" blue="0.89345503829999995" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="itf-jt-4PJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4Xg-gH-UxY"/>
-                    <constraint firstAttribute="bottom" secondItem="itf-jt-4PJ" secondAttribute="bottom" id="7vS-Cc-JqX"/>
-                    <constraint firstItem="TPD-ru-CAW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9To-5S-Cao"/>
-                    <constraint firstAttribute="trailing" secondItem="TPD-ru-CAW" secondAttribute="trailing" id="Guu-lo-Xle"/>
-                    <constraint firstItem="itf-jt-4PJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QWJ-mp-607"/>
-                    <constraint firstAttribute="trailing" secondItem="itf-jt-4PJ" secondAttribute="trailing" id="gvJ-lr-3mA"/>
-                    <constraint firstAttribute="bottom" secondItem="TPD-ru-CAW" secondAttribute="bottom" id="kGf-bt-3R3"/>
-                    <constraint firstItem="TPD-ru-CAW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="pil-Zo-haF"/>
+                    <constraint firstItem="itf-jt-4PJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="4Xg-gH-UxY"/>
+                    <constraint firstAttribute="bottom" secondItem="itf-jt-4PJ" secondAttribute="bottom" constant="4" id="7vS-Cc-JqX"/>
+                    <constraint firstItem="TPD-ru-CAW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="9To-5S-Cao"/>
+                    <constraint firstAttribute="trailing" secondItem="TPD-ru-CAW" secondAttribute="trailing" constant="8" id="Guu-lo-Xle"/>
+                    <constraint firstItem="itf-jt-4PJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="QWJ-mp-607"/>
+                    <constraint firstAttribute="trailing" secondItem="itf-jt-4PJ" secondAttribute="trailing" constant="8" id="gvJ-lr-3mA"/>
+                    <constraint firstAttribute="bottom" secondItem="TPD-ru-CAW" secondAttribute="bottom" constant="4" id="kGf-bt-3R3"/>
+                    <constraint firstItem="TPD-ru-CAW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="pil-Zo-haF"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -232,6 +233,7 @@
                 <outlet property="containerView" destination="TPD-ru-CAW" id="82b-4i-cEF"/>
                 <outlet property="containerViewLeadingContraint" destination="9To-5S-Cao" id="Ino-db-vSW"/>
                 <outlet property="containerViewTrailingConstraint" destination="Guu-lo-Xle" id="0RJ-fM-6IJ"/>
+                <outlet property="contentView" destination="H2p-sc-9uM" id="rP6-MF-84W"/>
                 <outlet property="controlView" destination="itf-jt-4PJ" id="5Hd-MA-bMg"/>
                 <outlet property="imgProduct" destination="vfB-3B-aR6" id="yj2-Jn-Ghc"/>
                 <outlet property="labelDomain" destination="0Kx-me-qV4" id="0Yt-pk-FVq"/>

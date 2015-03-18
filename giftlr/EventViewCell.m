@@ -9,13 +9,11 @@
 #import "EventViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "User.h"
+#import "UIColor+giftlr.h"
 
 @interface EventViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *TimeContainerView;
-
-@property (weak, nonatomic) IBOutlet UIImageView *attendingImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *giftImageView;
 
 @end
 
@@ -35,8 +33,10 @@
     self.TimeContainerView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.TimeContainerView.layer.borderWidth = 2.5;
     
-    self.giftImageView.hidden = YES;
-    self.attendingImageView.hidden = YES;
+    self.eventProfilePicView.layer.cornerRadius = 3;
+    self.eventProfilePicView.clipsToBounds = YES;
+    
+    self.backgroundColor = [UIColor lightGreyBackgroundColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -73,14 +73,6 @@
         [view removeFromSuperview];
     }
     [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
-    
-//    if ([self.event.eventHostId isEqualToString:[User currentUser].fbUserId]) {
-//        self.giftImageView.hidden = YES;
-//        self.attendingImageView.hidden = YES;
-//    } else {
-//        self.giftImageView.hidden = NO;
-//        self.attendingImageView.hidden = NO;
-//    }
 }
 
 @end

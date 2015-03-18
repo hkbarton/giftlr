@@ -49,6 +49,11 @@
     self.claimStatus.hidden = YES;
     self.btnBuy.backgroundColor = [UIColor redPinkColor];
     self.btnClaim.backgroundColor = [UIColor redPinkColor];
+    self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.containerView.layer.cornerRadius = 3.0f;
+    self.containerView.clipsToBounds = YES;
+    self.controlView.layer.cornerRadius = 3.0f;
+    self.controlView.clipsToBounds = YES;
     [self hideAllControlButtons];
 }
 
@@ -75,14 +80,14 @@
     NSInteger newConstraint;
     [self hideAllControlButtons];
     if (self.event.isHostEvent) {
-        newConstraint = -80;
+        newConstraint = -88;
         self.btnDelete.hidden = NO;
     } else {
         if ([self.productGift.status isEqualToString:ProductGiftStatusUnclaimed]){
-            newConstraint = -80;
+            newConstraint = -88;
             self.btnClaim.hidden = NO;
         } else if ([self.productGift.status isEqualToString:ProductGiftStatusClaimed]){
-            newConstraint = -160;
+            newConstraint = - 168;
             self.btnUnclaim.hidden = NO;
             self.btnBuy.hidden = NO;
         } else {
@@ -106,8 +111,8 @@
 - (void)hideControlView {
     self.isControlMode = NO;
     [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
-    self.containerViewLeadingContraint.constant = 0;
-    self.containerViewTrailingConstraint.constant = 0;
+    self.containerViewLeadingContraint.constant = 8;
+    self.containerViewTrailingConstraint.constant = 8;
     [self.containerView setNeedsLayout];
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionTransitionCurlDown animations:^{
         [self.containerView layoutIfNeeded];
@@ -121,8 +126,8 @@
     // Reset all the layout to default
     self.isControlMode = NO;
     [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
-    self.containerViewLeadingContraint.constant = 0;
-    self.containerViewTrailingConstraint.constant = 0;
+    self.containerViewLeadingContraint.constant = 8;
+    self.containerViewTrailingConstraint.constant = 8;
     [self.containerView setNeedsLayout];
     [self.containerView layoutIfNeeded];
     
