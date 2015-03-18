@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ProductHTMLParser.h"
 #import "UIColor+giftlr.h"
+#import "User.h"
 
 @interface EventProductGiftCell() <UIGestureRecognizerDelegate>
 
@@ -22,8 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
 @property (weak, nonatomic) IBOutlet UIButton *btnUnclaim;
 @property (weak, nonatomic) IBOutlet UIButton *btnDelete;
-@property (weak, nonatomic) IBOutlet UIButton *buyStatus;
-@property (weak, nonatomic) IBOutlet UIButton *claimStatus;
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIView *controlView;
@@ -45,8 +44,7 @@
     self.tapGestureReconginzer.delegate = self;
     self.isControlMode = NO;
     self.claimedByLabel.hidden = YES;
-    self.buyStatus.hidden = YES;
-    self.claimStatus.hidden = YES;
+    self.claimedByLabel.textColor = [UIColor hotPinkColor];
     self.btnBuy.backgroundColor = [UIColor redPinkColor];
     self.btnClaim.backgroundColor = [UIColor redPinkColor];
     self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
@@ -86,7 +84,8 @@
         if ([self.productGift.status isEqualToString:ProductGiftStatusUnclaimed]){
             newConstraint = -88;
             self.btnClaim.hidden = NO;
-        } else if ([self.productGift.status isEqualToString:ProductGiftStatusClaimed]){
+        } else if ([self.productGift.status isEqualToString:ProductGiftStatusClaimed] &&
+                   [self.productGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]){
             newConstraint = - 168;
             self.btnUnclaim.hidden = NO;
             self.btnBuy.hidden = NO;
@@ -123,6 +122,7 @@
 }
 
 - (void)setProductGift:(ProductGift *)productGift {
+    _productGift = productGift;
     // Reset all the layout to default
     self.isControlMode = NO;
     [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
@@ -131,7 +131,6 @@
     [self.containerView setNeedsLayout];
     [self.containerView layoutIfNeeded];
     
-    _productGift = productGift;
     [self.imgProduct setImageWithURL:[NSURL URLWithString:productGift.imageURLs[0]]];
     self.labelName.text = productGift.name;
     [self.labelName sizeToFit];
@@ -142,22 +141,23 @@
     [source appendString:[ProductHTMLParser getDomainFromURL:[NSURL URLWithString:productGift.productURL]]];
     self.labelDomain.text = source;
     if ([productGift.status isEqualToString:ProductGiftStatusClaimed]) {
-        self.claimStatus.hidden = NO;
-        self.buyStatus.hidden = YES;
-        [self.btnClaim setImage:[UIImage imageNamed:@"Hearts-26-pink"] forState:UIControlStateNormal];
-        if (self.event.isHostEvent && self.productGift.claimerName != nil) {
+        if (self.productGift.claimerName != nil) {
             self.claimedByLabel.hidden = NO;
-            self.claimedByLabel.text = [NSString stringWithFormat:@"Claimed by %@", self.productGift.claimerName];
+            NSString *claimerName = self.productGift.claimerName;
+            if ([self.productGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]) {
+                claimerName = @"me";
+            }
+            self.claimedByLabel.text = [NSString stringWithFormat:@"Claimed by %@", claimerName];
         }
     }
     if ([productGift.status isEqualToString:ProductGiftBought]) {
-        self.claimStatus.hidden = YES;
-        self.buyStatus.hidden = NO;
-        [self.btnClaim setImage:[UIImage imageNamed:@"Hearts-26-pink"] forState:UIControlStateNormal];
-        [self.btnBuy setImage:[UIImage imageNamed:@"Buy-24-pink"] forState:UIControlStateNormal];
-        if (self.event.isHostEvent && self.productGift.claimerName != nil) {
+        if (self.productGift.claimerName != nil) {
             self.claimedByLabel.hidden = NO;
-            self.claimedByLabel.text = [NSString stringWithFormat:@"Claimed by %@", self.productGift.claimerName];
+            if ([self.productGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]) {
+                self.claimedByLabel.text = @"Purchased by me";
+            } else {
+                self.claimedByLabel.text = [NSString stringWithFormat:@"Claimed by %@", self.productGift.claimerName];
+            }
         }
     }
 }

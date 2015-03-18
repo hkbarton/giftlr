@@ -41,7 +41,6 @@ NSString *const CashGiftBought = @"Bought";
     if (self.claimerName != nil) {
         self.pfObject[@"claimerName"] = self.claimerName;
     }
-
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -79,7 +78,8 @@ NSString *const CashGiftBought = @"Bought";
             self.hostEvent.fbEventId = facebookEventID;
             self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
         }
-
+        self.claimerFacebookUserID = self.pfObject[@"claimerFacebookUserID"];
+        self.claimerName = self.pfObject[@"claimerName"];
     }
     
     return self;

@@ -328,7 +328,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = @"";
             gift.status = CashGiftStatusUnclaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
             break;
         case CashGiftControlTypeClaim:
             [eventCashGiftCell hideControlView];
@@ -336,8 +336,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = [User currentUser].name;
             gift.status = CashGiftStatusClaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-            NSLog(@"cash claim");
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             break;
         case CashGiftControlTypeDelete:
             [self.cashGiftList removeObject:gift];
@@ -368,7 +367,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = @"";
             gift.status = ProductGiftStatusUnclaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
             break;
         case ProductGiftControlTypeClaim:
             [eventProductGiftCell hideControlView];
@@ -376,8 +375,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = [User currentUser].name;
             gift.status = ProductGiftStatusClaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-            NSLog(@"product claim");
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             break;
         case ProductGiftControlTypeDelete:
             [self.productGiftList removeObject:gift];

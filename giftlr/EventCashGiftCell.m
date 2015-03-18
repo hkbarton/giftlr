@@ -9,6 +9,7 @@
 #import "EventCashGiftCell.h"
 #import "CashGift.h"
 #import "UIColor+giftlr.h"
+#import "User.h"
 
 @interface EventCashGiftCell() <UIGestureRecognizerDelegate>
 
@@ -37,6 +38,7 @@
     self.tapGestureReconginzer.delegate = self;
     self.isControlMode = NO;
     self.claimByLabel.hidden = YES;
+    self.claimByLabel.textColor = [UIColor hotPinkColor];
     self.btnClaim.backgroundColor = [UIColor redPinkColor];
     self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
     self.containerView.layer.cornerRadius = 3.0f;
@@ -60,12 +62,32 @@
 
 - (void)setCashGift:(CashGift *)cashGift {
     _cashGift = cashGift;
-
+    
+    // Reset all the layout to default
+    self.isControlMode = NO;
+    [self setSelectionStyle:UITableViewCellSelectionStyleDefault];
+    self.containerViewLeadingContraint.constant = 8;
+    self.containerViewTrailingConstraint.constant = 8;
+    [self.containerView setNeedsLayout];
+    [self.containerView layoutIfNeeded];
+    
     NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
     [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
 
     self.nameLabel.text = cashGift.name;
     self.amountLabel.text = [currencyFormat stringFromNumber:cashGift.amount];
+    if ([cashGift.status isEqualToString:CashGiftStatusClaimed] ||
+        [cashGift.status isEqualToString:CashGiftBought]) {
+        if (self.cashGift.claimerName != nil) {
+            self.claimByLabel.hidden = NO;
+            NSString *claimerName = self.cashGift.claimerName;
+            if ([self.cashGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]) {
+                claimerName = @"me";
+            }
+            self.claimByLabel.text = [NSString stringWithFormat:@"Claimed by %@", claimerName];
+        }
+    }
+    
 }
 
 - (void)showControlView {

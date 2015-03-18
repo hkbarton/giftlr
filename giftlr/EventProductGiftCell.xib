@@ -130,42 +130,6 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PzH-6O-lz1" userLabel="Buy Status">
-                                <rect key="frame" x="4" y="4" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="9Yd-Od-JDE"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="9ie-tM-66d"/>
-                                    <constraint firstAttribute="height" constant="24" id="lvY-lr-B2v"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="pPs-am-G2G"/>
-                                </constraints>
-                                <state key="normal" image="Buy-24-pink">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="9ie-tM-66d"/>
-                                        <exclude reference="pPs-am-G2G"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLT-hZ-uf1" userLabel="Claim Status">
-                                <rect key="frame" x="4" y="4" width="24" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="24" id="83t-dr-0Gs"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="Lkc-5e-7Hs"/>
-                                    <constraint firstAttribute="height" constant="24" id="MSF-zv-l5u"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="24" id="ryk-Dd-dTm"/>
-                                </constraints>
-                                <state key="normal" image="Hearts-26-pink">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Lkc-5e-7Hs"/>
-                                        <exclude reference="ryk-Dd-dTm"/>
-                                    </mask>
-                                </variation>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 150" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPc-xP-BUa" userLabel="Price Label">
                                 <rect key="frame" x="86" y="29" width="36" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -183,17 +147,13 @@
                         <constraints>
                             <constraint firstItem="rPc-xP-BUa" firstAttribute="bottom" secondItem="0Kx-me-qV4" secondAttribute="bottom" id="4FG-zA-rhl"/>
                             <constraint firstAttribute="trailing" secondItem="aRD-l3-h46" secondAttribute="trailing" constant="8" id="4wA-QV-yKb"/>
-                            <constraint firstItem="PzH-6O-lz1" firstAttribute="top" secondItem="TPD-ru-CAW" secondAttribute="top" constant="4" id="HEA-mx-G5c"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Kx-me-qV4" secondAttribute="trailing" constant="8" id="LVN-6t-sKN"/>
                             <constraint firstItem="bzL-XS-VR7" firstAttribute="leading" secondItem="vfB-3B-aR6" secondAttribute="trailing" constant="8" id="LVb-33-tFc"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bzL-XS-VR7" secondAttribute="trailing" constant="8" id="RqK-Zc-hFS"/>
-                            <constraint firstItem="PzH-6O-lz1" firstAttribute="leading" secondItem="TPD-ru-CAW" secondAttribute="leading" constant="4" id="UBJ-gL-vRO"/>
                             <constraint firstItem="rPc-xP-BUa" firstAttribute="top" secondItem="aRD-l3-h46" secondAttribute="bottom" constant="4" id="Uti-Ak-Ntd"/>
                             <constraint firstItem="aRD-l3-h46" firstAttribute="top" secondItem="TPD-ru-CAW" secondAttribute="top" constant="8" id="V7N-1Z-2PW"/>
                             <constraint firstItem="rPc-xP-BUa" firstAttribute="leading" secondItem="vfB-3B-aR6" secondAttribute="trailing" constant="8" id="VQr-Af-FgX"/>
-                            <constraint firstItem="xLT-hZ-uf1" firstAttribute="top" secondItem="TPD-ru-CAW" secondAttribute="top" constant="4" id="VUX-iM-kEJ"/>
                             <constraint firstItem="0Kx-me-qV4" firstAttribute="leading" secondItem="rPc-xP-BUa" secondAttribute="trailing" constant="8" id="bkc-vb-PK4"/>
-                            <constraint firstItem="xLT-hZ-uf1" firstAttribute="leading" secondItem="TPD-ru-CAW" secondAttribute="leading" constant="4" id="d1A-qJ-nWe"/>
                             <constraint firstItem="bzL-XS-VR7" firstAttribute="top" secondItem="rPc-xP-BUa" secondAttribute="bottom" constant="8" id="enN-XY-yIe"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="bzL-XS-VR7" secondAttribute="bottom" constant="8" id="heq-rt-u9R"/>
                             <constraint firstAttribute="bottom" secondItem="vfB-3B-aR6" secondAttribute="bottom" constant="15" id="j8B-GV-ewk"/>
@@ -227,8 +187,6 @@
                 <outlet property="btnClaim" destination="cvf-ci-UKr" id="FkR-zY-VzT"/>
                 <outlet property="btnDelete" destination="355-WH-2yQ" id="hk2-AY-JoI"/>
                 <outlet property="btnUnclaim" destination="5Se-Nr-NZ2" id="YOv-0B-zxp"/>
-                <outlet property="buyStatus" destination="PzH-6O-lz1" id="sYf-2a-nUa"/>
-                <outlet property="claimStatus" destination="xLT-hZ-uf1" id="4r1-hF-NeJ"/>
                 <outlet property="claimedByLabel" destination="bzL-XS-VR7" id="5VN-IJ-Dfy"/>
                 <outlet property="containerView" destination="TPD-ru-CAW" id="82b-4i-cEF"/>
                 <outlet property="containerViewLeadingContraint" destination="9To-5S-Cao" id="Ino-db-vSW"/>
@@ -243,8 +201,4 @@
             <point key="canvasLocation" x="310" y="205"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="Buy-24-pink" width="24" height="24"/>
-        <image name="Hearts-26-pink" width="26" height="26"/>
-    </resources>
 </document>
