@@ -8,21 +8,32 @@
 
 #import "ProductGiftCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "User.h"
 
 @interface ProductGiftCell()
 @property (weak, nonatomic) IBOutlet UIImageView *posterImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *hostImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *hostNameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *fromImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *toImageView;
+@property (weak, nonatomic) IBOutlet UILabel *fromName;
+@property (weak, nonatomic) IBOutlet UILabel *toName;
 
 @end
 
 @implementation ProductGiftCell
 
 - (void)awakeFromNib {
-    // Initialization code
+    self.fromImageView.layer.cornerRadius = 25;
+    self.fromImageView.clipsToBounds = YES;
+    self.fromImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.fromImageView.layer.borderWidth = 1;
+
+    self.toImageView.layer.cornerRadius = 25;
+    self.toImageView.clipsToBounds = YES;
+    self.toImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.toImageView.layer.borderWidth = 1;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -40,8 +51,16 @@
     self.priceLabel.text = [currencyFormat stringFromNumber:productGift.price];
     
     self.eventNameLabel.text = productGift.hostEvent.name;
-    self.hostNameLabel.text = productGift.hostEvent.eventHostName;
     
+    [User setUserProfileImage:self.fromImageView fbUserId:productGift.claimerFacebookUserID];
+    [User setUserProfileImage:self.toImageView fbUserId:productGift.hostEvent.eventHostId];
+    
+    self.fromName.text = [self firstName:productGift.claimerName];
+    self.toName.text = [self firstName:productGift.hostEvent.eventHostName];
+}
+
+- (NSString *) firstName:(NSString *)name {
+    return [[name componentsSeparatedByString:@" "] objectAtIndex:0];
 }
 
 

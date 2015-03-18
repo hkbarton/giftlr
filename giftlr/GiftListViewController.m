@@ -15,6 +15,7 @@
 #import "ProductGift.h"
 #import "UIColor+giftlr.h"
 #import "User.h"
+#import "EventDetailViewController.h"
 
 @interface GiftListViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -28,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *receivedButton;
 @property (weak, nonatomic) IBOutlet UIButton *giveButton;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
+@property (weak, nonatomic) IBOutlet UIView *bottomBorder;
+@property (nonatomic, weak) UIImageView *navBarHairlineImageView;
 
 @end
 
@@ -56,6 +59,30 @@ const int CASH_GIFT_SECTION_INDEX = 1;
     [self updateButtons];
     
     self.tableView.estimatedRowHeight = 200;
+    
+    self.title = @"Gifts";
+    
+    self.bottomBorder.backgroundColor = [UIColor redPinkColor];
+    
+    //    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+    // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
+    self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    self.navBarHairlineImageView.hidden = YES;
+
+}
+
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
 }
 
 - (void)updateTableData {
@@ -169,6 +196,25 @@ const int CASH_GIFT_SECTION_INDEX = 1;
     }
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Event *event;
+    if (indexPath.section == PRODUCT_GIFT_SECTION_INDEX) {
+        event = ((ProductGift *) self.productGifts[indexPath.row]).hostEvent;
+    } else if (indexPath.section == CASH_GIFT_SECTION_INDEX) {
+        event = ((CashGift *) self.cashGifts[indexPath.row]).hostEvent;
+    }
+    
+    if (event) {
+        EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
+        edvc.event = event;
+        [self presentViewController:nvc animated:YES completion:^{
+        }];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

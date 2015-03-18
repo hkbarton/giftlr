@@ -27,11 +27,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnTabProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabContacts;
 
-@property (strong, nonatomic) EventListViewController *eventListViewController;
-@property (strong, nonatomic) GiftListViewController *giftListViewController;
 @property (strong, nonatomic) ContactListViewController *contactListViewController;
-@property (strong, nonatomic) UINavigationController *eventNavigationController;
 @property (strong, nonatomic) UINavigationController *contactListNavigationController;
+@property (strong, nonatomic) UIViewController *eventListViewController;
+@property (strong, nonatomic) UIViewController *giftListViewController;
 @property (strong, nonatomic) UIViewController *currentViewController;
 
 @property (strong, nonatomic) SideViewTransition *menuViewTransition;
@@ -53,13 +52,13 @@
     [self.btnTabContacts setImage:[UIImage imageNamed:@"Contacts-25-selected"] forState:UIControlStateSelected];
     self.btnTabEvent.selected = YES;
     // container view controller
-    self.eventListViewController = [[EventListViewController alloc] init];
-    self.giftListViewController = [[GiftListViewController alloc] init];
     self.contactListViewController = [[ContactListViewController alloc] init];
-    self.eventNavigationController = [[UINavigationController alloc] initWithRootViewController:self.eventListViewController];
     self.contactListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactListViewController];
-    self.giftListViewController.delegate = self;
-    [self showContentViewController:self.eventNavigationController];
+    self.eventListViewController = [[UINavigationController alloc] initWithRootViewController:[[EventListViewController alloc] init]];
+    GiftListViewController *giftListViewController = [[GiftListViewController alloc] init];
+    giftListViewController.delegate = self;
+    self.giftListViewController = [[UINavigationController alloc] initWithRootViewController:giftListViewController];
+    [self showContentViewController:self.eventListViewController];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -112,7 +111,7 @@
         [self setSelectedTabButton:sender];
     }
     if (sender == self.btnTabEvent) {
-       [self goToViewController:self.eventNavigationController];
+       [self goToViewController:self.eventListViewController];
     } else if (sender == self.btnTabGifts) {
         [self goToViewController:self.giftListViewController];
     } else if (sender == self.btnTabContacts) {
@@ -148,7 +147,7 @@
 
 #pragma mark - Gift List View Controller
 - (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
-    [self goToViewController:self.eventNavigationController];
+    [self goToViewController:self.eventListViewController];
     [self setSelectedTabButton:self.btnTabEvent];
 }
 

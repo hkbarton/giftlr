@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GiftListViewController">
             <connections>
                 <outlet property="addButton" destination="UMu-ZF-ReI" id="Qem-uq-ZBt"/>
+                <outlet property="bottomBorder" destination="ahb-vm-n47" id="UB5-IY-d2m"/>
                 <outlet property="emptyView" destination="pa7-yi-ebO" id="5Zk-sg-SR1"/>
                 <outlet property="giveButton" destination="i2b-rZ-QGv" id="QZ4-1h-fap"/>
                 <outlet property="givenButton" destination="alU-k7-iYl" id="pc6-Fz-uzQ"/>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JL6-QS-hrh" userLabel="Gift type selector">
-                    <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="64" width="320" height="30"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alU-k7-iYl">
                             <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
@@ -61,12 +62,19 @@
                         <constraint firstItem="alU-k7-iYl" firstAttribute="leading" secondItem="JL6-QS-hrh" secondAttribute="leading" id="zrb-IE-qEH"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahb-vm-n47" userLabel="bottom border">
+                    <rect key="frame" x="0.0" y="94" width="320" height="1"/>
+                    <color key="backgroundColor" red="1" green="0.43941035583941607" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="eh1-dG-rJG"/>
+                    </constraints>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="l3f-Sa-e7M">
-                    <rect key="frame" x="0.0" y="58" width="320" height="510"/>
+                    <rect key="frame" x="0.0" y="95" width="320" height="473"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-yi-ebO">
-                    <rect key="frame" x="0.0" y="50" width="320" height="518"/>
+                    <rect key="frame" x="0.0" y="95" width="320" height="473"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No gifts :(" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BI5-MU-Xx9">
                             <rect key="frame" x="123" y="178" width="74" height="20.5"/>
@@ -84,7 +92,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMu-ZF-ReI">
-                            <rect key="frame" x="126.5" y="249" width="67" height="30"/>
+                            <rect key="frame" x="126" y="249" width="67" height="30"/>
                             <state key="normal" title="Add a gift">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -107,28 +115,23 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="JL6-QS-hrh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="57B-fC-Hd9"/>
+                <constraint firstItem="JL6-QS-hrh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="57B-fC-Hd9"/>
                 <constraint firstItem="l3f-Sa-e7M" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5bg-q6-miq"/>
                 <constraint firstItem="JL6-QS-hrh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="A8h-TT-NJB"/>
                 <constraint firstAttribute="trailing" secondItem="JL6-QS-hrh" secondAttribute="trailing" id="BIU-ob-HXa"/>
+                <constraint firstItem="ahb-vm-n47" firstAttribute="top" secondItem="JL6-QS-hrh" secondAttribute="bottom" id="Fji-wX-G8V"/>
+                <constraint firstAttribute="trailing" secondItem="ahb-vm-n47" secondAttribute="trailing" id="QHC-RF-WGp"/>
                 <constraint firstAttribute="bottom" secondItem="pa7-yi-ebO" secondAttribute="bottom" id="Sgr-l5-JoT"/>
-                <constraint firstItem="l3f-Sa-e7M" firstAttribute="top" secondItem="JL6-QS-hrh" secondAttribute="bottom" constant="8" id="UW5-lp-t8j"/>
+                <constraint firstItem="ahb-vm-n47" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UAB-OX-6Dg"/>
+                <constraint firstItem="pa7-yi-ebO" firstAttribute="top" secondItem="ahb-vm-n47" secondAttribute="bottom" id="ZWW-XU-gCa"/>
                 <constraint firstAttribute="bottom" secondItem="l3f-Sa-e7M" secondAttribute="bottom" id="Zj5-sf-PyZ"/>
                 <constraint firstAttribute="trailing" secondItem="pa7-yi-ebO" secondAttribute="trailing" id="aXW-y5-rb2"/>
-                <constraint firstItem="pa7-yi-ebO" firstAttribute="top" secondItem="JL6-QS-hrh" secondAttribute="bottom" id="brM-p0-5Uh"/>
                 <constraint firstItem="pa7-yi-ebO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n0K-Zs-Uep"/>
                 <constraint firstAttribute="trailing" secondItem="l3f-Sa-e7M" secondAttribute="trailing" id="r5g-08-Vct"/>
+                <constraint firstItem="l3f-Sa-e7M" firstAttribute="top" secondItem="ahb-vm-n47" secondAttribute="bottom" id="yya-b7-9Tk"/>
             </constraints>
             <point key="canvasLocation" x="325" y="328"/>
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CMO-jp-Fme">
-            <rect key="frame" x="0.0" y="0.0" width="1" height="30"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <state key="normal" title="Button">
-                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-            </state>
-            <point key="canvasLocation" x="705.5" y="515"/>
-        </button>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
