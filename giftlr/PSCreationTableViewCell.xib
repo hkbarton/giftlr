@@ -12,7 +12,32 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yw5-rU-yXn">
+                        <rect key="frame" x="133" y="10" width="55" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="BKP-zX-i90"/>
+                            <constraint firstAttribute="width" constant="55" id="eVu-if-90j"/>
+                        </constraints>
+                        <state key="normal" image="add-card">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="onBtnCreationClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="3ZE-JU-fV8"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="centerX" secondItem="yw5-rU-yXn" secondAttribute="centerX" id="58x-0p-eMb"/>
+                    <constraint firstAttribute="centerY" secondItem="yw5-rU-yXn" secondAttribute="centerY" id="Qm9-cv-2yl"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="btnCreation" destination="yw5-rU-yXn" id="j8F-hU-uMh"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="add-card" width="55" height="25"/>
+    </resources>
 </document>
