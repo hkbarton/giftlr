@@ -30,6 +30,7 @@
 - (void)linkUserWithEvents:(NSArray *)events;
 - (void)linkUserWithFbFriend:(NSString *)fbUserId;
 - (void)getFriendsWithCompletion:(void (^)(NSArray *friends, NSError *error))completion;
+- (void)setUserProfileImage:(UIView *)profileContainerView;
 
 + (void)fetchFBFriendsWithCompletion:(User *)user completion:(void (^)(NSError *error))completion;
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion;

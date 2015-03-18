@@ -15,6 +15,7 @@
 #import "PaymentSettingViewController.h"
 #import "SideViewTransition.h"
 #import "BottomUpTransition.h"
+#import "ContactListViewController.h"
 #import "UIColor+giftlr.h"
 
 @interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate, SettingViewControllerDelegate>
@@ -24,10 +25,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnTabEvent;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabGifts;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabProfile;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabContacts;
 
 @property (strong, nonatomic) EventListViewController *eventListViewController;
 @property (strong, nonatomic) GiftListViewController *giftListViewController;
+@property (strong, nonatomic) ContactListViewController *contactListViewController;
 @property (strong, nonatomic) UINavigationController *eventNavigationController;
+@property (strong, nonatomic) UINavigationController *contactListNavigationController;
 @property (strong, nonatomic) UIViewController *currentViewController;
 
 @property (strong, nonatomic) SideViewTransition *menuViewTransition;
@@ -46,11 +50,14 @@
     [self.btnTabEvent setImage:[UIImage imageNamed:@"event-tab-select"] forState:UIControlStateSelected];
     [self.btnTabGifts setImage:[UIImage imageNamed:@"gift-tab-select"] forState:UIControlStateSelected];
     [self.btnTabProfile setImage:[UIImage imageNamed:@"profile-tab-select"] forState:UIControlStateSelected];
+    [self.btnTabContacts setImage:[UIImage imageNamed:@"Contacts-25-selected"] forState:UIControlStateSelected];
     self.btnTabEvent.selected = YES;
     // container view controller
     self.eventListViewController = [[EventListViewController alloc] init];
     self.giftListViewController = [[GiftListViewController alloc] init];
+    self.contactListViewController = [[ContactListViewController alloc] init];
     self.eventNavigationController = [[UINavigationController alloc] initWithRootViewController:self.eventListViewController];
+    self.contactListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactListViewController];
     self.giftListViewController.delegate = self;
     [self showContentViewController:self.eventNavigationController];
 }
@@ -108,6 +115,8 @@
        [self goToViewController:self.eventNavigationController];
     } else if (sender == self.btnTabGifts) {
         [self goToViewController:self.giftListViewController];
+    } else if (sender == self.btnTabContacts) {
+        [self goToViewController:self.contactListNavigationController];
     } else if (sender == self.btnTabProfile) {
         SettingViewController *svc = [[SettingViewController alloc] init];
         self.menuViewTransition = [SideViewTransition newTransitionWithTargetViewController:svc andSideDirection:RightSideDirection];
@@ -132,6 +141,7 @@
     self.btnTabEvent.selected = NO;
     self.btnTabGifts.selected = NO;
     self.btnTabProfile.selected = NO;
+    self.btnTabContacts.selected = NO;
     UIButton *button = (UIButton *)sender;
     button.selected = YES;
 }

@@ -49,6 +49,16 @@
     return self;
 }
 
+- (void)setUserProfileImage:(UIView *)profileContainerView {
+    for (UIView *view in profileContainerView.subviews) {
+        [view removeFromSuperview];
+    }
+    
+    self.profilePicView.bounds = profileContainerView.bounds;
+    [profileContainerView addSubview:self.profilePicView];
+    self.profilePicView.center = CGPointMake(profileContainerView.frame.size.width / 2, profileContainerView.frame.size.height / 2);
+}
+
 #pragma mark - Parse related helpers
 - (void)saveToParse {
     if (!self.pfUser) {

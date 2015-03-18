@@ -73,6 +73,10 @@
 		96AB29DB1AB6738C00FB64AD /* CheckBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29D91AB6738C00FB64AD /* CheckBoxCell.m */; };
 		96AB29DC1AB6738C00FB64AD /* CheckBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29DA1AB6738C00FB64AD /* CheckBoxCell.xib */; };
 		96AB29DF1AB67EE200FB64AD /* EventInvite.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29DE1AB67EE200FB64AD /* EventInvite.m */; };
+		96AB29E41AB94E9700FB64AD /* ContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29E21AB94E9700FB64AD /* ContactListViewController.m */; };
+		96AB29E51AB94E9700FB64AD /* ContactListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29E31AB94E9700FB64AD /* ContactListViewController.xib */; };
+		96AB29EA1AB94FC500FB64AD /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29E81AB94FC500FB64AD /* ContactCell.m */; };
+		96AB29EB1AB94FC500FB64AD /* ContactCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29E91AB94FC500FB64AD /* ContactCell.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -196,6 +200,12 @@
 		96AB29DA1AB6738C00FB64AD /* CheckBoxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckBoxCell.xib; sourceTree = "<group>"; };
 		96AB29DD1AB67EE200FB64AD /* EventInvite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventInvite.h; sourceTree = "<group>"; };
 		96AB29DE1AB67EE200FB64AD /* EventInvite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInvite.m; sourceTree = "<group>"; };
+		96AB29E11AB94E9700FB64AD /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
+		96AB29E21AB94E9700FB64AD /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
+		96AB29E31AB94E9700FB64AD /* ContactListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactListViewController.xib; sourceTree = "<group>"; };
+		96AB29E71AB94FC500FB64AD /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
+		96AB29E81AB94FC500FB64AD /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		96AB29E91AB94FC500FB64AD /* ContactCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +366,7 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29E61AB94F9700FB64AD /* ContactView */,
 				96AB29D71AB672E800FB64AD /* EventView */,
 				0729D5BB1AB613BB00E7C26A /* SettingView */,
 				33AC4BD81AAD226800438120 /* ProductGiftCell.h */,
@@ -377,6 +388,7 @@
 		073B41DD1AA815BA00139A10 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29E01AB94DC800FB64AD /* Contact */,
 				07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */,
 				96AB29CD1AB6309E00FB64AD /* Event */,
 				33AC4BCE1AAD219900438120 /* Gift */,
@@ -467,6 +479,26 @@
 				9602DBF21AAD12F10070CEB8 /* EventDescriptionCell.xib */,
 			);
 			name = EventView;
+			sourceTree = "<group>";
+		};
+		96AB29E01AB94DC800FB64AD /* Contact */ = {
+			isa = PBXGroup;
+			children = (
+				96AB29E11AB94E9700FB64AD /* ContactListViewController.h */,
+				96AB29E21AB94E9700FB64AD /* ContactListViewController.m */,
+				96AB29E31AB94E9700FB64AD /* ContactListViewController.xib */,
+			);
+			name = Contact;
+			sourceTree = "<group>";
+		};
+		96AB29E61AB94F9700FB64AD /* ContactView */ = {
+			isa = PBXGroup;
+			children = (
+				96AB29E71AB94FC500FB64AD /* ContactCell.h */,
+				96AB29E81AB94FC500FB64AD /* ContactCell.m */,
+				96AB29E91AB94FC500FB64AD /* ContactCell.xib */,
+			);
+			name = ContactView;
 			sourceTree = "<group>";
 		};
 		D3923DAA5882719613D4CDA1 /* Pods */ = {
@@ -573,12 +605,14 @@
 				0729D5BA1AB60C6E00E7C26A /* SettingViewController.xib in Resources */,
 				3344044E1AB40284008B2A73 /* MainViewController.xib in Resources */,
 				0734E0FF1AB7F8CF00D670E5 /* PaymentSettingViewController.xib in Resources */,
+				96AB29E51AB94E9700FB64AD /* ContactListViewController.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
 				96AB29D61AB65AB600FB64AD /* EventInviteGuestViewController.xib in Resources */,
 				073E022C1AAB9044007778F4 /* Html in Resources */,
+				96AB29EB1AB94FC500FB64AD /* ContactCell.xib in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
 				9602DBD51AA96C970070CEB8 /* LoginViewController.xib in Resources */,
 				07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */,
@@ -663,6 +697,7 @@
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				96AB29DB1AB6738C00FB64AD /* CheckBoxCell.m in Sources */,
 				33AC4BE81AAD503900438120 /* AddCashGiftViewController.m in Sources */,
+				96AB29E41AB94E9700FB64AD /* ContactListViewController.m in Sources */,
 				9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */,
 				073E02261AAB856B007778F4 /* ProductSearchViewController.m in Sources */,
 				07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */,
@@ -672,6 +707,7 @@
 				33AC4BE01AAD227C00438120 /* CashGiftCell.m in Sources */,
 				33AC4BED1AAD531400438120 /* PayCashViewController.m in Sources */,
 				072FC3B71AABBDCD00E7A1D5 /* ProductGift.m in Sources */,
+				96AB29EA1AB94FC500FB64AD /* ContactCell.m in Sources */,
 				96AB29DF1AB67EE200FB64AD /* EventInvite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
