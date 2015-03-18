@@ -31,6 +31,12 @@
 		0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
 		079CF3D41AB94D8600C2752D /* PaymentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D31AB94D8600C2752D /* PaymentInfo.m */; };
 		079CF3D71AB9518100C2752D /* BottomUpTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D61AB9518100C2752D /* BottomUpTransition.m */; };
+		079CF3DB1AB95B6500C2752D /* PSSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3DA1AB95B6500C2752D /* PSSectionHeaderView.m */; };
+		079CF3DD1AB95B8600C2752D /* PSSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079CF3DC1AB95B8600C2752D /* PSSectionHeaderView.xib */; };
+		079CF3E11AB95BAF00C2752D /* PSTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3DF1AB95BAF00C2752D /* PSTableViewCell.m */; };
+		079CF3E21AB95BAF00C2752D /* PSTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079CF3E01AB95BAF00C2752D /* PSTableViewCell.xib */; };
+		079CF3E61AB9614200C2752D /* PSCreationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3E41AB9614200C2752D /* PSCreationTableViewCell.m */; };
+		079CF3E71AB9614200C2752D /* PSCreationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 079CF3E51AB9614200C2752D /* PSCreationTableViewCell.xib */; };
 		07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */; };
 		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
 		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
@@ -132,6 +138,15 @@
 		079CF3D31AB94D8600C2752D /* PaymentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentInfo.m; sourceTree = "<group>"; };
 		079CF3D51AB9518100C2752D /* BottomUpTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomUpTransition.h; sourceTree = "<group>"; };
 		079CF3D61AB9518100C2752D /* BottomUpTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomUpTransition.m; sourceTree = "<group>"; };
+		079CF3D91AB95B6500C2752D /* PSSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSSectionHeaderView.h; sourceTree = "<group>"; };
+		079CF3DA1AB95B6500C2752D /* PSSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSSectionHeaderView.m; sourceTree = "<group>"; };
+		079CF3DC1AB95B8600C2752D /* PSSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSSectionHeaderView.xib; sourceTree = "<group>"; };
+		079CF3DE1AB95BAF00C2752D /* PSTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTableViewCell.h; sourceTree = "<group>"; };
+		079CF3DF1AB95BAF00C2752D /* PSTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTableViewCell.m; sourceTree = "<group>"; };
+		079CF3E01AB95BAF00C2752D /* PSTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSTableViewCell.xib; sourceTree = "<group>"; };
+		079CF3E31AB9614200C2752D /* PSCreationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSCreationTableViewCell.h; sourceTree = "<group>"; };
+		079CF3E41AB9614200C2752D /* PSCreationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSCreationTableViewCell.m; sourceTree = "<group>"; };
+		079CF3E51AB9614200C2752D /* PSCreationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSCreationTableViewCell.xib; sourceTree = "<group>"; };
 		07C1D3071AB4F0CB00EF171D /* ModalViewTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalViewTransition.h; sourceTree = "<group>"; };
 		07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalViewTransition.m; sourceTree = "<group>"; };
 		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
@@ -369,6 +384,7 @@
 				96AB29E61AB94F9700FB64AD /* ContactView */,
 				96AB29D71AB672E800FB64AD /* EventView */,
 				0729D5BB1AB613BB00E7C26A /* SettingView */,
+				079CF3D81AB9582100C2752D /* PaymentSettingView */,
 				33AC4BD81AAD226800438120 /* ProductGiftCell.h */,
 				33AC4BD91AAD226800438120 /* ProductGiftCell.m */,
 				33AC4BDA1AAD226800438120 /* ProductGiftCell.xib */,
@@ -405,6 +421,22 @@
 				0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		079CF3D81AB9582100C2752D /* PaymentSettingView */ = {
+			isa = PBXGroup;
+			children = (
+				079CF3D91AB95B6500C2752D /* PSSectionHeaderView.h */,
+				079CF3DA1AB95B6500C2752D /* PSSectionHeaderView.m */,
+				079CF3DC1AB95B8600C2752D /* PSSectionHeaderView.xib */,
+				079CF3DE1AB95BAF00C2752D /* PSTableViewCell.h */,
+				079CF3DF1AB95BAF00C2752D /* PSTableViewCell.m */,
+				079CF3E01AB95BAF00C2752D /* PSTableViewCell.xib */,
+				079CF3E31AB9614200C2752D /* PSCreationTableViewCell.h */,
+				079CF3E41AB9614200C2752D /* PSCreationTableViewCell.m */,
+				079CF3E51AB9614200C2752D /* PSCreationTableViewCell.xib */,
+			);
+			name = PaymentSettingView;
 			sourceTree = "<group>";
 		};
 		07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */ = {
@@ -597,6 +629,7 @@
 				9602DBEF1AACFDE20070CEB8 /* EventDetailViewCell.xib in Resources */,
 				0729D5C01AB6149600E7C26A /* SettingMenuHeaderView.xib in Resources */,
 				9602DBEA1AACEC640070CEB8 /* EventDetailViewController.xib in Resources */,
+				079CF3E71AB9614200C2752D /* PSCreationTableViewCell.xib in Resources */,
 				96AB29DC1AB6738C00FB64AD /* CheckBoxCell.xib in Resources */,
 				0729D5CA1AB6173A00E7C26A /* SettingMenuTableViewCell.xib in Resources */,
 				0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */,
@@ -607,6 +640,7 @@
 				0734E0FF1AB7F8CF00D670E5 /* PaymentSettingViewController.xib in Resources */,
 				96AB29E51AB94E9700FB64AD /* ContactListViewController.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
+				079CF3E21AB95BAF00C2752D /* PSTableViewCell.xib in Resources */,
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
@@ -618,6 +652,7 @@
 				07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */,
 				0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */,
 				33AC4BE91AAD503900438120 /* AddCashGiftViewController.xib in Resources */,
+				079CF3DD1AB95B8600C2752D /* PSSectionHeaderView.xib in Resources */,
 				07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */,
 				33AC4BDC1AAD226800438120 /* ProductGiftCell.xib in Resources */,
 			);
@@ -680,15 +715,18 @@
 				9602DBF31AAD12F10070CEB8 /* EventDescriptionCell.m in Sources */,
 				079CF3D71AB9518100C2752D /* BottomUpTransition.m in Sources */,
 				073B41BA1AA8157400139A10 /* AppDelegate.m in Sources */,
+				079CF3DB1AB95B6500C2752D /* PSSectionHeaderView.m in Sources */,
 				0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */,
 				079CF3D41AB94D8600C2752D /* PaymentInfo.m in Sources */,
 				9602DBD91AAB51E50070CEB8 /* EventListViewController.m in Sources */,
 				9602DBEE1AACFDE20070CEB8 /* EventDetailViewCell.m in Sources */,
+				079CF3E61AB9614200C2752D /* PSCreationTableViewCell.m in Sources */,
 				9602DBE41AABD7380070CEB8 /* EventViewCell.m in Sources */,
 				33AC4BDB1AAD226800438120 /* ProductGiftCell.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,
 				33AC4BD71AAD222300438120 /* CashGift.m in Sources */,
 				3344044D1AB40284008B2A73 /* MainViewController.m in Sources */,
+				079CF3E11AB95BAF00C2752D /* PSTableViewCell.m in Sources */,
 				07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */,
 				072FC3BD1AABEB7600E7A1D5 /* ParsePattern.m in Sources */,
 				33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */,
