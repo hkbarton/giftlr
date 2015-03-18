@@ -381,6 +381,7 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				96AB29EC1AB95B8600FB64AD /* EventGiftView */,
 				96AB29E61AB94F9700FB64AD /* ContactView */,
 				96AB29D71AB672E800FB64AD /* EventView */,
 				0729D5BB1AB613BB00E7C26A /* SettingView */,
@@ -391,12 +392,6 @@
 				33AC4BDD1AAD227C00438120 /* CashGiftCell.h */,
 				33AC4BDE1AAD227C00438120 /* CashGiftCell.m */,
 				33AC4BDF1AAD227C00438120 /* CashGiftCell.xib */,
-				07EB3EDC1AB00BFF007B1607 /* EventProductGiftCell.h */,
-				07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */,
-				07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */,
-				07EB3EE11AB00C27007B1607 /* EventCashGiftCell.h */,
-				07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */,
-				07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -531,6 +526,19 @@
 				96AB29E91AB94FC500FB64AD /* ContactCell.xib */,
 			);
 			name = ContactView;
+			sourceTree = "<group>";
+		};
+		96AB29EC1AB95B8600FB64AD /* EventGiftView */ = {
+			isa = PBXGroup;
+			children = (
+				07EB3EDC1AB00BFF007B1607 /* EventProductGiftCell.h */,
+				07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */,
+				07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */,
+				07EB3EE11AB00C27007B1607 /* EventCashGiftCell.h */,
+				07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */,
+				07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */,
+			);
+			name = EventGiftView;
 			sourceTree = "<group>";
 		};
 		D3923DAA5882719613D4CDA1 /* Pods */ = {

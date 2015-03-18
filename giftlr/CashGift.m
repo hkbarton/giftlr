@@ -51,6 +51,14 @@ NSString *const CashGiftBought = @"Bought";
     }];
 }
 
+-(void)deleteFromParse {
+    [self.pfObject deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (error) {
+            NSLog(@"deleted with error %@", error);
+        }
+    }];
+}
+
 -(PFObject *)getPFObject {
     return self.pfObject;
 }

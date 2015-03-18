@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
@@ -147,8 +147,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
         EventProductGiftCell *cell = (EventProductGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell showControlView];
+    } else if (indexPath.row >= [self.productGiftList count] + 2) {
+        EventCashGiftCell *cell = (EventCashGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell showControlView];
     }
-    
 }
 
 - (void)rightSwipe:(UISwipeGestureRecognizer *)gestureRecognizer {
@@ -158,6 +160,9 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     //gestureRecognizer
     if (indexPath.row > 1 && indexPath.row < [self.productGiftList count] + 2) {
         EventProductGiftCell *cell = (EventProductGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell hideControlView];
+    } else if (indexPath.row >= [self.productGiftList count] + 2) {
+        EventCashGiftCell *cell = (EventCashGiftCell *)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell hideControlView];
     }
 }
@@ -217,6 +222,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     } else if (indexPath.row >= [self.productGiftList count] + 2) {
         EventCashGiftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCashGiftCell"];
         cell.event = self.event;
+        cell.delegate = self;
         cell.cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
         return cell;
     }
@@ -241,11 +247,11 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     } else if (indexPath.row >= [self.productGiftList count] + 2) { // cash gift
         CashGift *cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
         
-        if (cashGift.status != CashGiftBought && cashGift.status != CashGiftStatusClaimed) {
-            PayCashViewController *vc = [[PayCashViewController alloc] init];
-            vc.cashGift = cashGift;
-            [self presentViewController:vc animated:YES completion:nil];
-        }
+//        if (cashGift.status != CashGiftBought && cashGift.status != CashGiftStatusClaimed) {
+//            PayCashViewController *vc = [[PayCashViewController alloc] init];
+//            vc.cashGift = cashGift;
+//            [self presentViewController:vc animated:YES completion:nil];
+//        }
     }
 }
 
@@ -309,6 +315,38 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 }
 
 #pragma mark - delegate for cells
+
+- (void)eventCashGiftCell:(EventCashGiftCell *)eventCashGiftCell didControlClicked:(CashGiftControlType)value {
+    CashGift *gift = eventCashGiftCell.cashGift;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCashGiftCell];
+    
+    switch (value) {
+        case CashGiftControlTypeUnclaim:
+            [eventCashGiftCell hideControlView];
+            gift.claimerFacebookUserID = @"";
+            gift.claimerName = @"";
+            gift.status = CashGiftStatusUnclaimed;
+            [gift saveToParse];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            break;
+        case CashGiftControlTypeClaim:
+            [eventCashGiftCell hideControlView];
+            gift.claimerFacebookUserID = [User currentUser].fbUserId;
+            gift.claimerName = [User currentUser].name;
+            gift.status = CashGiftStatusClaimed;
+            [gift saveToParse];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            NSLog(@"cash claim");
+            break;
+        case CashGiftControlTypeDelete:
+            [self.cashGiftList removeObject:gift];
+            [gift deleteFromParse];
+            [self.tableView reloadData];
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didControlClicked:(ProductGiftControlType)value {
     ProductGift *gift = eventProductGiftCell.productGift;

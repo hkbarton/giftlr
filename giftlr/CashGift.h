@@ -27,6 +27,7 @@ extern NSString *const CashGiftBought;
 @property (nonatomic, strong) Event *hostEvent;
 
 -(void)saveToParse;
+-(void)deleteFromParse;
 -(PFObject *)getPFObject;
 -(id)initWithPFObject:(PFObject *)pfObject;
 
