@@ -199,19 +199,23 @@ const int CASH_GIFT_SECTION_INDEX = 1;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Event *event;
+    NSString *facebookEventID;
     if (indexPath.section == PRODUCT_GIFT_SECTION_INDEX) {
-        event = ((ProductGift *) self.productGifts[indexPath.row]).hostEvent;
+        facebookEventID = ((ProductGift *) self.productGifts[indexPath.row]).hostEvent.fbEventId;
     } else if (indexPath.section == CASH_GIFT_SECTION_INDEX) {
-        event = ((CashGift *) self.cashGifts[indexPath.row]).hostEvent;
+        facebookEventID = ((CashGift *) self.cashGifts[indexPath.row]).hostEvent.fbEventId;
     }
     
-    if (event) {
+    if (facebookEventID) {
         EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
         UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
-        edvc.event = event;
-        [self presentViewController:nvc animated:YES completion:^{
+        
+        [Event fetchEventWithFacebookEventID:facebookEventID completion:^(NSArray *events, NSError *error) {
+            edvc.event = events[0];
+            [self presentViewController:nvc animated:YES completion:^{
+            }];
         }];
+        
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

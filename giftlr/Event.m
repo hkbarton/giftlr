@@ -261,6 +261,23 @@ static NSDateFormatter *df = nil;
 
 #pragma mark - factory functions
 
++ (void)fetchEventWithFacebookEventID:(NSString *)facebookEventID completion:(void (^)(NSArray *events, NSError *error))completion {
+    PFQuery *query = [[PFQuery alloc] initWithClassName:@"Event"];
+    [query whereKey:@"fbEventId" equalTo:facebookEventID];
+
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSMutableArray *result = nil;
+        if (!error) {
+            result = [NSMutableArray array];
+            for (int i=0;i<[objects count];i++) {
+                PFObject *pfObj = objects[i];
+                [result addObject:[[Event alloc] initWithPFObject:pfObj]];
+            }
+        }
+        completion(result, error);
+    }];
+}
+
 + (void)fetchFBEventsWithCompletion:(NSString *)userId completion:(void (^)(NSDictionary *events, NSError *error))completion {
     // Get the events in last year
     NSCalendar *calendar = [NSCalendar currentCalendar];

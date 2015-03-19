@@ -64,6 +64,8 @@ typedef NS_ENUM(NSInteger, EventType) {
 
 + (void)fetchFBEventsWithCompletion:(NSString *)userId completion:(void (^)(NSDictionary *events, NSError *error))completion;
 
++ (void)fetchEventWithFacebookEventID:(NSString *)facebookEventID completion:(void (^)(NSArray *events, NSError *error))completion;
+
 + (EventType)stringToEventType:(NSString *)eventTypeString;
 
 @end
