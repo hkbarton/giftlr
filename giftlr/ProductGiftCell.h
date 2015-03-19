@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductGift.h"
+#import "CashGift.h"
 
 @interface ProductGiftCell : UITableViewCell
 
 -(void)initWithProductGift:(ProductGift *)productGift;
+-(void)initWithCashGift:(CashGift *)cashGift;
 
 @end

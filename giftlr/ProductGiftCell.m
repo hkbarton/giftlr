@@ -44,6 +44,7 @@
 
 - (void)initWithProductGift:(ProductGift *)productGift {
     [self.posterImageView setImageWithURL:[NSURL URLWithString:productGift.imageURLs[0]]];
+    [self.posterImageView setContentMode:UIViewContentModeScaleAspectFit];
     self.nameLabel.text = productGift.name;
 
     NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
@@ -58,6 +59,25 @@
     self.fromName.text = [self firstName:productGift.claimerName];
     self.toName.text = [self firstName:productGift.hostEvent.eventHostName];
 }
+
+- (void)initWithCashGift:(CashGift *)cashGift {
+    [self.posterImageView setImage:[UIImage imageNamed:@"cash"]];
+    [self.posterImageView setContentMode:UIViewContentModeScaleAspectFill];
+    self.nameLabel.text = cashGift.name;
+    
+    NSNumberFormatter *currencyFormat = [[NSNumberFormatter alloc] init];
+    [currencyFormat setNumberStyle: NSNumberFormatterCurrencyStyle];
+    self.priceLabel.text = [currencyFormat stringFromNumber:cashGift.amount];
+    
+    self.eventNameLabel.text = cashGift.hostEvent.name;
+    
+    [User setUserProfileImage:self.fromImageView fbUserId:cashGift.claimerFacebookUserID];
+    [User setUserProfileImage:self.toImageView fbUserId:cashGift.hostEvent.eventHostId];
+    
+    self.fromName.text = [self firstName:cashGift.claimerName];
+    self.toName.text = [self firstName:cashGift.hostEvent.eventHostName];
+}
+
 
 - (NSString *) firstName:(NSString *)name {
     return [[name componentsSeparatedByString:@" "] objectAtIndex:0];

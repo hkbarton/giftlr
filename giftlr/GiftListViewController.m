@@ -190,9 +190,13 @@ const int CASH_GIFT_SECTION_INDEX = 1;
         ProductGiftCell *productGiftCell = (ProductGiftCell *) cell;
         [productGiftCell initWithProductGift:self.productGifts[indexPath.row]];
     } else if (indexPath.section == CASH_GIFT_SECTION_INDEX) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"CashGiftCell"];
-        CashGiftCell *cashGiftCell = (CashGiftCell *) cell;
-        [cashGiftCell initWithCashGift:self.cashGifts[indexPath.row]];
+//        cell = [tableView dequeueReusableCellWithIdentifier:@"CashGiftCell"];
+//        CashGiftCell *cashGiftCell = (CashGiftCell *) cell;
+//        [cashGiftCell initWithCashGift:self.cashGifts[indexPath.row]];
+
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ProductGiftCell"];
+        ProductGiftCell *productGiftCell = (ProductGiftCell *) cell;
+        [productGiftCell initWithCashGift:self.cashGifts[indexPath.row]];
     }
     
     return cell;
