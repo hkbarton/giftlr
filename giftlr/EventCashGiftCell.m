@@ -77,7 +77,7 @@
     self.nameLabel.text = cashGift.name;
     self.amountLabel.text = [currencyFormat stringFromNumber:cashGift.amount];
     if ([cashGift.status isEqualToString:CashGiftStatusClaimed] ||
-        [cashGift.status isEqualToString:CashGiftBought]) {
+        [cashGift.status isEqualToString:CashGiftStatusTransferred]) {
         if (self.cashGift.claimerName != nil) {
             self.claimByLabel.hidden = NO;
             NSString *claimerName = self.cashGift.claimerName;

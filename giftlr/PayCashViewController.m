@@ -38,7 +38,7 @@
 }
 
 - (IBAction)onPayButton:(id)sender {
-    self.cashGift.status = CashGiftTransferred;
+    self.cashGift.status = CashGiftStatusTransferred;
     self.cashGift.claimerFacebookUserID = [User currentUser].fbUserId;
     self.cashGift.claimerName = [User currentUser].name;
     [self.cashGift saveToParse];
