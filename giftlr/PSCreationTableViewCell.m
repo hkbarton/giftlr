@@ -8,6 +8,7 @@
 
 #import "PSCreationTableViewCell.h"
 #import "PTKView.h"
+#import "PTKTextField.h"
 
 @interface PSCreationTableViewCell() <PTKViewDelegate>
 
@@ -82,6 +83,7 @@ NSInteger const CreationType_Bank = 1;
             self.cardInputView.delegate = self;
         }
         [self addSubview:self.cardInputView];
+        [self sendSubviewToBack:self.cardInputView];
         self.cardInputView.alpha = 0;
         [UIView animateWithDuration:0.3 animations:^{
             self.oriCenterOfCreationButton = self.btnCreation.center;
@@ -95,6 +97,7 @@ NSInteger const CreationType_Bank = 1;
             self.btnCancel.hidden = NO;
             self.btnOK.alpha = 0;
             self.btnCancel.alpha = 0;
+            //[self.cardInputView.cardNumberField becomeFirstResponder];
             [UIView animateWithDuration:0.3 animations:^{
                 self.btnOK.alpha = 1;
                 self.btnCancel.alpha = 1;
@@ -111,7 +114,10 @@ NSInteger const CreationType_Bank = 1;
 
 - (IBAction)btnCancelClicked:(id)sender {
     [self hideInputView];
-    //self.cardInputView.cardNumber = nil;
+    self.cardInputView.cardNumberField.text = @"";
+    self.cardInputView.cardExpiryField.text = @"";
+    self.cardInputView.cardCVCField.text = @"";
+    self.btnOK.enabled = NO;
 }
 
 - (void)paymentView:(PTKView *)view withCard:(PTKCard *)card isValid:(BOOL)valid {
