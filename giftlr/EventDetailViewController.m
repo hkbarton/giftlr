@@ -246,7 +246,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
         pdvc.transitioningDelegate = self.productDetailViewTransition;
         [self presentViewController:pdvc animated:YES completion:nil];
     } else if (indexPath.row >= [self.productGiftList count] + 2) { // cash gift
-        CashGift *cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
+//        CashGift *cashGift = self.cashGiftList[indexPath.row - 2 - [self.productGiftList count]];
         
 //        if (cashGift.status != CashGiftBought && cashGift.status != CashGiftStatusClaimed) {
 //            PayCashViewController *vc = [[PayCashViewController alloc] init];

@@ -12,7 +12,7 @@
 
 extern NSString *const CashGiftStatusUnclaimed;
 extern NSString *const CashGiftStatusClaimed;
-extern NSString *const CashGiftBought;
+extern NSString *const CashGiftStatusTransferred;
 
 @interface CashGift : NSObject
 

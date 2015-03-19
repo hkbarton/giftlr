@@ -11,7 +11,7 @@
 
 NSString *const CashGiftStatusUnclaimed = @"Unclaimed";
 NSString *const CashGiftStatusClaimed = @"Claimed";
-NSString *const CashGiftBought = @"Bought";
+NSString *const CashGiftStatusTransferred = @"Bought";
 
 @implementation CashGift
 
