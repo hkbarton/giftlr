@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "default-event-profile-image.png"
+      "filename" : "Notification-25.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Notification-50.png"
     },
     {
       "idiom" : "universal",

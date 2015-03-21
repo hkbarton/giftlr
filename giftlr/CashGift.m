@@ -33,6 +33,9 @@ NSString *const CashGiftStatusTransferred = @"Bought";
         if (self.hostEvent.eventHostId != nil) {
             self.pfObject[@"hostFacebookUserID"] = self.hostEvent.eventHostId;
         }
+        if (self.hostEvent.name) {
+            self.pfObject[@"eventName"] = self.hostEvent.name;
+        }
     }
     
     if (self.claimerFacebookUserID != nil) {
@@ -40,6 +43,9 @@ NSString *const CashGiftStatusTransferred = @"Bought";
     }
     if (self.claimerName != nil) {
         self.pfObject[@"claimerName"] = self.claimerName;
+    }
+    if (self.claimDate != nil) {
+        self.pfObject[@"claimDate"] = self.claimDate;
     }
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -77,9 +83,11 @@ NSString *const CashGiftStatusTransferred = @"Bought";
             self.hostEvent = [[Event alloc] init];
             self.hostEvent.fbEventId = facebookEventID;
             self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
+            self.hostEvent.name = pfObject[@"eventName"];
         }
         self.claimerFacebookUserID = self.pfObject[@"claimerFacebookUserID"];
         self.claimerName = self.pfObject[@"claimerName"];
+        self.claimDate = self.pfObject[@"claimDate"];
     }
     
     return self;

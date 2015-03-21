@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, EventType) {
 @property (nonatomic, strong) NSString *startTimeYear;
 @property (nonatomic, strong) NSString *startTimeWeekday;
 @property (nonatomic, assign) EventType eventType;
+@property (nonatomic, strong) NSString *defaultEventProfileImage;
 
 // Data from the /event API result
 @property (nonatomic, strong) NSString *eventDescription;

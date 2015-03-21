@@ -13,6 +13,8 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "EventListViewController.h"
 #import "MainViewController.h"
+#import "User.h"
+#import "Activity.h"
 
 @interface LoginViewController ()
 
@@ -37,20 +39,35 @@
         [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
             if (!user) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
-            } else if (user.isNew) {
-                // To acquire publishing permissions
-                [PFFacebookUtils reauthorizeUser:[PFUser currentUser]
-                          withPublishPermissions:@[@"rsvp_event"]
-                                        audience:FBSessionDefaultAudienceFriends
-                                           block:^(BOOL succeeded, NSError *error) {
-                                               if (succeeded) {
-                                                   NSLog(@"got rsvp_event permission");
-                                                   // Your app now has publishing permissions for the user
-                                                   [self presentEventListView];
-                                               }
-                                           }];
-                
+                return;
+            }
+            [User loadCurrentUserFBData];
+            if (user.isNew) {
+//                // To acquire publishing permissions
+//                [PFFacebookUtils reauthorizeUser:[PFUser currentUser]
+//                          withPublishPermissions:@[@"rsvp_event"]
+//                                        audience:FBSessionDefaultAudienceFriends
+//                                           block:^(BOOL succeeded, NSError *error) {
+//                                               if (succeeded) {
+//                                                   NSLog(@"got rsvp_event permission");
+//                                                   // Your app now has publishing permissions for the user
+//                                                   [self presentEventListView];
+//                                               }
+//                                           }];
+                [User loadCurrentUserFBDataWithCompletion:^(NSArray *friends, NSError *error) {
+                    if (error) {
+                        NSLog(@"Failed to load data");
+                    } else {
+                        for (NSDictionary *friend in friends) {
+                            Activity *activity = [[Activity alloc]initWithFriendJoin:friend];
+                            [activity saveToParse];
+                        }
+                        [self presentEventListView];
+                        
+                    }
+                }];
             } else {
+                [User loadCurrentUserFBData];
                 [self presentEventListView];
             }
         }];
@@ -62,12 +79,5 @@
     [self presentViewController:mvc animated:YES completion:^{
     }];
 }
-
-- (IBAction)onProductSearchClick:(id)sender {
-    ProductSearchViewController *psvc = [[ProductSearchViewController alloc] init];
-    UINavigationController *psnvc = [[UINavigationController alloc] initWithRootViewController:psvc];
-    [self presentViewController:psnvc animated:YES completion:nil];
-}
-
 
 @end

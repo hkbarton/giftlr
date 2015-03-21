@@ -15,7 +15,7 @@
 #import "PaymentSettingViewController.h"
 #import "SideViewTransition.h"
 #import "BottomUpTransition.h"
-#import "ContactListViewController.h"
+#import "NotificationViewController.h"
 #import "UIColor+giftlr.h"
 
 @interface MainViewController () <UITabBarDelegate, SettingViewControllerDelegate>
@@ -25,10 +25,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnTabEvent;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabSearch;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabProfile;
-@property (weak, nonatomic) IBOutlet UIButton *btnTabContacts;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabNotification;
 
-@property (strong, nonatomic) ContactListViewController *contactListViewController;
-@property (strong, nonatomic) UINavigationController *contactListNavigationController;
+@property (strong, nonatomic) NotificationViewController *notificationListViewController;
+@property (strong, nonatomic) UINavigationController *notificationListNavigationController;
 @property (strong, nonatomic) UIViewController *eventListViewController;
 @property (strong, nonatomic) UIViewController *searchViewController;
 @property (strong, nonatomic) UIViewController *currentViewController;
@@ -48,11 +48,11 @@
     self.tabbar.backgroundColor = [UIColor whiteColor];
     [self.btnTabEvent setImage:[UIImage imageNamed:@"event-tab-select"] forState:UIControlStateSelected];
     [self.btnTabSearch setImage:[UIImage imageNamed:@"search-tab-select"] forState:UIControlStateSelected];
-    [self.btnTabContacts setImage:[UIImage imageNamed:@"Contacts-25-selected"] forState:UIControlStateSelected];
+    [self.btnTabNotification setImage:[UIImage imageNamed:@"Notification-25-selected"] forState:UIControlStateSelected];
     self.btnTabEvent.selected = YES;
     // container view controller
-    self.contactListViewController = [[ContactListViewController alloc] init];
-    self.contactListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactListViewController];
+    self.notificationListViewController = [[NotificationViewController alloc] init];
+    self.notificationListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.notificationListViewController];
     self.eventListViewController = [[UINavigationController alloc] initWithRootViewController:[[EventListViewController alloc] init]];
     self.searchViewController = [[SearchViewController alloc] init];
     [self showContentViewController:self.eventListViewController];
@@ -111,8 +111,8 @@
        [self goToViewController:self.eventListViewController];
     } else if (sender == self.btnTabSearch) {
         [self goToViewController:self.searchViewController];
-    } else if (sender == self.btnTabContacts) {
-        [self goToViewController:self.contactListNavigationController];
+    } else if (sender == self.btnTabNotification) {
+        [self goToViewController:self.notificationListNavigationController];
     } else if (sender == self.btnTabProfile) {
         SettingViewController *svc = [[SettingViewController alloc] init];
         self.menuViewTransition = [SideViewTransition newTransitionWithTargetViewController:svc andSideDirection:RightSideDirection];
@@ -137,7 +137,7 @@
     self.btnTabEvent.selected = NO;
     self.btnTabSearch.selected = NO;
     self.btnTabProfile.selected = NO;
-    self.btnTabContacts.selected = NO;
+    self.btnTabNotification.selected = NO;
     UIButton *button = (UIButton *)sender;
     button.selected = YES;
 }

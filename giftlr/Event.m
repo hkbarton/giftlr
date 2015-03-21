@@ -12,6 +12,7 @@
 
 #import "Event.h"
 #import "User.h"
+#import "Activity.h"
 #import "EventInvite.h"
 
 @interface Event ()
@@ -39,6 +40,7 @@ static NSDateFormatter *df = nil;
         }
         self.eventType = type;
         self.isHostEvent = (self.eventType == EventTypeCreated);
+        self.defaultEventProfileImage = [self getDefaultProfileImageName];
 
         //2010-12-01T21:35:43+0000
         [df setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZ"];
@@ -79,6 +81,7 @@ static NSDateFormatter *df = nil;
         }
         self.eventType = type;
         self.isHostEvent = (self.eventType == EventTypeCreated);
+        self.defaultEventProfileImage = [self getDefaultProfileImageName];
         
         if (self.isHostEvent) {
             self.eventHostId = [User currentUser].fbUserId;
@@ -127,9 +130,15 @@ static NSDateFormatter *df = nil;
         self.profileUrl = pfObject[@"profileUrl"];
 
         self.isHostEvent = ([self.eventHostId isEqualToString:[User currentUser].fbUserId]);
+        self.defaultEventProfileImage = [self getDefaultProfileImageName];
     }
     
     return self;
+}
+
+- (NSString *)getDefaultProfileImageName {
+    NSInteger index = 1 + arc4random_uniform(4);
+    return [NSString stringWithFormat:@"event-profile-image-%ld", index];
 }
 
 - (void)saveToParse {
@@ -182,6 +191,8 @@ static NSDateFormatter *df = nil;
         // Make sure we don't invite one person twice
         if ([self.guests objectForKey:guest.fbUserId] == nil) {
             EventInvite *invite = [[EventInvite alloc] initWithEvent:self guest:guest];
+            Activity *activity = [[Activity alloc] initWithEventInvite:invite];
+            [activity saveToParse];
             [invite saveToParse];
             [relation addObject:guest.pfUser];
             [self.guests setObject:guest forKey:guest.fbUserId];

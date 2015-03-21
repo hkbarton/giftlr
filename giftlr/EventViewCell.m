@@ -14,6 +14,8 @@
 @interface EventViewCell ()
 
 @property (weak, nonatomic) IBOutlet UIView *TimeContainerView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leadingConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *trailingConstraint;
 
 @end
 
@@ -53,7 +55,7 @@
     self.eventMonthLabel.text = event.startTimeMonth;
     self.eventDayLabel.text = event.startTimeDay;
 
-    [self.eventProfilePicView setImage:[UIImage imageNamed:@"default-event-profile-image"]];
+    [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
     
     if (event.eventHostId == nil) {
         [event fetchEventDetailWithCompletion:^(NSError *error) {
@@ -66,7 +68,7 @@
 
 - (void) updateEventDetailView {
     if (self.event.profileUrl) {
-        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
+        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:self.event.defaultEventProfileImage]];
     }
     
     for (UIView *view in self.eventHostImageView.subviews) {

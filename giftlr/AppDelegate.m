@@ -15,6 +15,7 @@
 #import "MainViewController.h"
 #import "UIColor+giftlr.h"
 #import "Stripe.h"
+#import "User.h"
 
 @interface AppDelegate ()
 
@@ -41,6 +42,7 @@ NSString * const StripePublishableKey = @"pk_test_0kSKLkULVcRJ4PvPcFH7Qpy5";
     // Check whether user is logged in
     PFUser *currentUser = [PFUser currentUser];
     if (currentUser) {
+        [User loadCurrentUserFBData];
         MainViewController *mvc = [[MainViewController alloc] init];
         self.window.rootViewController = mvc;
     } else {
@@ -88,4 +90,5 @@ NSString * const StripePublishableKey = @"pk_test_0kSKLkULVcRJ4PvPcFH7Qpy5";
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];}
+
 @end

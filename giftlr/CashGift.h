@@ -23,6 +23,7 @@ extern NSString *const CashGiftStatusTransferred;
 @property (strong, nonatomic) NSString *hostProfileImageURL;
 @property (strong, nonatomic) NSString *claimerFacebookUserID;
 @property (nonatomic, strong) NSString *claimerName;
+@property (nonatomic, strong) NSDate *claimDate;
 @property (nonatomic, strong) NSString *status;
 @property (nonatomic, strong) Event *hostEvent;
 

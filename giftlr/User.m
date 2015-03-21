@@ -9,6 +9,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "User.h"
+#import "Activity.h"
 
 @interface User ()
 
@@ -36,7 +37,6 @@
     self = [super init];
     if (self) {
         self.pfUser = pfUser;
-        
         self.fbUserData = pfUser[@"fbUserData"];
         self.fbUserId = pfUser[@"fbUserId"];
         self.email = pfUser[@"email"];
@@ -132,7 +132,45 @@
     }];
 }
 
+- (void)getActivitiesWithCompletion:(void (^)(NSArray *activities, NSError *error))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
+    [query whereKey:@"toUserId" equalTo:self.fbUserId];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *pfObjects, NSError *error) {
+        NSMutableArray *activities = [NSMutableArray array];
+        for (PFObject *pfObject in pfObjects) {
+            Activity *activity = [[Activity alloc] initWithPFObject:pfObject];
+            [activities addObject:activity];
+        }
+        [activities sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [((Activity *)obj2).activityDate compare:((Activity *)obj1).activityDate];
+        }];
+        
+        completion(activities, error);
+    }];
+}
+
 # pragma mark - fb related helpers
+
++ (void)loadCurrentUserFBData {
+    [User loadCurrentUserFBDataWithCompletion:^(NSArray *freinds, NSError *error) {
+    }];
+}
+
++ (void)loadCurrentUserFBDataWithCompletion:(void (^)(NSArray *friends, NSError *error))completion {
+    [User fetchFBUserProfileWithCompletion:@"me" completion:^(User *user, NSError *error) {
+        user.pfUser = [PFUser currentUser];
+        if (!error) {
+            [User setCurrentUser:user];
+            [User fetchFBFriendsWithCompletion:[User currentUser] completion:^(NSArray *friends, NSError *error) {
+                completion(friends, nil);
+            }];
+        } else {
+            NSLog(@"Failed to get user profile");
+            completion(nil, error);
+        }
+    }];
+}
 
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion {
     NSString *userGraphPath = [NSString stringWithFormat:@"%@", userId];
@@ -148,7 +186,7 @@
     }];
 }
 
-+ (void)fetchFBFriendsWithCompletion:(User *)user completion:(void (^)(NSError *error))completion {
++ (void)fetchFBFriendsWithCompletion:(User *)user completion:(void (^)(NSArray *friends, NSError *error))completion {
     NSString *fbUserId = user.fbUserId;
     if (user == [User currentUser]) {
         fbUserId = @"me";
@@ -162,10 +200,10 @@
                                   for (NSDictionary *friend in friends) {
                                       [user linkUserWithFbFriend:friend[@"id"]];
                                   }
-                                  completion(nil);
+                                  completion(friends, nil);
                               } else {
                                   NSLog(@"failed to get friends list %@", error);
-                                  completion(error);
+                                  completion(nil, error);
                               }
                           }];
 }

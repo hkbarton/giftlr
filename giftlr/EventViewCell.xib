@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-event-profile-image" translatesAutoresizingMaskIntoConstraints="NO" id="sVd-Ml-dhL">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event-profile-image-2" translatesAutoresizingMaskIntoConstraints="NO" id="sVd-Ml-dhL">
                         <rect key="frame" x="8" y="8" width="372" height="200"/>
                         <color key="backgroundColor" red="0.89345503829999995" green="0.89345503829999995" blue="0.89345503829999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -76,17 +76,17 @@
                 <constraints>
                     <constraint firstItem="nkj-Qj-sqs" firstAttribute="top" secondItem="Iu8-Md-NMI" secondAttribute="bottom" constant="4" id="3H1-2F-r7p"/>
                     <constraint firstAttribute="trailing" secondItem="sVd-Ml-dhL" secondAttribute="trailing" constant="8" id="4vR-Jq-R6d"/>
-                    <constraint firstAttribute="trailing" secondItem="D0J-a9-g9t" secondAttribute="trailing" constant="16" id="6T0-aU-7Xu"/>
                     <constraint firstItem="sVd-Ml-dhL" firstAttribute="centerY" secondItem="D0J-a9-g9t" secondAttribute="centerY" constant="-100" id="84b-37-Vdc"/>
                     <constraint firstItem="Iu8-Md-NMI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Bcu-s9-wpM"/>
                     <constraint firstItem="sVd-Ml-dhL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="CWF-OF-nH2"/>
-                    <constraint firstItem="hgd-O4-Snz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="E90-2i-DUK"/>
                     <constraint firstItem="hgd-O4-Snz" firstAttribute="centerY" secondItem="y0h-lf-2MK" secondAttribute="centerY" id="IfK-cl-9TL"/>
                     <constraint firstItem="sVd-Ml-dhL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Jvf-NJ-fVW"/>
                     <constraint firstItem="Iu8-Md-NMI" firstAttribute="top" secondItem="sVd-Ml-dhL" secondAttribute="bottom" constant="8" id="Kzj-P2-I1y"/>
+                    <constraint firstItem="sVd-Ml-dhL" firstAttribute="leading" secondItem="hgd-O4-Snz" secondAttribute="leading" constant="-8" id="Tdn-PO-eJV"/>
                     <constraint firstItem="hgd-O4-Snz" firstAttribute="bottom" secondItem="sVd-Ml-dhL" secondAttribute="bottom" constant="-8" id="iJP-lW-m9f"/>
                     <constraint firstItem="y0h-lf-2MK" firstAttribute="leading" secondItem="hgd-O4-Snz" secondAttribute="trailing" constant="8" id="nAl-dR-zSq"/>
                     <constraint firstItem="nkj-Qj-sqs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="rAG-g2-XEc"/>
+                    <constraint firstItem="D0J-a9-g9t" firstAttribute="trailing" secondItem="sVd-Ml-dhL" secondAttribute="trailing" constant="-8" id="sv2-Sb-e5W"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,12 +99,14 @@
                 <outlet property="eventNameLabel" destination="y0h-lf-2MK" id="vOx-u1-8VA"/>
                 <outlet property="eventProfilePicView" destination="sVd-Ml-dhL" id="XeS-DA-b9G"/>
                 <outlet property="eventTimeLabel" destination="Iu8-Md-NMI" id="MSi-eq-Wri"/>
+                <outlet property="leadingConstraint" destination="CWF-OF-nH2" id="sFs-QY-bDG"/>
+                <outlet property="trailingConstraint" destination="4vR-Jq-R6d" id="v45-K4-ROe"/>
             </connections>
             <point key="canvasLocation" x="282" y="258"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="default-event-profile-image" width="732" height="370"/>
         <image name="default-user-50" width="50" height="50"/>
+        <image name="event-profile-image-2" width="640" height="388"/>
     </resources>
 </document>

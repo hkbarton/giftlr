@@ -113,6 +113,8 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.searchBar.backgroundColor = [UIColor lightGreyBackgroundColor];
     self.searchEvents = [NSMutableArray array];
     
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
 //    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
@@ -132,7 +134,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.eventStore = [[EKEventStore alloc] init];
     self.defaultCalendar = [self.eventStore defaultCalendarForNewEvents];
     
-    [self loadCurrentUserFBData];
     [self fetchParseEvents];
 }
 
@@ -364,8 +365,14 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     }
 }
 
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"undisplay cell %ld", indexPath.row);
+    NSLog(@"undisplay cell section %ld", indexPath.section);
+}
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"display cell %ld", indexPath.row);
+    NSLog(@"display cell section %ld", indexPath.section);
     if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
         [cell setSeparatorInset:UIEdgeInsetsZero];
     }
@@ -536,20 +543,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
         self.invitedButton.backgroundColor = [UIColor redPinkColor];
         self.invitedButton.tintColor = [UIColor whiteColor];
     }
-}
-
-// TODO: move this to somewhere else
-- (void)loadCurrentUserFBData {
-    [User fetchFBFriendsWithCompletion:[User currentUser] completion:^(NSError *error) {
-    }];
-    [User fetchFBUserProfileWithCompletion:@"me" completion:^(User *user, NSError *error) {
-        user.pfUser = [PFUser currentUser];
-        if (!error) {
-            [User setCurrentUser:user];
-        } else {
-            NSLog(@"Failed to get user profile");
-        }
-    }];
 }
 
 // Based on the relations to fetch the events for the users

@@ -48,9 +48,9 @@
     self.eventLocationLabel.text = event.location;
     self.eventHostedByLabel.text = [NSString stringWithFormat:@"Hosted by %@", event.eventHostName];
     
-    [self.eventProfilePicView setImage:nil];
+    [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
     
-    [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:@"default-event-profile-image"]];
+    [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:event.defaultEventProfileImage]];
     [User setUserProfileImage:self.eventHostImageView fbUserId:event.eventHostId];
 }
 

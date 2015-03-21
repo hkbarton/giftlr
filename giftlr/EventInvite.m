@@ -10,8 +10,6 @@
 
 @interface EventInvite ()
 
-@property (nonatomic, strong) Event *event;
-
 @end
 
 @implementation EventInvite
@@ -22,6 +20,7 @@
         self.event = event;
         self.eventId = event.fbEventId;
         self.guestUserId = guest.fbUserId;
+        self.guest = guest;
         self.inviteDate = [NSDate date];
     }
     

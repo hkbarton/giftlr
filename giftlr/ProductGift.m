@@ -35,6 +35,7 @@ NSString *const PFObjectClassName = @"ProductGift";
         self.status = pfObject[@"status"];
         self.claimerName = pfObject[@"claimerName"];
         self.claimerFacebookUserID = pfObject[@"claimerFacebookUserID"];
+        self.claimDate = pfObject[@"claimDate"];
         NSString *fbEventId = pfObject[@"fbEventId"];
         if (fbEventId!=nil) {
             // TODO change to load event from Event object
@@ -42,6 +43,8 @@ NSString *const PFObjectClassName = @"ProductGift";
             self.hostEvent.fbEventId = fbEventId;
             self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
             self.hostEvent.eventHostName = pfObject[@"hostName"];
+            self.hostEvent.name = pfObject[@"eventName"];
+            
         }
     }
     return self;
@@ -60,9 +63,11 @@ NSString *const PFObjectClassName = @"ProductGift";
         result.hostEvent.fbEventId = self.hostEvent.fbEventId;
         result.hostEvent.eventHostId = self.hostEvent.eventHostId;
         result.hostEvent.eventHostName = self.hostEvent.eventHostName;
+        result.hostEvent.name = self.hostEvent.name;
     }
     result.claimerFacebookUserID = self.claimerFacebookUserID;
     result.claimerName = self.claimerName;
+    result.claimDate = self.claimDate;
     return result;
 }
 
@@ -101,12 +106,18 @@ NSString *const PFObjectClassName = @"ProductGift";
         if (self.hostEvent.eventHostName != nil) {
             self.pfObject[@"hostName"] = self.hostEvent.eventHostName;
         }
+        if (self.hostEvent.name != nil) {
+            self.pfObject[@"eventname"] = self.hostEvent.name;
+        }
     }
     if (self.claimerFacebookUserID != nil) {
         self.pfObject[@"claimerFacebookUserID"] = self.claimerFacebookUserID;
     }
     if (self.claimerName != nil) {
         self.pfObject[@"claimerName"] = self.claimerName;
+    }
+    if (self.claimDate != nil) {
+        self.pfObject[@"claimDate"] = self.claimDate;
     }
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

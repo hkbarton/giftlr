@@ -15,9 +15,11 @@
 @interface EventInvite : NSObject
 
 @property (nonatomic, strong) NSString *guestUserId;
+@property (nonatomic, strong) User *guest;
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSDate *inviteDate;
 @property (strong, nonatomic) PFObject *pfObject;
+@property (nonatomic, strong) Event *event;
 
 - (id)initWithEvent:(Event *)event guest:(User *)guest;
 - (id)initWithPFObject:(PFObject *)pfObject;

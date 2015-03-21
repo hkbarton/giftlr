@@ -205,17 +205,4 @@ NSString *const ProductDetailViewModeView = @"ProductDetailViewModeView";
     [[self findFirstResponderInDetailView] resignFirstResponder];
 }
 
-- (IBAction)onBtnBuyClicked:(id)sender {
-    PurchaseViewController *pvc = [[PurchaseViewController alloc] initWithProduct:self.product];
-    UINavigationController *pnvc = [[UINavigationController alloc] initWithRootViewController:pvc];
-    [self presentViewController:pnvc animated:YES completion:nil];
-}
-
-- (IBAction)onBtnClaimClicked:(id)sender {
-    self.product.claimerFacebookUserID = [User currentUser].fbUserId;
-    self.product.claimerName = [User currentUser].name;
-    self.product.status = ProductGiftStatusClaimed;
-    [self.product saveToParse];
-}
-
 @end

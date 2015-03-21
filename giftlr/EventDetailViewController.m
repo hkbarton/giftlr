@@ -21,6 +21,7 @@
 #import "ModalViewTransition.h"
 #import "UIColor+giftlr.h"
 #import "User.h"
+#import "Activity.h"
 
 typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeProduct = 0,
@@ -320,6 +321,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)eventCashGiftCell:(EventCashGiftCell *)eventCashGiftCell didControlClicked:(CashGiftControlType)value {
     CashGift *gift = eventCashGiftCell.cashGift;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCashGiftCell];
+    Activity *activity;
     
     switch (value) {
         case CashGiftControlTypeUnclaim:
@@ -334,7 +336,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [eventCashGiftCell hideControlView];
             gift.claimerFacebookUserID = [User currentUser].fbUserId;
             gift.claimerName = [User currentUser].name;
+            gift.claimDate = [NSDate date];
             gift.status = CashGiftStatusClaimed;
+            activity = [[Activity alloc] initWithCashGiftClaim:gift];
+            [activity saveToParse];
             [gift saveToParse];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             break;
@@ -351,6 +356,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)eventProductGiftCell:(EventProductGiftCell *)eventProductGiftCell didControlClicked:(ProductGiftControlType)value {
     ProductGift *gift = eventProductGiftCell.productGift;
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventProductGiftCell];
+    Activity *activity;
     
     switch (value) {
         case ProductGiftControlTypeBuy:
@@ -373,7 +379,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [eventProductGiftCell hideControlView];
             gift.claimerFacebookUserID = [User currentUser].fbUserId;
             gift.claimerName = [User currentUser].name;
+            gift.claimDate = [NSDate date];
             gift.status = ProductGiftStatusClaimed;
+            activity = [[Activity alloc] initWithProductGiftClaim:gift];
+            [activity saveToParse];
             [gift saveToParse];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             break;
