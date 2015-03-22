@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "User.h"
 #import "EventListViewController.h"
-#import "GiftListViewController.h"
+#import "SearchViewController.h"
 #import "SettingViewController.h"
 #import "PaymentSettingViewController.h"
 #import "SideViewTransition.h"
@@ -18,19 +18,19 @@
 #import "ContactListViewController.h"
 #import "UIColor+giftlr.h"
 
-@interface MainViewController () <UITabBarDelegate, GiftListViewControllerDelegate, SettingViewControllerDelegate>
+@interface MainViewController () <UITabBarDelegate, SettingViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *tabbar;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabEvent;
-@property (weak, nonatomic) IBOutlet UIButton *btnTabGifts;
+@property (weak, nonatomic) IBOutlet UIButton *btnTabSearch;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabProfile;
 @property (weak, nonatomic) IBOutlet UIButton *btnTabContacts;
 
 @property (strong, nonatomic) ContactListViewController *contactListViewController;
 @property (strong, nonatomic) UINavigationController *contactListNavigationController;
 @property (strong, nonatomic) UIViewController *eventListViewController;
-@property (strong, nonatomic) UIViewController *giftListViewController;
+@property (strong, nonatomic) UIViewController *searchViewController;
 @property (strong, nonatomic) UIViewController *currentViewController;
 
 @property (strong, nonatomic) SideViewTransition *menuViewTransition;
@@ -45,19 +45,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // tabbar
-    self.tabbar.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.tabbar.backgroundColor = [UIColor whiteColor];
     [self.btnTabEvent setImage:[UIImage imageNamed:@"event-tab-select"] forState:UIControlStateSelected];
-    [self.btnTabGifts setImage:[UIImage imageNamed:@"gift-tab-select"] forState:UIControlStateSelected];
-    [self.btnTabProfile setImage:[UIImage imageNamed:@"profile-tab-select"] forState:UIControlStateSelected];
+    [self.btnTabSearch setImage:[UIImage imageNamed:@"search-tab-select"] forState:UIControlStateSelected];
     [self.btnTabContacts setImage:[UIImage imageNamed:@"Contacts-25-selected"] forState:UIControlStateSelected];
     self.btnTabEvent.selected = YES;
     // container view controller
     self.contactListViewController = [[ContactListViewController alloc] init];
     self.contactListNavigationController = [[UINavigationController alloc] initWithRootViewController:self.contactListViewController];
     self.eventListViewController = [[UINavigationController alloc] initWithRootViewController:[[EventListViewController alloc] init]];
-    GiftListViewController *giftListViewController = [[GiftListViewController alloc] init];
-    giftListViewController.delegate = self;
-    self.giftListViewController = [[UINavigationController alloc] initWithRootViewController:giftListViewController];
+    self.searchViewController = [[SearchViewController alloc] init];
     [self showContentViewController:self.eventListViewController];
 }
 
@@ -112,8 +109,8 @@
     }
     if (sender == self.btnTabEvent) {
        [self goToViewController:self.eventListViewController];
-    } else if (sender == self.btnTabGifts) {
-        [self goToViewController:self.giftListViewController];
+    } else if (sender == self.btnTabSearch) {
+        [self goToViewController:self.searchViewController];
     } else if (sender == self.btnTabContacts) {
         [self goToViewController:self.contactListNavigationController];
     } else if (sender == self.btnTabProfile) {
@@ -138,7 +135,7 @@
 
 -(void)setSelectedTabButton:(id)sender {
     self.btnTabEvent.selected = NO;
-    self.btnTabGifts.selected = NO;
+    self.btnTabSearch.selected = NO;
     self.btnTabProfile.selected = NO;
     self.btnTabContacts.selected = NO;
     UIButton *button = (UIButton *)sender;
@@ -146,9 +143,11 @@
 }
 
 #pragma mark - Gift List View Controller
+/*
 - (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
     [self goToViewController:self.eventListViewController];
     [self setSelectedTabButton:self.btnTabEvent];
 }
+*/
 
 @end

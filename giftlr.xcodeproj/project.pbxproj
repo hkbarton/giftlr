@@ -29,6 +29,8 @@
 		073E022C1AAB9044007778F4 /* Html in Resources */ = {isa = PBXBuildFile; fileRef = 073E022B1AAB9044007778F4 /* Html */; };
 		0760AF2E1AAEBC2C008CF2F3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 073B41C11AA8157500139A10 /* Images.xcassets */; };
 		0760AF2F1AAEBC2C008CF2F3 /* ProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 072FC3B21AABA3E300E7A1D5 /* ProductDetailViewController.xib */; };
+		078945F51ABF40C200663548 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078945F31ABF40C200663548 /* SearchViewController.m */; };
+		078945F61ABF40C200663548 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078945F41ABF40C200663548 /* SearchViewController.xib */; };
 		079CF3D41AB94D8600C2752D /* PaymentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D31AB94D8600C2752D /* PaymentInfo.m */; };
 		079CF3D71AB9518100C2752D /* BottomUpTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3D61AB9518100C2752D /* BottomUpTransition.m */; };
 		079CF3DB1AB95B6500C2752D /* PSSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079CF3DA1AB95B6500C2752D /* PSSectionHeaderView.m */; };
@@ -134,6 +136,9 @@
 		073E02241AAB856B007778F4 /* ProductSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSearchViewController.m; sourceTree = "<group>"; };
 		073E02251AAB856B007778F4 /* ProductSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductSearchViewController.xib; sourceTree = "<group>"; };
 		073E022B1AAB9044007778F4 /* Html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Html; sourceTree = "<group>"; };
+		078945F21ABF40C200663548 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		078945F31ABF40C200663548 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		078945F41ABF40C200663548 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
 		079CF3D21AB94D8600C2752D /* PaymentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentInfo.h; sourceTree = "<group>"; };
 		079CF3D31AB94D8600C2752D /* PaymentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentInfo.m; sourceTree = "<group>"; };
 		079CF3D51AB9518100C2752D /* BottomUpTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomUpTransition.h; sourceTree = "<group>"; };
@@ -399,6 +404,7 @@
 		073B41DD1AA815BA00139A10 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				078945F11ABF409B00663548 /* Search */,
 				96AB29E01AB94DC800FB64AD /* Contact */,
 				07C1D3061AB4F01600EF171D /* ViewControllerTransitionStyle */,
 				96AB29CD1AB6309E00FB64AD /* Event */,
@@ -416,6 +422,16 @@
 				0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		078945F11ABF409B00663548 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				078945F21ABF40C200663548 /* SearchViewController.h */,
+				078945F31ABF40C200663548 /* SearchViewController.m */,
+				078945F41ABF40C200663548 /* SearchViewController.xib */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 		079CF3D81AB9582100C2752D /* PaymentSettingView */ = {
@@ -662,6 +678,7 @@
 				33AC4BE91AAD503900438120 /* AddCashGiftViewController.xib in Resources */,
 				079CF3DD1AB95B8600C2752D /* PSSectionHeaderView.xib in Resources */,
 				07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */,
+				078945F61ABF40C200663548 /* SearchViewController.xib in Resources */,
 				33AC4BDC1AAD226800438120 /* ProductGiftCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -742,6 +759,7 @@
 				072FC3BA1AABC6A300E7A1D5 /* ProductHTMLParser.m in Sources */,
 				073B41B71AA8157400139A10 /* main.m in Sources */,
 				96AB29DB1AB6738C00FB64AD /* CheckBoxCell.m in Sources */,
+				078945F51ABF40C200663548 /* SearchViewController.m in Sources */,
 				33AC4BE81AAD503900438120 /* AddCashGiftViewController.m in Sources */,
 				96AB29E41AB94E9700FB64AD /* ContactListViewController.m in Sources */,
 				9602DC011AB2C4C10070CEB8 /* UIColor+giftlr.m in Sources */,

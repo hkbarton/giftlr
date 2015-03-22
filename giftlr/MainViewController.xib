@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
@@ -8,8 +8,8 @@
             <connections>
                 <outlet property="btnTabContacts" destination="7xp-tb-qpe" id="auu-nY-CdA"/>
                 <outlet property="btnTabEvent" destination="cW1-aQ-PB7" id="QT8-ps-8VN"/>
-                <outlet property="btnTabGifts" destination="OdB-Dp-8ci" id="3zd-0T-WXZ"/>
                 <outlet property="btnTabProfile" destination="NaO-YV-tPk" id="53F-kd-AHF"/>
+                <outlet property="btnTabSearch" destination="OdB-Dp-8ci" id="dJt-uo-Cho"/>
                 <outlet property="contentView" destination="KWz-mO-Ony" id="llC-fT-EPv"/>
                 <outlet property="tabbar" destination="F0i-C7-SvB" id="yBQ-tw-Urd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -41,25 +41,25 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OdB-Dp-8ci" userLabel="Gift Button">
-                            <rect key="frame" x="70" y="11" width="25" height="25"/>
+                            <rect key="frame" x="80" y="11" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="NZa-AP-MZ1"/>
                                 <constraint firstAttribute="width" constant="25" id="Q3y-44-JMm"/>
                             </constraints>
-                            <state key="normal" image="gift-tab-normal">
+                            <state key="normal" image="search-tab-normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="onTabItemClick:" destination="-1" eventType="touchUpInside" id="wSV-Um-CDC"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-YV-tPk" userLabel="Setting Button">
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-YV-tPk" userLabel="Setting Button">
                             <rect key="frame" x="275" y="11" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="gUp-ja-qed"/>
                                 <constraint firstAttribute="width" constant="25" id="the-IR-fHy"/>
                             </constraints>
-                            <state key="normal" image="profile-tab-normal">
+                            <state key="normal" image="settings-tab-normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -67,7 +67,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xp-tb-qpe" userLabel="Contacts Button">
-                            <rect key="frame" x="120" y="11" width="25" height="25"/>
+                            <rect key="frame" x="140" y="11" width="25" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="gBy-86-23C"/>
                                 <constraint firstAttribute="width" constant="25" id="r0f-J9-OD0"/>
@@ -89,8 +89,8 @@
                         <constraint firstAttribute="centerY" secondItem="cW1-aQ-PB7" secondAttribute="centerY" id="U9z-TQ-WGm"/>
                         <constraint firstAttribute="centerY" secondItem="NaO-YV-tPk" secondAttribute="centerY" id="iUF-Ic-oEL"/>
                         <constraint firstAttribute="centerY" secondItem="OdB-Dp-8ci" secondAttribute="centerY" id="pbw-Ob-FAg"/>
-                        <constraint firstItem="OdB-Dp-8ci" firstAttribute="leading" secondItem="cW1-aQ-PB7" secondAttribute="trailing" constant="25" id="tvO-5S-h6S"/>
-                        <constraint firstItem="7xp-tb-qpe" firstAttribute="leading" secondItem="OdB-Dp-8ci" secondAttribute="trailing" constant="25" id="wla-FO-SOd"/>
+                        <constraint firstItem="OdB-Dp-8ci" firstAttribute="leading" secondItem="cW1-aQ-PB7" secondAttribute="trailing" constant="35" id="tvO-5S-h6S"/>
+                        <constraint firstItem="7xp-tb-qpe" firstAttribute="leading" secondItem="OdB-Dp-8ci" secondAttribute="trailing" constant="35" id="wla-FO-SOd"/>
                     </constraints>
                 </view>
             </subviews>
@@ -110,8 +110,8 @@
     <resources>
         <image name="Contacts-25" width="25" height="25"/>
         <image name="event-tab-normal" width="25" height="25"/>
-        <image name="gift-tab-normal" width="25" height="25"/>
-        <image name="profile-tab-normal" width="25" height="25"/>
+        <image name="search-tab-normal" width="32" height="32"/>
+        <image name="settings-tab-normal" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
