@@ -56,6 +56,16 @@
     return self.pfObj;
 }
 
++(PaymentInfo*)creditCardOfCurUser:(NSString *) last4 withToken:(NSString *)token andType:(PTKCardType)type {
+    PaymentInfo *result = [[PaymentInfo alloc] init];
+    result.fbUserId = [User currentUser].fbUserId;
+    result.last4 = last4;
+    result.token = token;
+    result.cardType = type;
+    result.isBankAccount = NO;
+    return result;
+}
+
 +(void)loadCreditCardsByUser:(User *)user withCallback:(void (^)(NSArray *pamentInfos, NSError *error))callback {
     PFQuery *query = [PFQuery queryWithClassName:@"PaymentInfo"];
     [query whereKey:@"fbUserId" equalTo:user.fbUserId];

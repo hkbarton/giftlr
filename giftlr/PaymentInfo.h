@@ -24,6 +24,8 @@
 -(PFObject *)getPFObject;
 -(id)initWithPFObject:(PFObject *)pfObject;
 
++(PaymentInfo*)creditCardOfCurUser:(NSString *) last4 withToken:(NSString *)token andType:(PTKCardType)type;
+
 +(void)loadCreditCardsByUser:(User *)user withCallback:(void (^)(NSArray *pamentInfos, NSError *error))callback;
 +(void)loadBankInfosByUser:(User *)user withCallback:(void (^)(NSArray *pamentInfos, NSError *error))callback;
 

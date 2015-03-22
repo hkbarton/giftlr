@@ -71,6 +71,19 @@
 
 #pragma mark Table View
 
+// fix separator inset bug
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -117,10 +130,11 @@
 -(void)psCreationTableViewCell:(PSCreationTableViewCell *)psCreationTableViewCell didPaymentInfoCreate:(PaymentInfo *)payementInfo {
     if (payementInfo.isBankAccount) {
         [self.bankAccounts addObject:payementInfo];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
     } else {
         [self.creditCards addObject:payementInfo];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     }
-    [self.tableView reloadData];
 }
 
 @end

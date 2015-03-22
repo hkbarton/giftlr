@@ -54,7 +54,17 @@ NSInteger const CreationType_Bank = 1;
     }
 }
 
-- (void)hideInputView {
+- (void)clearInputView {
+   if (self.creationType == CreationType_CreaditCard) {
+       self.cardInputView.cardNumberField.text = @"";
+       self.cardInputView.cardExpiryField.text = @"";
+       self.cardInputView.cardCVCField.text = @"";
+   } else {
+       
+   }
+}
+
+- (void)hideInputView: (void (^)())callback{
     if (self.creationType == CreationType_CreaditCard) {
         [UIView animateWithDuration:0.2 animations:^{
             self.cardInputView.alpha = 0;
@@ -67,6 +77,10 @@ NSInteger const CreationType_Bank = 1;
             [UIView animateWithDuration:0.2 animations:^{
                 self.btnCreation.center = self.oriCenterOfCreationButton;
                 self.btnCreation.alpha = 1;
+            } completion:^(BOOL finished) {
+                if (callback) {
+                    callback();
+                }
             }];
         }];
     } else {
@@ -97,7 +111,7 @@ NSInteger const CreationType_Bank = 1;
             self.btnCancel.hidden = NO;
             self.btnOK.alpha = 0;
             self.btnCancel.alpha = 0;
-            //[self.cardInputView.cardNumberField becomeFirstResponder];
+            [self.cardInputView.cardNumberField becomeFirstResponder];
             [UIView animateWithDuration:0.3 animations:^{
                 self.btnOK.alpha = 1;
                 self.btnCancel.alpha = 1;
@@ -109,14 +123,20 @@ NSInteger const CreationType_Bank = 1;
 }
 
 - (IBAction)btnOKClicked:(id)sender {
-    [self hideInputView];
+    [self hideInputView:^{
+        // TODO should access stripe server to retrieve token
+        PaymentInfo *paymentInfo = [PaymentInfo creditCardOfCurUser:self.cardInputView.card.last4 withToken:@"fake_token" andType:self.cardInputView.cardNumber.cardType];
+        [paymentInfo saveToParse];
+        [self clearInputView];
+        if (self.delegate) {
+            [self.delegate psCreationTableViewCell:self didPaymentInfoCreate:paymentInfo];
+        }
+    }];
 }
 
 - (IBAction)btnCancelClicked:(id)sender {
-    [self hideInputView];
-    self.cardInputView.cardNumberField.text = @"";
-    self.cardInputView.cardExpiryField.text = @"";
-    self.cardInputView.cardCVCField.text = @"";
+    [self clearInputView];
+    [self hideInputView:nil];
     self.btnOK.enabled = NO;
 }
 
