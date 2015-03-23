@@ -13,9 +13,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event-profile-image-3" translatesAutoresizingMaskIntoConstraints="NO" id="Puj-45-PtZ">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="event-profile-image-3" translatesAutoresizingMaskIntoConstraints="NO" id="Puj-45-PtZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="DZ8-TV-fTD"/>
                         </constraints>

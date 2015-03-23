@@ -46,6 +46,7 @@ typedef NS_ENUM(NSInteger, EventType) {
 
 // Data from /event/picture
 @property (nonatomic, strong) NSString *profileUrl;
+@property (nonatomic, strong) UIImage *profileImage;
 
 @property (strong, nonatomic) PFObject *pfObject;
 @property (strong, nonatomic) NSMutableDictionary *guests;

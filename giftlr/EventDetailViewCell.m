@@ -10,11 +10,10 @@
 #import "UIImageView+AFNetworking.h"
 #import "User.h"
 
-@interface EventDetailViewCell ()
+@interface EventDetailViewCell () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *eventProfilePicView;
 @property (weak, nonatomic) IBOutlet UIImageView *eventHostImageView;
-@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventLocationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventHostedByLabel;
@@ -33,6 +32,9 @@
     UIColor *textGreyColor = [UIColor  colorWithRed:130.0f/255.0f green:136.0f/255.0f blue:138.0f/255.0f alpha:1.0f];
     self.eventHostedByLabel.textColor = textGreyColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    UILongPressGestureRecognizer *longPressGuestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressEventProfileImage:)];
+    longPressGuestureRecognizer.delegate = self;
+    [self.eventProfilePicView addGestureRecognizer:longPressGuestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,15 +46,29 @@
 - (void)setEvent:(Event *)event {
     _event = event;
     
-    self.eventNameLabel.text = event.name;
     self.eventTimeLabel.text = event.startTimeString;
     self.eventLocationLabel.text = event.location;
     self.eventHostedByLabel.text = [NSString stringWithFormat:@"Hosted by %@", event.eventHostName];
     
-    [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
+    if (event.profileImage) {
+        [self.eventProfilePicView setImage:self.event.profileImage];
+    } else if (event.profileUrl) {
+        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:event.defaultEventProfileImage]];
+    } else {
+        [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
+    }
     
-    [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:event.defaultEventProfileImage]];
     [User setUserProfileImage:self.eventHostImageView fbUserId:event.eventHostId];
+}
+
+- (void)onLongPressEventProfileImage:(UILongPressGestureRecognizer *)sender {
+    if (self.event.isHostEvent) {
+        [self.delegate eventDetailViewCell:self didChangeEventProfileImageTriggered:YES];
+    }
+}
+
+- (void) setEventProfileImage:(UIImage *)image {
+    [self.eventProfilePicView setImage:image];
 }
 
 @end

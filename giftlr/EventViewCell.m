@@ -73,7 +73,9 @@
 }
 
 - (void) updateEventDetailView {
-    if (self.event.profileUrl) {
+    if (self.event.profileImage) {
+        [self.eventProfilePicView setImage:self.event.profileImage];
+    } else if (self.event.profileUrl) {
         [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:self.event.defaultEventProfileImage]];
     }
     

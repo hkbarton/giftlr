@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
@@ -38,9 +38,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 @property (nonatomic, strong) NSMutableArray *productGiftList;
 @property (nonatomic, strong) NSMutableArray *cashGiftList;
-
+@property (nonatomic, strong) EventDetailViewCell *eventDetailCell;
 @property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
-
 @end
 
 @implementation EventDetailViewController
@@ -201,6 +200,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     if (indexPath.row == 0) {
         EventDetailViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventDetailViewCell"];
         cell.event = self.event;
+        cell.delegate = self;
+        self.eventDetailCell = cell;
         return cell;
     }
     
@@ -319,6 +320,15 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 }
 
 #pragma mark - delegate for cells
+- (void)eventDetailViewCell:(EventDetailViewCell *)eventDetailViewCell didChangeEventProfileImageTriggered:(BOOL)value {
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = YES;
+    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:imagePickerController animated:YES completion:^{
+    }];
+}
 
 - (void)eventCashGiftCell:(EventCashGiftCell *)eventCashGiftCell didControlClicked:(CashGiftControlType)value {
     CashGift *gift = eventCashGiftCell.cashGift;
@@ -399,6 +409,18 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             break;
     }
 }
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    self.eventDetailCell.event.profileImage = image;
+    [self.eventDetailCell setEventProfileImage:image];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 #pragma mark - Delegate of other view controllers
 
