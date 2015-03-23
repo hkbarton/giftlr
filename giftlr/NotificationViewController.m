@@ -7,8 +7,10 @@
 //
 
 #import "NotificationViewController.h"
+#import "EventDetailViewController.h"
 #import "NotificationCell.h"
 #import "User.h"
+#import "UIColor+giftlr.h"
 
 @interface NotificationViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -26,12 +28,13 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"NotificationCell" bundle:nil] forCellReuseIdentifier:@"NotificationCell"];
     
     self.tableView.rowHeight = 60;
+    self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
     
     self.title = @"Notifications";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
     self.activities = [[NSArray alloc] init];
-    [[User currentUser] getActivitiesWithCompletion:^(NSArray *activities, NSError *error) {
+    [Activity getActivitiesWithCompletion:[User currentUser].fbUserId completion:^(NSArray *activities, NSError *error) {
         if (error) {
             NSLog(@"failed to get activities with error %@", error);
         } else {
@@ -62,6 +65,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NotificationCell *cell = (NotificationCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    Event *event = cell.activity.event;
+    switch (cell.activity.activityType) {
+        case ActivityTypeEventInvite:
+        case ActivityTypeGiftClaim:
+        case ActivityTypeGiftDue:
+            if (event) {
+                EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
+                UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
+                edvc.event = event;
+                [self presentViewController:nvc animated:YES completion:^{
+                }];
+            }
+            break;
+        case ActivityTypeFriendJoin:
+            break;
+        default:
+            break;
+    }
 }
 
 @end

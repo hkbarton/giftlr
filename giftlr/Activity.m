@@ -49,6 +49,7 @@ static NSDateFormatter *df = nil;
         self.toUserName = invite.guest.name;
         self.eventId = invite.eventId;
         self.eventName = invite.event.name;
+        self.event = invite.event;
         self.activityDate = [NSDate date];
         self.detail = [NSString stringWithFormat:@"%@ invited you to \"%@\" on %@", self.fromUserName, self.eventName, invite.event.startTimeString];
     }
@@ -67,6 +68,7 @@ static NSDateFormatter *df = nil;
         self.toUserName = gift.hostEvent.eventHostName;
         self.eventId = gift.hostEvent.fbEventId;
         self.eventName = gift.hostEvent.name;
+        self.event = gift.hostEvent;
         self.activityDate = gift.claimDate;
         self.detail = [NSString stringWithFormat:@"%@ will bring \"%@\" to your event \"%@\"", self.fromUserName, gift.name, self.eventName];
     }
@@ -85,6 +87,7 @@ static NSDateFormatter *df = nil;
         self.toUserName = gift.hostEvent.eventHostName;
         self.eventId = gift.hostEvent.fbEventId;
         self.eventName = gift.hostEvent.name;
+        self.event = gift.hostEvent;
         self.activityDate = gift.claimDate;
         self.detail = [NSString stringWithFormat:@"%@ will contribute %@$ for your event \"%@\"", self.fromUserName, gift.amount, self.eventName];
     }
@@ -96,7 +99,6 @@ static NSDateFormatter *df = nil;
     self = [super init];
     if (self) {
         self.pfObject = pfObject;
-        
         self.eventId = pfObject[@"eventId"];
         self.eventName = pfObject[@"eventName"];
         self.fromUserId = pfObject[@"fromUserId"];
@@ -106,6 +108,9 @@ static NSDateFormatter *df = nil;
         self.detail = pfObject[@"detail"];
         self.activityDate = pfObject[@"activityDate"];
         self.activityType = [pfObject[@"activityType"] integerValue];
+        if (pfObject[@"event"]) {
+            self.event = [[Event alloc]initWithPFObject:(pfObject[@"event"])];
+        }
     }
     
     return self;
@@ -136,6 +141,9 @@ static NSDateFormatter *df = nil;
     self.pfObject[@"detail"] = self.detail;
     self.pfObject[@"activityDate"] = self.activityDate;
     self.pfObject[@"activityType"] = [NSString stringWithFormat:@"%ld",self.activityType];
+    if (self.event.pfObject) {
+        self.pfObject[@"event"] = self.event.pfObject;
+    }
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -143,6 +151,26 @@ static NSDateFormatter *df = nil;
             // There was a problem, check error.description
         }
         completion(error);
+    }];
+}
+
+
++ (void)getActivitiesWithCompletion:(NSString *)userId completion:(void (^)(NSArray *activities, NSError *error))completion {
+    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
+    [query whereKey:@"toUserId" equalTo:userId];
+    [query includeKey:@"event"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *pfObjects, NSError *error) {
+        NSMutableArray *activities = [NSMutableArray array];
+        for (PFObject *pfObject in pfObjects) {
+            Activity *activity = [[Activity alloc] initWithPFObject:pfObject];
+            [activities addObject:activity];
+        }
+        [activities sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            return [((Activity *)obj2).activityDate compare:((Activity *)obj1).activityDate];
+        }];
+        
+        completion(activities, error);
     }];
 }
 

@@ -27,6 +27,7 @@ typedef NS_ENUM(NSInteger, ActivityType) {
 @property (nonatomic, strong) NSString *toUserName;
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSString *eventName;
+@property (nonatomic, strong) Event *event;
 @property (nonatomic, strong) NSString *detail;
 @property (nonatomic, strong) NSDate *activityDate;
 @property (nonatomic, assign) NSInteger activityType;
@@ -45,4 +46,5 @@ typedef NS_ENUM(NSInteger, ActivityType) {
 
 - (void)saveToParseWithCompletion:(void (^)(NSError *error))completion;
 
++ (void)getActivitiesWithCompletion:(NSString *)userId completion:(void (^)(NSArray *activities, NSError *error))completion;
 @end

@@ -60,6 +60,8 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
     
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     
     self.joinEventControl.tintColor = [UIColor hotPinkColor];
@@ -338,6 +340,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = [User currentUser].name;
             gift.claimDate = [NSDate date];
             gift.status = CashGiftStatusClaimed;
+            gift.hostEvent = self.event;
             activity = [[Activity alloc] initWithCashGiftClaim:gift];
             [activity saveToParse];
             [gift saveToParse];
@@ -381,6 +384,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = [User currentUser].name;
             gift.claimDate = [NSDate date];
             gift.status = ProductGiftStatusClaimed;
+            gift.hostEvent = self.event;
             activity = [[Activity alloc] initWithProductGiftClaim:gift];
             [activity saveToParse];
             [gift saveToParse];
