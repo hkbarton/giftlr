@@ -32,6 +32,7 @@
 
     UIColor *textGreyColor = [UIColor  colorWithRed:130.0f/255.0f green:136.0f/255.0f blue:138.0f/255.0f alpha:1.0f];
     self.eventHostedByLabel.textColor = textGreyColor;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

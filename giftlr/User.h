@@ -37,6 +37,8 @@
 + (void)fetchFBFriendsWithCompletion:(User *)user completion:(void (^)(NSArray *friends, NSError *error))completion;
 + (void)fetchFBUserProfileWithCompletion:(NSString *)userId completion:(void (^)(User *user, NSError *error))completion;
 + (void)setUserProfileImage:(UIView *)profileContainerView fbUserId:(NSString *)fbUserId;
++ (void)addUserProfileImage:(UIView *)profileContainerView profilePicView:(FBProfilePictureView *)profilePicView;
++ (FBProfilePictureView *)createUserProfileImage:(NSString *)fbUserId;
 
 + (User *)currentUser;
 + (void)setCurrentUser:(User *)user;

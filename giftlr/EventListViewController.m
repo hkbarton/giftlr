@@ -385,8 +385,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"display cell %ld", indexPath.row);
-    NSLog(@"display cell section %ld", indexPath.section);
     self.willDisplayIndexPath = indexPath;
     EventViewCell *eventViewCell = (EventViewCell *)cell;
     [eventViewCell zoomEventProfilePic:YES];

@@ -126,8 +126,8 @@
             for (PFUser *pfUser in pfUsers) {
                 User *user = [[User alloc] initWithPFUser:pfUser];
                 [friends addObject:user];
-                completion(friends, nil);
             }
+            completion(friends, nil);
         }
     }];
 }
@@ -220,9 +220,18 @@ static User *_currentUser = nil;
 
 + (void)setUserProfileImage:(UIView *)profileContainerView fbUserId:(NSString *)fbUserId {
     FBProfilePictureView *profilePicView = [[FBProfilePictureView alloc] initWithProfileID:fbUserId pictureCropping:FBProfilePictureCroppingSquare];
+    [User addUserProfileImage:profileContainerView profilePicView:profilePicView];
+}
+
++ (void)addUserProfileImage:(UIView *)profileContainerView profilePicView:(FBProfilePictureView *)profilePicView {
     profilePicView.bounds = profileContainerView.bounds;
     [profileContainerView addSubview:profilePicView];
     profilePicView.center = CGPointMake(profileContainerView.frame.size.width / 2, profileContainerView.frame.size.height / 2);
+}
+
++ (FBProfilePictureView *)createUserProfileImage:(NSString *)fbUserId {
+    FBProfilePictureView *profilePicView = [[FBProfilePictureView alloc] initWithProfileID:fbUserId pictureCropping:FBProfilePictureCroppingSquare];
+    return profilePicView;
 }
 
 @end

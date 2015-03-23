@@ -8,6 +8,7 @@
 #import <EventKit/EventKit.h>
 #import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 typedef NS_ENUM(NSInteger, EventType) {
     EventTypeCreated = 0,
@@ -40,6 +41,8 @@ typedef NS_ENUM(NSInteger, EventType) {
 @property (nonatomic, strong) NSString *eventHostId;
 @property (nonatomic, strong) NSString *eventHostName;
 @property (nonatomic, assign) BOOL isHostEvent;
+@property FBProfilePictureView *eventHostProfilePicView;
+
 
 // Data from /event/picture
 @property (nonatomic, strong) NSString *profileUrl;

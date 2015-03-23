@@ -80,7 +80,10 @@
     for (UIView *view in self.eventHostImageView.subviews) {
         [view removeFromSuperview];
     }
-    [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
+    if (!self.event.eventHostProfilePicView) {
+        self.event.eventHostProfilePicView = [User createUserProfileImage:self.event.eventHostId];
+    }
+    [User addUserProfileImage:self.eventHostImageView profilePicView:self.event.eventHostProfilePicView];
 }
 
 - (void) zoomEventProfilePic:(BOOL)isZoomOut {

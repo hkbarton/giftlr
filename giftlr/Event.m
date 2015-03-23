@@ -86,6 +86,7 @@ static NSDateFormatter *df = nil;
         if (self.isHostEvent) {
             self.eventHostId = [User currentUser].fbUserId;
             self.eventHostName = [User currentUser].name;
+            self.eventHostProfilePicView = [User createUserProfileImage:self.eventHostId];
         }
         
         self.startTime = event.startDate;
@@ -128,6 +129,9 @@ static NSDateFormatter *df = nil;
         self.eventHostId = pfObject[@"eventHostId"];
         self.eventDescription = pfObject[@"eventDescription"];
         self.profileUrl = pfObject[@"profileUrl"];
+        if (self.eventHostId) {
+            self.eventHostProfilePicView = [User createUserProfileImage:self.eventHostId];
+        }
 
         self.isHostEvent = ([self.eventHostId isEqualToString:[User currentUser].fbUserId]);
         self.defaultEventProfileImage = [self getDefaultProfileImageName];
@@ -235,6 +239,7 @@ static NSDateFormatter *df = nil;
                                   if ([self.eventHostId isEqualToString:[User currentUser].fbUserId]) {
                                       self.isHostEvent = YES;
                                   }
+                                  self.eventHostProfilePicView = [User createUserProfileImage:self.eventHostId];
                               }
                               
                               resultCount ++;

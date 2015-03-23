@@ -95,9 +95,9 @@ typedef NS_ENUM(NSInteger, FriendsSectionIndex) {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case FriendsSectionIndexGiftlrCandidates:
-            return @"Invite other giftlr friends";
+            return @"Invite more friends";
         case FriendsSectionIndexInvited:
-            return @"Giftlr friends invited";
+            return @"Friends invited";
         default:
             return @"";
     }
