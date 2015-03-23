@@ -70,9 +70,10 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 @property (nonatomic, strong) UIView *searchBgView;
 @property (nonatomic, weak) UIImageView *navBarHairlineImageView;
 
-//@property (nonatomic, strong) EKEventEditViewController *eventEditViewController;
 @property (nonatomic, retain) EKEventStore *eventStore;
 @property (nonatomic, retain) EKCalendar *defaultCalendar;
+
+@property (nonatomic, strong) NSIndexPath *willDisplayIndexPath;
 
 - (IBAction)onInvitedClicked:(id)sender;
 - (IBAction)onHostingClicked:(id)sender;
@@ -122,9 +123,9 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.navBarHairlineImageView.hidden = YES;
     
     self.title = @"Events";
-    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Plus-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddEvent)];
-    self.navigationItem.rightBarButtonItems = @[searchItem];
+//    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Plus-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddEvent)];
+//    self.navigationItem.rightBarButtonItems = @[searchItem];
     
     // "pull to refresh" support
     self.tableRefreshControl = [[UIRefreshControl alloc] init];
@@ -251,10 +252,23 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     if (sender.state == UIGestureRecognizerStateBegan) {
     } else if (sender.state == UIGestureRecognizerStateChanged) {
     } else if (sender.state == UIGestureRecognizerStateEnded) {
-//        [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//            [self.view layoutIfNeeded];
-//        } completion:^(BOOL finished) {
-//        }];
+//        EventViewCell *willDisplayCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:self.willDisplayIndexPath];
+//        [willDisplayCell zoomEventProfilePic:YES];
+//        if (velocity.y > 0) {
+//            if (self.willDisplayIndexPath.row > 0) {
+//                NSIndexPath *prevIndexPath = [NSIndexPath indexPathForRow:self.willDisplayIndexPath.row - 1 inSection:self.willDisplayIndexPath.section];
+//                EventViewCell *prevCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:prevIndexPath];
+//                [prevCell zoomEventProfilePic:NO];
+//            }
+//        } else {
+//            if (self.willDisplayIndexPath.row + 1 < [self.tableView numberOfRowsInSection:self.willDisplayIndexPath.section]) {
+//                NSIndexPath *prevIndexPath = [NSIndexPath indexPathForRow:self.willDisplayIndexPath.row + 1 inSection:self.willDisplayIndexPath.section];
+//                EventViewCell *prevCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:prevIndexPath];
+//                [prevCell zoomEventProfilePic:NO];
+//            }
+//            
+//        }
+//        
     }
 }
 
@@ -366,22 +380,16 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"undisplay cell %ld", indexPath.row);
-    NSLog(@"undisplay cell section %ld", indexPath.section);
+    EventViewCell *eventViewCell = (EventViewCell *)cell;
+    [eventViewCell zoomEventProfilePic:NO];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"display cell %ld", indexPath.row);
     NSLog(@"display cell section %ld", indexPath.section);
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
+    self.willDisplayIndexPath = indexPath;
+    EventViewCell *eventViewCell = (EventViewCell *)cell;
+    [eventViewCell zoomEventProfilePic:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

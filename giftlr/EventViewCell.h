@@ -21,4 +21,6 @@
 
 @property (strong, nonatomic) Event *event;
 
+- (void) zoomEventProfilePic:(BOOL)isZoomOut;
+
 @end

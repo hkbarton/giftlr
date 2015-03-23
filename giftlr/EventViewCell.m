@@ -37,7 +37,7 @@
     
     self.eventProfilePicView.layer.cornerRadius = 3;
     self.eventProfilePicView.clipsToBounds = YES;
-    
+
     self.backgroundColor = [UIColor lightGreyBackgroundColor];
 }
 
@@ -45,6 +45,12 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)toggleOverlay:(BOOL)showing {
+    self.eventHostImageView.hidden = !showing;
+    self.TimeContainerView.hidden = !showing;
+    self.eventNameLabel.hidden = !showing;
 }
 
 - (void)setEvent:(Event *)event {
@@ -75,6 +81,22 @@
         [view removeFromSuperview];
     }
     [User setUserProfileImage:self.eventHostImageView fbUserId:self.event.eventHostId];
+}
+
+- (void) zoomEventProfilePic:(BOOL)isZoomOut {
+    if (isZoomOut) {
+        self.leadingConstraint.constant = 16;
+        self.trailingConstraint.constant = 16;
+    } else {
+        self.leadingConstraint.constant = 32;
+        self.trailingConstraint.constant = 32;
+    }
+    [self.contentView setNeedsLayout];
+    [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [self.contentView layoutIfNeeded];
+    } completion:^(BOOL finished) {
+    }];
+    
 }
 
 @end
