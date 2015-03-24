@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
     
     self.joinEventControl.tintColor = [UIColor hotPinkColor];
     self.joinEventControl.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
@@ -337,13 +337,15 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
                 break;
         }
     } else {
-        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-        imagePickerController.delegate = self;
-        imagePickerController.allowsEditing = YES;
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-        [self presentViewController:imagePickerController animated:YES completion:^{
-        }];
+        if (buttonIndex == 0) {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.delegate = self;
+            imagePickerController.allowsEditing = YES;
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+            [self presentViewController:imagePickerController animated:YES completion:^{
+            }];
+        }
     }
 }
 

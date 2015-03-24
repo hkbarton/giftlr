@@ -36,8 +36,9 @@ NSString * const StripePublishableKey = @"pk_test_0kSKLkULVcRJ4PvPcFH7Qpy5";
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
     [[UINavigationBar appearance] setTintColor:[UIColor hotPinkColor]];
+    [[UINavigationBar appearance] setTranslucent:NO];
     
     // Check whether user is logged in
     PFUser *currentUser = [PFUser currentUser];

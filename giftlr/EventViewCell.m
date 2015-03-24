@@ -39,6 +39,7 @@
     self.eventProfilePicView.clipsToBounds = YES;
 
     self.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

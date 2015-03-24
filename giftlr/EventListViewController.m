@@ -22,6 +22,7 @@
 #import "Event.h"
 #import "EventInvite.h"
 #import "UIColor+giftlr.h"
+#import "SideViewTransition.h"
 
 typedef NS_ENUM(NSInteger, EventListWithPendingSectionIndex) {
     EventListWithPendingSectionIndexPending = 0,
@@ -68,6 +69,8 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 @property (nonatomic, strong) NSIndexPath *willDisplayIndexPath;
 
+@property (strong, nonatomic) SideViewTransition *detailViewTransition;
+
 @end
 
 @implementation EventListViewController
@@ -98,8 +101,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
     self.searchEvents = [NSMutableArray array];
     
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
-    
 //    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
@@ -107,9 +108,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 //    self.navBarHairlineImageView.hidden = YES;
     
     self.title = @"Events";
-//    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Plus-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddEvent)];
-//    self.navigationItem.rightBarButtonItems = @[searchItem];
     
     // "pull to refresh" support
     self.tableRefreshControl = [[UIRefreshControl alloc] init];
@@ -409,8 +408,17 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
     edvc.event = event;
-    [self presentViewController:nvc animated:YES completion:^{
-    }];
+//    [self presentViewController:nvc animated:YES completion:^{
+//    }];
+
+    self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
+    self.detailViewTransition.widthPercent = 1.0;
+    self.detailViewTransition.AnimationTime = 0.5;
+    self.detailViewTransition.addModalBgView = NO;
+    self.detailViewTransition.slideFromViewPercent = 0.3;
+    nvc.transitioningDelegate = self.detailViewTransition;
+    [self presentViewController:nvc animated:YES completion:nil];
+
 }
 
 // Based on the relations to fetch the events for the users
