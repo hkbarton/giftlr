@@ -8,8 +8,13 @@
 
 #import "SearchViewController.h"
 #import "UIColor+giftlr.h"
+#import "SVProgressHUD.h"
+#import "Event.h"
+#import "ProductGift.h"
+#import "User.h"
+#import "CashGift.h"
 
-@interface SearchViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface SearchViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintOfSearchbar;
@@ -18,12 +23,19 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imagePlaceholder;
 
 @property (nonatomic, strong) NSMutableArray *events;
-@property (nonatomic, strong) NSMutableArray *gifts;
+@property (nonatomic, strong) NSMutableArray *productGifts;
+@property (nonatomic, strong) NSMutableArray *cashGifts;
 @property (nonatomic, strong) NSMutableArray *contacts;
+@property (nonatomic, strong) NSDictionary *data;
+@property (nonatomic, strong) NSMutableArray *sectionIDs;
 
 @end
 
 @implementation SearchViewController
+
+NSString *const SECTION_ID_EVENT = @"section-event";
+NSString *const SECTION_ID_GIFT = @"section-gift";
+NSString *const SECTION_ID_CONTACT = @"section-cantact";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,6 +52,7 @@
             break;
         }
     }
+    self.searchBar.delegate = self;
     // table view
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -47,6 +60,16 @@
     self.tableView.hidden = YES;
     self.placeholderView.hidden = NO;
     self.imagePlaceholder.image = [UIImage imageNamed:@"search-placeholder"];
+    // init data
+    self.sectionIDs = [NSMutableArray array];
+    self.events = [NSMutableArray array];
+    self.productGifts = [NSMutableArray array];
+    self.cashGifts = [NSMutableArray array];
+    self.contacts = [NSMutableArray array];
+    self.data = [NSDictionary dictionaryWithObjectsAndKeys:
+                 self.events, SECTION_ID_EVENT,
+                 [NSArray arrayWithObjects:self.productGifts, self.cashGifts, nil], SECTION_ID_GIFT,
+                 self.contacts, SECTION_ID_CONTACT, nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -58,6 +81,104 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (NSInteger)getSectionCount {
+    [self.sectionIDs removeAllObjects];
+    if (self.events.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_EVENT];
+    }
+    if (self.productGifts.count > 0 || self.cashGifts.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_GIFT];
+    }
+    if (self.contacts.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_CONTACT];
+    }
+    return self.sectionIDs.count;
+}
+
+- (NSString *)getSectionID:(NSInteger)sectionIndex {
+    return self.sectionIDs[sectionIndex];
+}
+
+- (NSInteger)getSectionIndexByID:(NSString *)sectionID {
+    for(int i=0;i<self.sectionIDs.count;i++) {
+        if ([self.sectionIDs[i] isEqualToString:sectionID]) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+- (NSArray *)getDataOfSection:(NSInteger)sectionIndex {
+    return [self.data objectForKey:[self getSectionID:sectionIndex]];
+}
+
+- (NSInteger)getRowCountOfSection:(NSInteger)sectionIndex {
+    NSString *sectionID = [self getSectionID:sectionIndex];
+    NSArray *sectionData = [self getDataOfSection:sectionIndex];
+    if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+        return self.productGifts.count + self.cashGifts.count;
+    } else {
+        return sectionData.count;
+    }
+}
+
+- (NSString *)getSectionTitle:(NSInteger)sectionIndex {
+    NSString *sectionID = [self getSectionID:sectionIndex];
+    NSString *sectionTitle = @"";
+    if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
+        sectionTitle = @"EVENTS";
+    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+        sectionTitle = @"GIFTS";
+    } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
+        sectionTitle = @"CONTACTS";
+    }
+    return sectionTitle;
+}
+
+- (void)loadTableBySectionID:(NSString *)sectionID {
+    if ([self getSectionCount]==0) {
+        [SVProgressHUD showInfoWithStatus:@"Can't find anything."];
+        return;
+    }
+    [SVProgressHUD dismiss];
+    if (self.tableView.hidden) {
+        [self.tableView reloadData];
+        self.tableView.alpha = 0;
+        self.tableView.hidden = NO;
+        [UIView animateWithDuration:0.5 animations:^{
+            self.placeholderView.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.placeholderView.hidden = YES;
+        }];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.tableView.alpha = 1;
+        } completion:nil];
+    } else {
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[self getSectionIndexByID:sectionID]] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
+
+- (void)searchAndLoad {
+    NSString *keyword = self.searchBar.text;
+    [Event searchEventsByKeyword:keyword withCompletion:^(NSArray *events) {
+        [self.events addObject:events];
+        [self loadTableBySectionID:SECTION_ID_EVENT];
+    }];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.events removeAllObjects];
+    [self.productGifts removeAllObjects];
+    [self.cashGifts removeAllObjects];
+    [self.contacts removeAllObjects];
+    [searchBar resignFirstResponder];
+    [SVProgressHUD show];
+    if (!self.tableView.hidden) {
+        [self.tableView reloadData];
+    }
+    [self searchAndLoad];
 }
 
 #pragma mark table view
@@ -76,14 +197,27 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 0;
+    return [self getSectionCount];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return [self getRowCountOfSection:section];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [self getSectionTitle:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *sectionID = [self getSectionID:indexPath.section];
+    NSArray *data = [self getDataOfSection:indexPath.section];
+    if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
+        // dequeue cell
+    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+        
+    }else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
+        
+    }
     return nil;
 }
 
