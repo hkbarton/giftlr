@@ -28,10 +28,13 @@ typedef NS_ENUM(NSInteger, ActivityType) {
 @property (nonatomic, strong) NSString *eventId;
 @property (nonatomic, strong) NSString *eventName;
 @property (nonatomic, strong) Event *event;
+@property (nonatomic, strong) ProductGift *gift;
 @property (nonatomic, strong) NSString *detail;
 @property (nonatomic, strong) NSDate *activityDate;
 @property (nonatomic, assign) NSInteger activityType;
 @property (strong, nonatomic) PFObject *pfObject;
+@property (nonatomic, strong) FBProfilePictureView *fromUserProfilePicView;
+
 
 - (id)initWithPFObject:(PFObject *)pfObject;
 

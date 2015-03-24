@@ -27,10 +27,11 @@
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"NotificationCell" bundle:nil] forCellReuseIdentifier:@"NotificationCell"];
     
-    self.tableView.rowHeight = 60;
-    self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 120;
     
-    self.title = @"Notifications";
+    self.title = @"News Feed";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
 //    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
@@ -77,6 +78,15 @@
     NotificationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
     cell.activity = self.activities[indexPath.row];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Activity *activity = self.activities[indexPath.row];
+    if (activity.event != nil || activity.gift != nil) {
+        return 120;
+    } else {
+        return 88;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

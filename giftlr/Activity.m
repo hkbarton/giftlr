@@ -33,6 +33,7 @@ static NSDateFormatter *df = nil;
         self.toUserName = friendData[@"name"];
         self.activityDate = [NSDate date];
         self.detail = [NSString stringWithFormat:@"%@ joined giftlr!", self.fromUserName];
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;
@@ -51,7 +52,8 @@ static NSDateFormatter *df = nil;
         self.eventName = invite.event.name;
         self.event = invite.event;
         self.activityDate = [NSDate date];
-        self.detail = [NSString stringWithFormat:@"%@ invited you to \"%@\" on %@", self.fromUserName, self.eventName, invite.event.startTimeString];
+        self.detail = [NSString stringWithFormat:@"invited you to the event:"];
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;
@@ -69,8 +71,10 @@ static NSDateFormatter *df = nil;
         self.eventId = gift.hostEvent.fbEventId;
         self.eventName = gift.hostEvent.name;
         self.event = gift.hostEvent;
+        self.gift = gift;
         self.activityDate = gift.claimDate;
-        self.detail = [NSString stringWithFormat:@"%@ will bring \"%@\" to your event \"%@\"", self.fromUserName, gift.name, self.eventName];
+        self.detail = [NSString stringWithFormat:@"bring a gift to \"%@\":", self.eventName];
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;
@@ -89,7 +93,8 @@ static NSDateFormatter *df = nil;
         self.eventName = gift.hostEvent.name;
         self.event = gift.hostEvent;
         self.activityDate = gift.claimDate;
-        self.detail = [NSString stringWithFormat:@"%@ will contribute %@$ for your event \"%@\"", self.fromUserName, gift.amount, self.eventName];
+        self.detail = [NSString stringWithFormat:@"contribute %@$ the event:", gift.amount];
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;
@@ -111,6 +116,11 @@ static NSDateFormatter *df = nil;
         if (pfObject[@"event"]) {
             self.event = [[Event alloc]initWithPFObject:(pfObject[@"event"])];
         }
+        if (pfObject[@"gift"]) {
+            self.gift = [[ProductGift alloc] initWithPFObject:pfObject[@"gift"]];
+        }
+        
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;
@@ -145,6 +155,13 @@ static NSDateFormatter *df = nil;
         self.pfObject[@"event"] = self.event.pfObject;
     }
     
+    if (self.gift) {
+        PFObject *giftPFObject = [self.gift getPFObject];
+        if (giftPFObject) {
+            self.pfObject[@"gift"] = giftPFObject;
+        }
+    }
+    
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
         } else {
@@ -156,9 +173,16 @@ static NSDateFormatter *df = nil;
 
 
 + (void)getActivitiesWithCompletion:(NSString *)userId completion:(void (^)(NSArray *activities, NSError *error))completion {
-    PFQuery *query = [PFQuery queryWithClassName:@"Activity"];
-    [query whereKey:@"toUserId" equalTo:userId];
+    PFQuery *queryActivitiesToMe = [PFQuery queryWithClassName:@"Activity"];
+    [queryActivitiesToMe whereKey:@"toUserId" equalTo:userId];
+    
+    PFQuery *queryActivitiesFromMe = [PFQuery queryWithClassName:@"Activity"];
+    [queryActivitiesFromMe whereKey:@"fromUserId" equalTo:userId];
+
+    PFQuery *query = [PFQuery orQueryWithSubqueries:@[queryActivitiesFromMe,queryActivitiesToMe]];
+    [query orderByDescending:@"activityDate"];
     [query includeKey:@"event"];
+    [query includeKey:@"gift"];
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *pfObjects, NSError *error) {
         NSMutableArray *activities = [NSMutableArray array];
