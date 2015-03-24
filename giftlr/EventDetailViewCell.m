@@ -32,9 +32,9 @@
     UIColor *textGreyColor = [UIColor  colorWithRed:130.0f/255.0f green:136.0f/255.0f blue:138.0f/255.0f alpha:1.0f];
     self.eventHostedByLabel.textColor = textGreyColor;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    UILongPressGestureRecognizer *longPressGuestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongPressEventProfileImage:)];
-    longPressGuestureRecognizer.delegate = self;
-    [self.eventProfilePicView addGestureRecognizer:longPressGuestureRecognizer];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapProfilePic:)];
+    tapGestureRecognizer.delegate = self;
+    [self.eventProfilePicView addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -61,7 +61,7 @@
     [User setUserProfileImage:self.eventHostImageView fbUserId:event.eventHostId];
 }
 
-- (void)onLongPressEventProfileImage:(UILongPressGestureRecognizer *)sender {
+- (void)onTapProfilePic:(UITapGestureRecognizer *)sender {
     if (self.event.isHostEvent) {
         [self.delegate eventDetailViewCell:self didChangeEventProfileImageTriggered:YES];
     }

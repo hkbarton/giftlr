@@ -41,6 +41,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 @property (nonatomic, strong) EventDetailViewCell *eventDetailCell;
 @property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
 @property (nonatomic, strong) ModalViewTransition *addCashGiftViewTransition;
+
+@property (nonatomic, strong) UIActionSheet *addGiftActionSheet;
+@property (nonatomic, strong) UIActionSheet *changeEventProfilePicActionSheet;
+
 @end
 
 @implementation EventDetailViewController
@@ -106,7 +110,6 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [self.tableView reloadData];
         }
     }];
-    // TODO load cash gift list
     self.cashGiftList = [NSMutableArray array];
 
     [CashGift loadCashGiftsByEvent:self.event withCallback:^(NSArray *cashGifts, NSError *error) {
@@ -115,6 +118,19 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [self.tableView reloadData];
         }
     }];
+    
+    self.addGiftActionSheet = [[UIActionSheet alloc] initWithTitle:@"What gift do you want to add?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Product", @"Cash", nil];
+    
+
+    self.changeEventProfilePicActionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                        delegate:self
+                                                               cancelButtonTitle:@"Cancel"
+                                                          destructiveButtonTitle:nil
+                                                               otherButtonTitles:@"Choose a photo", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -283,13 +299,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 }
 
 - (void)onAddGift {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"What gift do you want to add?"
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Product", @"Cash", nil];
-    
-    [actionSheet showInView:self.view];
+    [self.addGiftActionSheet showInView:self.view];
 }
 
 - (void)onAddProductGift {
@@ -315,27 +325,31 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 # pragma mark - actionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case AddGiftActionTypeProduct:
-            [self onAddProductGift];
-            break;
-        case AddGiftActionTypeCash:
-            [self onAddCashGift];
-            break;
-        default:
-            break;
+    if (actionSheet == self.addGiftActionSheet) {
+        switch (buttonIndex) {
+            case AddGiftActionTypeProduct:
+                [self onAddProductGift];
+                break;
+            case AddGiftActionTypeCash:
+                [self onAddCashGift];
+                break;
+            default:
+                break;
+        }
+    } else {
+        UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+        imagePickerController.delegate = self;
+        imagePickerController.allowsEditing = YES;
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+        [self presentViewController:imagePickerController animated:YES completion:^{
+        }];
     }
 }
 
 #pragma mark - delegate for cells
 - (void)eventDetailViewCell:(EventDetailViewCell *)eventDetailViewCell didChangeEventProfileImageTriggered:(BOOL)value {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [self presentViewController:imagePickerController animated:YES completion:^{
-    }];
+    [self.changeEventProfilePicActionSheet showInView:self.view];
 }
 
 - (void)eventCashGiftCell:(EventCashGiftCell *)eventCashGiftCell didControlClicked:(CashGiftControlType)value {

@@ -93,7 +93,7 @@ static NSDateFormatter *df = nil;
         self.eventName = gift.hostEvent.name;
         self.event = gift.hostEvent;
         self.activityDate = gift.claimDate;
-        self.detail = [NSString stringWithFormat:@"contribute %@$ the event:", gift.amount];
+        self.detail = [NSString stringWithFormat:@"contribute %@$ to the event:", gift.amount];
         self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
