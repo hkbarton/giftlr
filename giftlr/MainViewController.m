@@ -48,7 +48,7 @@
     self.tabbar.backgroundColor = [UIColor whiteColor];
     [self.btnTabEvent setImage:[UIImage imageNamed:@"event-tab-select"] forState:UIControlStateSelected];
     [self.btnTabSearch setImage:[UIImage imageNamed:@"search-tab-select"] forState:UIControlStateSelected];
-    [self.btnTabNotification setImage:[UIImage imageNamed:@"Notification-25-selected"] forState:UIControlStateSelected];
+    [self.btnTabNotification setImage:[UIImage imageNamed:@"Globe-26-selected"] forState:UIControlStateSelected];
     self.btnTabEvent.selected = YES;
     // container view controller
     self.notificationListViewController = [[NotificationViewController alloc] init];

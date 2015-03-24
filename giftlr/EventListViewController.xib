@@ -7,13 +7,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventListViewController">
             <connections>
                 <outlet property="eventNotificationButton" destination="wGo-pu-wGc" id="KBs-L4-zwn"/>
-                <outlet property="eventNotificationTopConstraint" destination="Fnt-Oa-1KM" id="eVt-75-oaN"/>
-                <outlet property="eventSourceBottomBorderView" destination="M6R-ec-xQV" id="nl1-5X-Qb4"/>
-                <outlet property="eventSourceTypeView" destination="HHA-Rs-dsk" id="H7z-iG-uWy"/>
-                <outlet property="hostingButton" destination="F3t-Ns-k55" id="9P5-oa-5K4"/>
-                <outlet property="invitedButton" destination="nxi-Jn-gCW" id="wmN-Wp-Dvf"/>
-                <outlet property="searchBar" destination="JDv-dN-tOt" id="wfD-bo-fP4"/>
-                <outlet property="searchBarTopConstraint" destination="yXE-eZ-ZEh" id="6eZ-AV-Uuu"/>
                 <outlet property="tableView" destination="HDw-eS-6DJ" id="kmJ-fA-1Tr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,67 +16,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HHA-Rs-dsk" userLabel="Event Source Type View">
-                    <rect key="frame" x="0.0" y="64" width="320" height="30"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxi-Jn-gCW">
-                            <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                            <state key="normal" title="All">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onInvitedClicked:" destination="-1" eventType="touchUpInside" id="Gnv-Ft-eWJ"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3t-Ns-k55">
-                            <rect key="frame" x="160" y="0.0" width="160" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="Hosting">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="onHostingClicked:" destination="-1" eventType="touchUpInside" id="hMW-XB-hbp"/>
-                            </connections>
-                        </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6R-ec-xQV" userLabel="Source Type Bottom Border View">
-                            <rect key="frame" x="0.0" y="29" width="320" height="1"/>
-                            <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="MbL-jz-aKj"/>
-                            </constraints>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="nxi-Jn-gCW" secondAttribute="bottom" id="AYs-Fq-kGi"/>
-                        <constraint firstItem="nxi-Jn-gCW" firstAttribute="width" secondItem="F3t-Ns-k55" secondAttribute="width" id="CsG-jy-j3z"/>
-                        <constraint firstAttribute="trailing" secondItem="F3t-Ns-k55" secondAttribute="trailing" id="EYp-Wl-Nuk"/>
-                        <constraint firstItem="M6R-ec-xQV" firstAttribute="leading" secondItem="HHA-Rs-dsk" secondAttribute="leading" id="EwR-ts-aEl"/>
-                        <constraint firstItem="nxi-Jn-gCW" firstAttribute="leading" secondItem="HHA-Rs-dsk" secondAttribute="leading" id="RqO-bd-ReM"/>
-                        <constraint firstItem="nxi-Jn-gCW" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="top" id="TSQ-8e-ATl"/>
-                        <constraint firstItem="F3t-Ns-k55" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="top" id="Yo3-Ee-Nwq"/>
-                        <constraint firstAttribute="trailing" secondItem="M6R-ec-xQV" secondAttribute="trailing" id="ZEB-y9-qbP"/>
-                        <constraint firstItem="F3t-Ns-k55" firstAttribute="leading" secondItem="nxi-Jn-gCW" secondAttribute="trailing" id="aE0-cZ-wNL"/>
-                        <constraint firstAttribute="height" constant="30" id="ewu-VA-sjt"/>
-                        <constraint firstAttribute="bottom" secondItem="F3t-Ns-k55" secondAttribute="bottom" id="iqR-37-rKj"/>
-                        <constraint firstAttribute="bottom" secondItem="M6R-ec-xQV" secondAttribute="bottom" id="thx-vm-hGG"/>
-                    </constraints>
-                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="HDw-eS-6DJ">
-                    <rect key="frame" x="0.0" y="94" width="320" height="474"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Type event title or host name" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JDv-dN-tOt">
-                    <rect key="frame" x="0.0" y="-30" width="320" height="30"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="9x2-8y-oRj"/>
-                    </constraints>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-pu-wGc">
-                    <rect key="frame" x="100" y="94" width="120" height="27"/>
+                    <rect key="frame" x="100" y="70" width="120" height="27"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="120" id="ZsG-sE-gYg"/>
@@ -99,18 +37,12 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="HHA-Rs-dsk" secondAttribute="trailing" id="025-oE-Bd3"/>
                 <constraint firstAttribute="bottom" secondItem="HDw-eS-6DJ" secondAttribute="bottom" id="1na-PI-Wr0"/>
-                <constraint firstItem="HHA-Rs-dsk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6U7-GA-jMh"/>
-                <constraint firstItem="HHA-Rs-dsk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="7Mu-Rx-Mij"/>
-                <constraint firstAttribute="trailing" secondItem="JDv-dN-tOt" secondAttribute="trailing" id="B1K-uv-dT5"/>
-                <constraint firstItem="wGo-pu-wGc" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="bottom" id="Fnt-Oa-1KM"/>
-                <constraint firstItem="HDw-eS-6DJ" firstAttribute="top" secondItem="HHA-Rs-dsk" secondAttribute="bottom" id="KAE-xW-pWJ"/>
+                <constraint firstItem="wGo-pu-wGc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="L43-6Z-Kat"/>
                 <constraint firstAttribute="centerX" secondItem="wGo-pu-wGc" secondAttribute="centerX" id="MP4-22-c0C"/>
                 <constraint firstAttribute="trailing" secondItem="HDw-eS-6DJ" secondAttribute="trailing" id="N12-WO-6or"/>
-                <constraint firstItem="JDv-dN-tOt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="akp-zf-1MU"/>
+                <constraint firstItem="HDw-eS-6DJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="buF-5a-bRh"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qNX-Vv-NlC"/>
-                <constraint firstItem="JDv-dN-tOt" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-30" id="yXE-eZ-ZEh"/>
             </constraints>
             <point key="canvasLocation" x="287" y="263"/>
         </view>

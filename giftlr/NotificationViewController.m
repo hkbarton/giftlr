@@ -33,8 +33,8 @@
     self.title = @"Notifications";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
-    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    navBarHairlineImageView.hidden = YES;
+//    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+//    navBarHairlineImageView.hidden = YES;
     
     self.activities = [[NSArray alloc] init];
     [Activity getActivitiesWithCompletion:[User currentUser].fbUserId completion:^(NSArray *activities, NSError *error) {

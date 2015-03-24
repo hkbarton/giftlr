@@ -39,16 +39,9 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 @interface EventListViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UIGestureRecognizerDelegate, EKEventEditViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *eventSourceTypeView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchBarTopConstraint;
-@property (weak, nonatomic) IBOutlet UIView *eventSourceBottomBorderView;
 @property (weak, nonatomic) IBOutlet UIButton *eventNotificationButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventNotificationTopConstraint;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIButton *invitedButton;
-@property (weak, nonatomic) IBOutlet UIButton *hostingButton;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @property (strong, nonatomic) NSMutableArray *allEvents;
 @property (strong, nonatomic) NSMutableArray *pendingEvents;
@@ -75,9 +68,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 @property (nonatomic, strong) NSIndexPath *willDisplayIndexPath;
 
-- (IBAction)onInvitedClicked:(id)sender;
-- (IBAction)onHostingClicked:(id)sender;
-
 @end
 
 @implementation EventListViewController
@@ -91,13 +81,10 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.isSearchMode = NO;
     self.showPendingEvents = NO;
     self.upcomingEventsCount = self.pastEventsCount = self.pastMyEventsCount = self.upcomingMyEventsCount = 0;
-    self.eventSourceTypeView.backgroundColor = [UIColor lightGreyBackgroundColor];
-    self.eventSourceBottomBorderView.backgroundColor = [UIColor redPinkColor];
     self.eventNotificationButton.hidden = YES;
     self.eventNotificationButton.layer.cornerRadius = 10;
     self.eventNotificationButton.clipsToBounds = YES;
     self.eventNotificationButton.tintColor = [UIColor hotPinkColor];
-    [self setEventSourceSwitchState];
     
     self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
     
@@ -109,9 +96,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     UIPanGestureRecognizer *tablePanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
     tablePanGestureRecognizer.delegate = self;
     [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
-    self.searchBar.delegate = self;
-    self.searchBar.tintColor = [UIColor hotPinkColor];
-    self.searchBar.backgroundColor = [UIColor lightGreyBackgroundColor];
     self.searchEvents = [NSMutableArray array];
     
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
@@ -119,8 +103,8 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 //    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
 //    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     // Hide the border line of navigation bar: http://stackoverflow.com/questions/19226965/how-to-hide-ios7-uinavigationbar-1px-bottom-line
-    self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    self.navBarHairlineImageView.hidden = YES;
+//    self.navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+//    self.navBarHairlineImageView.hidden = YES;
     
     self.title = @"Events";
 //    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Search-25-pink"] style:UIBarButtonItemStylePlain target:self action:@selector(showSearchBar)];
@@ -157,9 +141,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (self.isSearchMode) {
-        [self.searchBar becomeFirstResponder];
-    }
     [super viewWillAppear:animated];
 }
 
@@ -215,30 +196,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     }];
 }
 
-- (void)showSearchBar {
-    if (self.isSearchMode) {
-        return;
-    }
-    
-    if (!self.searchBgView) {
-        self.searchBgView = [[UIView alloc] initWithFrame:self.tableView.bounds];
-        self.searchBgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
-        UITapGestureRecognizer *searchBgViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSearchBgViewTap)];
-        searchBgViewTapGestureRecognizer.delegate = self;
-        [self.searchBgView addGestureRecognizer:searchBgViewTapGestureRecognizer];
-    }
-    
-    [self.tableView addSubview:self.searchBgView];
-    self.isSearchMode = YES;
-    self.searchBarTopConstraint.constant = 64;
-    [self.searchBar setNeedsLayout];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        [self.searchBar layoutIfNeeded];
-        [self.searchBar becomeFirstResponder];
-    } completion:^(BOOL finished) {
-    }];
-}
-
 #pragma mark - gesture controls
 
 // Need to allow parent container to handle pan gesture while the table view scroll still working
@@ -270,71 +227,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 //        }
 //        
     }
-}
-
-- (void)onSearchBgViewTap {
-    [self cancelSearch];
-}
-
-#pragma mark - search bar control
-
-// Search bar event listener
-- (void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text {
-    [self.searchEvents removeAllObjects];
-    
-    if (text.length > 0) {
-        for (Event *event in self.allEvents) {
-            // Search title and host name
-            NSRange nameRange = [event.name rangeOfString:text options:NSCaseInsensitiveSearch];
-            NSRange hostNameRange = [event.eventHostName rangeOfString:text options:NSCaseInsensitiveSearch];
-            if(nameRange.location != NSNotFound || hostNameRange.location != NSNotFound) {
-                [self.searchEvents addObject:event];
-            }
-        }
-    }
-    if (self.searchEvents.count == 0) {
-        [self.tableView addSubview:self.searchBgView];
-    }
-    else {
-        [self.searchBgView removeFromSuperview];
-    }
-
-    [self.tableView reloadData];
-}
-
-// Reset search bar state after cancel button clicked
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self cancelSearch];
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    //[searchBar resignFirstResponder];
-    [self.searchEvents removeAllObjects];
-    NSString *text = searchBar.text;
-    for (Event *event in self.allEvents) {
-        // Search title and host name
-        NSRange nameRange = [event.name rangeOfString:text options:NSCaseInsensitiveSearch];
-        NSRange hostNameRange = [event.eventHostName rangeOfString:text options:NSCaseInsensitiveSearch];
-        if(nameRange.location != NSNotFound || hostNameRange.location != NSNotFound) {
-            [self.searchEvents addObject:event];
-        }
-    }
-    
-    [self.tableView reloadData];
-}
-
-- (void)cancelSearch {
-    [self.searchBgView removeFromSuperview];
-    self.searchBar.text = @"";
-    self.isSearchMode = NO;
-    [self.searchBar resignFirstResponder];
-    self.searchBarTopConstraint.constant = -30;
-    [self.searchBar setNeedsLayout];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        [self.searchBar layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [self.tableView reloadData];
-    }];
 }
 
 #pragma mark - Table methods
@@ -499,22 +391,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     }];
 }
 
-- (IBAction)onInvitedClicked:(id)sender {
-    if (self.isMyEventMode) {
-        self.isMyEventMode = NO;
-        [self setEventSourceSwitchState];
-        [self.tableView reloadData];
-    }
-}
-
-- (IBAction)onHostingClicked:(id)sender {
-    if (!self.isMyEventMode) {
-        self.isMyEventMode = YES;
-        [self setEventSourceSwitchState];
-        [self.tableView reloadData];
-    }
-}
-
 - (IBAction)onEventNotificaionClicked:(id)sender {
     self.eventNotificationButton.hidden = YES;
     self.showPendingEvents = YES;
@@ -535,20 +411,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     edvc.event = event;
     [self presentViewController:nvc animated:YES completion:^{
     }];
-}
-
-- (void)setEventSourceSwitchState {
-    if (self.isMyEventMode) {
-        self.hostingButton.backgroundColor = [UIColor redPinkColor];
-        self.hostingButton.tintColor = [UIColor whiteColor];
-        self.invitedButton.backgroundColor = [UIColor lightGreyBackgroundColor];
-        self.invitedButton.tintColor = [UIColor hotPinkColor];
-    } else {
-        self.hostingButton.backgroundColor = [UIColor lightGreyBackgroundColor];
-        self.hostingButton.tintColor = [UIColor hotPinkColor];
-        self.invitedButton.backgroundColor = [UIColor redPinkColor];
-        self.invitedButton.tintColor = [UIColor whiteColor];
-    }
 }
 
 // Based on the relations to fetch the events for the users
