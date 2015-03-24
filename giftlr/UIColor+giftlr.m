@@ -25,4 +25,9 @@
     return lightGrey;
 }
 
++ (UIColor *) lightGrayBorderColor {
+    UIColor *lightGrey = [UIColor  colorWithRed:220.0f/255.0f green:220.0f/255.0f blue:220.0f/255.0f alpha:1.0f];
+    return lightGrey;
+}
+
 @end

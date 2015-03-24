@@ -42,6 +42,8 @@
 		07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C1D3081AB4F0CB00EF171D /* ModalViewTransition.m */; };
 		07E52B821AAD37B700B67296 /* PurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E52B801AAD37B700B67296 /* PurchaseViewController.m */; };
 		07E52B831AAD37B700B67296 /* PurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E52B811AAD37B700B67296 /* PurchaseViewController.xib */; };
+		07E69FC51AC127F500401A0D /* CCPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E69FC31AC127F500401A0D /* CCPickerViewController.m */; };
+		07E69FC61AC127F500401A0D /* CCPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07E69FC41AC127F500401A0D /* CCPickerViewController.xib */; };
 		07EB3EDF1AB00BFF007B1607 /* EventProductGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */; };
 		07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */; };
 		07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EB3EE21AB00C27007B1607 /* EventCashGiftCell.m */; };
@@ -162,6 +164,9 @@
 		07E52B7F1AAD37B700B67296 /* PurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PurchaseViewController.h; sourceTree = "<group>"; };
 		07E52B801AAD37B700B67296 /* PurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PurchaseViewController.m; sourceTree = "<group>"; };
 		07E52B811AAD37B700B67296 /* PurchaseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseViewController.xib; sourceTree = "<group>"; };
+		07E69FC21AC127F500401A0D /* CCPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPickerViewController.h; sourceTree = "<group>"; };
+		07E69FC31AC127F500401A0D /* CCPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCPickerViewController.m; sourceTree = "<group>"; };
+		07E69FC41AC127F500401A0D /* CCPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CCPickerViewController.xib; sourceTree = "<group>"; };
 		07EB3EDC1AB00BFF007B1607 /* EventProductGiftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventProductGiftCell.h; sourceTree = "<group>"; };
 		07EB3EDD1AB00BFF007B1607 /* EventProductGiftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventProductGiftCell.m; sourceTree = "<group>"; };
 		07EB3EDE1AB00BFF007B1607 /* EventProductGiftCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventProductGiftCell.xib; sourceTree = "<group>"; };
@@ -297,6 +302,9 @@
 				0734E0FB1AB7F8CF00D670E5 /* PaymentSettingViewController.h */,
 				0734E0FC1AB7F8CF00D670E5 /* PaymentSettingViewController.m */,
 				0734E0FD1AB7F8CF00D670E5 /* PaymentSettingViewController.xib */,
+				07E69FC21AC127F500401A0D /* CCPickerViewController.h */,
+				07E69FC31AC127F500401A0D /* CCPickerViewController.m */,
+				07E69FC41AC127F500401A0D /* CCPickerViewController.xib */,
 			);
 			name = Payment;
 			sourceTree = "<group>";
@@ -687,6 +695,7 @@
 				96AB29E51AB94E9700FB64AD /* ContactListViewController.xib in Resources */,
 				33AC4BEE1AAD531400438120 /* PayCashViewController.xib in Resources */,
 				079CF3E21AB95BAF00C2752D /* PSTableViewCell.xib in Resources */,
+				07E69FC61AC127F500401A0D /* CCPickerViewController.xib in Resources */,
 				07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */,
 				33AC4BE11AAD227C00438120 /* CashGiftCell.xib in Resources */,
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
@@ -753,6 +762,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E69FC51AC127F500401A0D /* CCPickerViewController.m in Sources */,
 				9602DBE01AABAFCB0070CEB8 /* Event.m in Sources */,
 				9602DBDD1AAB8E530070CEB8 /* User.m in Sources */,
 				07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */,

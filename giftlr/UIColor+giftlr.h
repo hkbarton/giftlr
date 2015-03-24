@@ -16,5 +16,7 @@
 + (UIColor *) hotPinkColor;
 // f5f5f5
 + (UIColor *) lightGreyBackgroundColor;
+// c5c5c5
++ (UIColor *) lightGrayBorderColor;
 
 @end

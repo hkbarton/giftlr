@@ -7,8 +7,15 @@
 //
 
 #import "SearchViewController.h"
+#import "UIColor+giftlr.h"
 
 @interface SearchViewController ()
+
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraintOfSearchbar;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *placeholderView;
+@property (weak, nonatomic) IBOutlet UIImageView *imagePlaceholder;
 
 @end
 
@@ -16,22 +23,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // layout search bar
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+    self.topConstraintOfSearchbar.constant = statusBarHeight;
+    [self.searchBar setNeedsUpdateConstraints];
+    self.searchBar.tintColor = [UIColor whiteColor];
+    for (UIView *subView in [[[self.searchBar subviews] objectAtIndex:0] subviews]) {
+        if ([subView isKindOfClass:[UITextField class]]){
+            subView.layer.borderColor = [[UIColor lightGrayBorderColor] CGColor];
+            subView.layer.borderWidth = 1;
+            subView.layer.cornerRadius = 3.0f;
+            break;
+        }
+    }
+    // init view
+    self.tableView.hidden = YES;
+    self.placeholderView.hidden = NO;
+    self.imagePlaceholder.image = [UIImage imageNamed:@"search-placeholder"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
