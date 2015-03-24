@@ -32,7 +32,7 @@ static NSDateFormatter *df = nil;
         self.toUserId = friendData[@"id"];
         self.toUserName = friendData[@"name"];
         self.activityDate = [NSDate date];
-        self.detail = [NSString stringWithFormat:@"%@ joined giftlr!", self.fromUserName];
+        self.detail = [NSString stringWithFormat:@"joined GiftHub!"];
         self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     

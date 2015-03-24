@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *activities;
 
+@property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
+
 @end
 
 @implementation NotificationViewController
@@ -31,21 +33,16 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 120;
     
+    // "pull to refresh" support
+    self.tableRefreshControl = [[UIRefreshControl alloc] init];
+    [self.tableRefreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.tableRefreshControl atIndex:0];
+    
     self.title = @"News Feed";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
-//    UIImageView *navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-//    navBarHairlineImageView.hidden = YES;
-    
     self.activities = [[NSArray alloc] init];
-    [Activity getActivitiesWithCompletion:[User currentUser].fbUserId completion:^(NSArray *activities, NSError *error) {
-        if (error) {
-            NSLog(@"failed to get activities with error %@", error);
-        } else {
-            self.activities = activities;
-            [self.tableView reloadData];
-        }
-    }];
+    [self fetchActivities];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,6 +61,22 @@
         }
     }
     return nil;
+}
+
+- (void)onRefresh {
+    [self fetchActivities];
+}
+
+- (void)fetchActivities {
+    [Activity getActivitiesWithCompletion:[User currentUser].fbUserId completion:^(NSArray *activities, NSError *error) {
+        [self.tableRefreshControl endRefreshing];
+        if (error) {
+            NSLog(@"failed to get activities with error %@", error);
+        } else {
+            self.activities = activities;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - Table methods
