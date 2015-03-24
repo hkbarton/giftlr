@@ -19,7 +19,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Events, Gifts or Contacts" translatesAutoresizingMaskIntoConstraints="NO" id="k4S-I6-PfS">
+                <searchBar contentMode="redraw" placeholder="Search Events, Gifts or Contacts" translatesAutoresizingMaskIntoConstraints="NO" id="k4S-I6-PfS">
                     <rect key="frame" x="0.0" y="24" width="320" height="44"/>
                     <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <textInputTraits key="textInputTraits"/>
@@ -34,14 +34,42 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1k-Hl-j6z">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                         </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCOVER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nh-qc-Tds">
+                            <rect key="frame" x="29" y="42" width="137" height="33"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                            <color key="textColor" red="0.96342873086734693" green="0.96342873086734693" blue="0.96342873086734693" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AbU-1B-KCO">
+                            <rect key="frame" x="29" y="82" width="53" height="33"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                            <color key="textColor" red="0.96342873086734693" green="0.96342873086734693" blue="0.96342873086734693" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELIGHTS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoj-C5-MYD">
+                            <rect key="frame" x="29" y="123" width="133" height="33"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                            <color key="textColor" red="0.96342873086734693" green="0.96342873086734693" blue="0.96342873086734693" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
                     <constraints>
+                        <constraint firstItem="aoj-C5-MYD" firstAttribute="top" secondItem="AbU-1B-KCO" secondAttribute="bottom" constant="8" id="0eW-ch-WxR"/>
+                        <constraint firstItem="AbU-1B-KCO" firstAttribute="top" secondItem="6nh-qc-Tds" secondAttribute="bottom" constant="8" id="5xu-GS-Ww2"/>
                         <constraint firstAttribute="trailing" secondItem="t1k-Hl-j6z" secondAttribute="trailing" id="BdS-Ze-u7W"/>
                         <constraint firstItem="t1k-Hl-j6z" firstAttribute="leading" secondItem="oKt-b9-xAt" secondAttribute="leading" id="CV4-WB-8tC"/>
                         <constraint firstAttribute="bottom" secondItem="t1k-Hl-j6z" secondAttribute="bottom" id="L2t-8s-bSA"/>
+                        <constraint firstItem="AbU-1B-KCO" firstAttribute="leading" secondItem="oKt-b9-xAt" secondAttribute="leading" constant="29" id="dRG-42-SAj"/>
+                        <constraint firstItem="aoj-C5-MYD" firstAttribute="leading" secondItem="oKt-b9-xAt" secondAttribute="leading" constant="29" id="gR0-yH-loK"/>
+                        <constraint firstItem="6nh-qc-Tds" firstAttribute="leading" secondItem="oKt-b9-xAt" secondAttribute="leading" constant="29" id="pQl-P9-XgN"/>
+                        <constraint firstItem="6nh-qc-Tds" firstAttribute="top" secondItem="oKt-b9-xAt" secondAttribute="top" constant="42" id="uN3-zp-Ftf"/>
                         <constraint firstItem="t1k-Hl-j6z" firstAttribute="top" secondItem="oKt-b9-xAt" secondAttribute="top" id="w7f-lq-gKS"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="lDY-Vy-kpa" appends="YES" id="dXT-aw-46x"/>
+                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -58,8 +86,13 @@
                 <constraint firstItem="J2X-U7-15X" firstAttribute="top" secondItem="k4S-I6-PfS" secondAttribute="bottom" id="tVz-LN-Zsf"/>
                 <constraint firstAttribute="bottom" secondItem="J2X-U7-15X" secondAttribute="bottom" id="wPO-3G-eZU"/>
             </constraints>
-            <point key="canvasLocation" x="140" y="154"/>
+            <point key="canvasLocation" x="140" y="153"/>
         </view>
+        <tapGestureRecognizer id="lDY-Vy-kpa">
+            <connections>
+                <action selector="onPlaceholderViewClicked:" destination="-1" id="NgF-OC-apH"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
