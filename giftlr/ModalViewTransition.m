@@ -55,6 +55,11 @@
         [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
             self.modalBgView.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
+            if (self.xScale != 1 && self.yScale != 1) {
+                CGSize oldSize = toViewController.view.frame.size;
+                CGSize newSize = CGSizeMake(oldSize.width * self.xScale, oldSize.height * self.yScale);
+                toViewController.view.frame = CGRectMake(toViewController.view.frame.origin.x + (oldSize.width - newSize.width) / 2, toViewController.view.frame.origin.y + (oldSize.height - newSize.height) / 2, newSize.width, newSize.height);
+            }
         } completion:^(BOOL finished){
             [transitionContext completeTransition:YES];
         }];
@@ -77,9 +82,16 @@
 }
 
 +(ModalViewTransition *)newTransitionWithTargetViewController:(UIViewController *)targetViewController {
+    return [ModalViewTransition newTransitionWithTargetViewController:targetViewController andXScale:1 andYScale:1];
+}
+
++(ModalViewTransition *)newTransitionWithTargetViewController:(UIViewController *)targetViewController andXScale:(CGFloat)xScale andYScale:(CGFloat)yScale {
     ModalViewTransition *result = [[ModalViewTransition alloc] init];
     result.targetViewController = targetViewController;
+    result.xScale = xScale;
+    result.yScale = yScale;
     return result;
 }
+
 
 @end

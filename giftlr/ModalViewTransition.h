@@ -12,4 +12,9 @@
 
 +(ModalViewTransition *)newTransitionWithTargetViewController:(UIViewController *)targetViewController;
 
++(ModalViewTransition *)newTransitionWithTargetViewController:(UIViewController *)targetViewController andXScale:(CGFloat)xScale andYScale:(CGFloat)yScale;
+
+@property (nonatomic, assign) CGFloat xScale;
+@property (nonatomic, assign) CGFloat yScale;
+
 @end

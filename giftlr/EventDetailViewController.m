@@ -40,6 +40,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 @property (nonatomic, strong) NSMutableArray *cashGiftList;
 @property (nonatomic, strong) EventDetailViewCell *eventDetailCell;
 @property (nonatomic, strong) ModalViewTransition *productDetailViewTransition;
+@property (nonatomic, strong) ModalViewTransition *addCashGiftViewTransition;
 @end
 
 @implementation EventDetailViewController
@@ -301,7 +302,14 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)onAddCashGift {
     AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
     vc.event = self.event;
+//    [self presentViewController:vc animated:YES completion:nil];
+
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    self.addCashGiftViewTransition = [ModalViewTransition newTransitionWithTargetViewController:vc andXScale:0.8 andYScale:0.7];
+    vc.transitioningDelegate = self.addCashGiftViewTransition;
     [self presentViewController:vc animated:YES completion:nil];
+
+
 }
 
 # pragma mark - actionSheet delegate
