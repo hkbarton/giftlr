@@ -134,7 +134,11 @@ static NSDateFormatter *df = nil;
         }
 
         self.isHostEvent = ([self.eventHostId isEqualToString:[User currentUser].fbUserId]);
-        self.defaultEventProfileImage = [self getDefaultProfileImageName];
+        if (pfObject[@"defaultEventProfileImageName"]) {
+            self.defaultEventProfileImage = pfObject[@"defaultEventProfileImageName"];
+        } else {
+            self.defaultEventProfileImage = [self getDefaultProfileImageName];
+        }
     }
     
     return self;
@@ -176,6 +180,10 @@ static NSDateFormatter *df = nil;
     }
     if (self.profileUrl) {
         self.pfObject[@"profileUrl"] = self.profileUrl;
+    }
+    
+    if (self.defaultEventProfileImage) {
+        self.pfObject[@"defaultEventProfileImageName"] = self.defaultEventProfileImage;
     }
     
     [self.pfObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {

@@ -444,8 +444,24 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
     self.eventDetailCell.event.profileImage = image;
     [self.eventDetailCell setEventProfileImage:image];
+    
+    // Save image to parse
+    NSData *imageData = UIImagePNGRepresentation(image);
+    NSString *imageFileName = [NSString stringWithFormat:@"%@-%@.png", self.event.name, [[NSProcessInfo processInfo] globallyUniqueString]];
+    PFFile *imageFile = [PFFile fileWithName:imageFileName data:imageData];
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error && succeeded) {
+            NSString *imageUrl = imageFile.url;
+            NSLog(@"image url %@", imageUrl);
+            self.event.profileUrl = imageFile.url;
+            [self.event saveToParse];
+        } else {
+            NSLog(@"Failed to save image");
+        }
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

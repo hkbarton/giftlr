@@ -62,7 +62,7 @@
     self.eventMonthLabel.text = event.startTimeMonth;
     self.eventDayLabel.text = event.startTimeDay;
 
-    [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
+    [self.eventProfilePicView setImage:nil];
     
     if (event.eventHostId == nil) {
         [event fetchEventDetailWithCompletion:^(NSError *error) {
@@ -77,7 +77,9 @@
     if (self.event.profileImage) {
         [self.eventProfilePicView setImage:self.event.profileImage];
     } else if (self.event.profileUrl) {
-        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:[UIImage imageNamed:self.event.defaultEventProfileImage]];
+        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:nil];//[UIImage imageNamed:self.event.defaultEventProfileImage]];
+    }else {
+        [self.eventProfilePicView setImage:[UIImage imageNamed:self.event.defaultEventProfileImage]];
     }
     
     for (UIView *view in self.eventHostImageView.subviews) {
