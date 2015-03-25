@@ -408,8 +408,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
     edvc.event = event;
-//    [self presentViewController:nvc animated:YES completion:^{
-//    }];
 
     self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
     self.detailViewTransition.widthPercent = 1.0;
@@ -418,7 +416,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.detailViewTransition.slideFromViewPercent = 0.3;
     nvc.transitioningDelegate = self.detailViewTransition;
     [self presentViewController:nvc animated:YES completion:nil];
-
 }
 
 // Based on the relations to fetch the events for the users

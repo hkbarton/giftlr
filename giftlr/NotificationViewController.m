@@ -11,11 +11,12 @@
 #import "NotificationCell.h"
 #import "User.h"
 #import "UIColor+giftlr.h"
+#import "SideViewTransition.h"
 
 @interface NotificationViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *activities;
-
+@property (strong, nonatomic) SideViewTransition *detailViewTransition;
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
 
 @end
@@ -114,8 +115,13 @@
                 EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
                 UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
                 edvc.event = event;
-                [self presentViewController:nvc animated:YES completion:^{
-                }];
+                self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
+                self.detailViewTransition.widthPercent = 1.0;
+                self.detailViewTransition.AnimationTime = 0.5;
+                self.detailViewTransition.addModalBgView = NO;
+                self.detailViewTransition.slideFromViewPercent = 0.3;
+                nvc.transitioningDelegate = self.detailViewTransition;
+                [self presentViewController:nvc animated:YES completion:nil];
             }
             break;
         case ActivityTypeFriendJoin:

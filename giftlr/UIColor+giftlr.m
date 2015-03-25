@@ -25,6 +25,11 @@
     return lightGrey;
 }
 
++ (UIColor *) lightGreyBackgroundColorWithAlpha:(CGFloat)alpha {
+    UIColor *lightGrey = [UIColor  colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:alpha];
+    return lightGrey;
+}
+
 + (UIColor *) lightGrayBorderColor {
     UIColor *lightGrey = [UIColor  colorWithRed:230.0f/255.0f green:230.0f/255.0f blue:230.0f/255.0f alpha:1.0f];
     return lightGrey;

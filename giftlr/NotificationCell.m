@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 kenayi. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "NotificationCell.h"
 #import "NSDate+DateTools.h"
 #import "UIColor+giftlr.h"
@@ -20,16 +22,15 @@
 @implementation NotificationCell
 
 - (void)awakeFromNib {
-//    self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
-//    self.containerView.layer.cornerRadius = 3.0f;
-//    self.containerView.clipsToBounds = YES;
-
     self.userProfileImageView.layer.cornerRadius = 15;
     self.userProfileImageView.clipsToBounds = YES;
-    self.eventGiftInfoContainer.backgroundColor = [UIColor lightGreyBackgroundColor];
-    self.eventGiftTimeLabel.backgroundColor = [UIColor lightGreyBackgroundColor];
-    self.eventGiftNameLabel.backgroundColor = [UIColor lightGreyBackgroundColor];
-    self.selectionStyle = UITableViewCellSelectionStyleBlue;
+    UIColor *bgColor = [UIColor lightGreyBackgroundColor];
+    self.eventGiftInfoContainer.backgroundColor = bgColor;
+    self.eventGiftTimeLabel.backgroundColor = bgColor;
+    self.eventGiftNameLabel.backgroundColor = bgColor;
+    
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -38,8 +39,19 @@
     // Configure the view for the selected state
 }
 
+- (void)addShadowToContainerView {
+    //Adds a shadow to container
+    CALayer *layer = self.eventGiftInfoContainer.layer;
+    layer.shadowOffset = CGSizeMake(1, 1);
+    layer.shadowColor = [[UIColor blackColor] CGColor];
+    layer.shadowRadius = 1.5f;
+    layer.shadowOpacity = 0.50f;
+    layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
+}
+
 - (void)setActivity:(Activity *)activity{
     _activity = activity;
+
     for (UIView *view in self.userProfileImageView.subviews) {
         [view removeFromSuperview];
     }
@@ -60,6 +72,9 @@
     if (activity.event || activity.gift) {
         self.eventGiftInfoContainer.hidden = NO;
         self.eventGiftContainerHeightConstraint.constant = 52;
+        
+        [self addShadowToContainerView];
+        
         if (activity.gift) {
             [self.eventGiftImageView setImageWithURL:[NSURL URLWithString:activity.gift.imageURLs[0]]];
             self.eventGiftNameLabel.text = activity.gift.name;

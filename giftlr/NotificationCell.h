@@ -20,4 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventGiftTimeLabel;
 
 @property (strong, nonatomic) Activity *activity;
+
+- (void)addShadowToContainerView;
+
 @end
