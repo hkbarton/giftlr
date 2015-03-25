@@ -360,36 +360,14 @@ static NSDateFormatter *df = nil;
             NSLog(@"failed to get events for the user");
         } else {
             NSMutableArray *results = [NSMutableArray array];
-            NSMutableDictionary *resultEventsIndexDictionary = [ NSMutableDictionary dictionary];
             for (PFObject *pfEvent in pfEvents) {
                 Event *event = [[Event alloc] initWithPFObject:pfEvent];
-                if ([event.name rangeOfString:keyword].location != NSNotFound ||
-                    [event.eventDescription rangeOfString:keyword].location != NSNotFound) {
+                if ([[event.name lowercaseString] rangeOfString:keyword].location != NSNotFound ||
+                    [[event.eventDescription lowercaseString] rangeOfString:keyword].location != NSNotFound) {
                     [results addObject:event];
-                    [resultEventsIndexDictionary setObject:event forKey:event.fbEventId];
                 }
             }
-            [Event fetchFBEventsWithCompletion:@"me" completion:^(NSDictionary *fbEvents, NSError *error) {
-                if (error) {
-                    NSLog(@"failed get fb event %@", error);
-                }
-                for (Event *event in fbEvents[@"allEvents"]) {
-                    if (([event.name rangeOfString:keyword].location != NSNotFound || [event.eventDescription rangeOfString:keyword].location != NSNotFound) &&
-                        [resultEventsIndexDictionary objectForKey:event.fbEventId] == nil) {
-                        [event saveToParseWithCompletion:^(NSError *error) {
-                            if (!error) {
-                                [[User currentUser] linkUserWithEvent:event];
-                            }
-                        }];
-                        [results addObject:event];
-                        [resultEventsIndexDictionary setObject:event forKey:event.fbEventId];
-                    }
-                }
-                [results sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                    return [((Event *)obj2).startTime compare:((Event *)obj1).startTime];
-                }];
-                completion(results);
-            }];
+            completion(results);
         }
     }];
 }

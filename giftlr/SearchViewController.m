@@ -13,6 +13,7 @@
 #import "ProductGift.h"
 #import "User.h"
 #import "CashGift.h"
+#import "EventViewCell.h"
 
 @interface SearchViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -54,8 +55,11 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     }
     self.searchBar.delegate = self;
     // table view
+    [self.tableView registerNib:[UINib nibWithNibName:@"EventViewCell" bundle:nil] forCellReuseIdentifier:@"EventViewCell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     // init view
     self.tableView.hidden = YES;
     self.placeholderView.hidden = NO;
@@ -137,6 +141,18 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     return sectionTitle;
 }
 
+- (CGFloat)getRowHeightOfSection:(NSInteger)sectionIndex {
+    NSString *sectionID = [self getSectionID:sectionIndex];
+    if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
+        return 266;
+    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+
+    } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
+
+    }
+    return 0;
+}
+
 - (void)loadTableBySectionID:(NSString *)sectionID {
     if ([self getSectionCount]==0) {
         [SVProgressHUD showInfoWithStatus:@"Can't find anything."];
@@ -156,14 +172,15 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
             self.tableView.alpha = 1;
         } completion:nil];
     } else {
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[self getSectionIndexByID:sectionID]] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadData];
+        //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[self getSectionIndexByID:sectionID]] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
 - (void)searchAndLoad {
     NSString *keyword = self.searchBar.text;
     [Event searchEventsByKeyword:keyword withCompletion:^(NSArray *events) {
-        [self.events addObject:events];
+        [self.events addObjectsFromArray:events];
         [self loadTableBySectionID:SECTION_ID_EVENT];
     }];
 }
@@ -200,6 +217,10 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     return [self getSectionCount];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self getRowHeightOfSection:indexPath.section];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self getRowCountOfSection:section];
 }
@@ -212,7 +233,10 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     NSString *sectionID = [self getSectionID:indexPath.section];
     NSArray *data = [self getDataOfSection:indexPath.section];
     if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
-        // dequeue cell
+        EventViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventViewCell"];
+        cell.event = data[indexPath.row];
+        [cell zoomEventProfilePic:YES];
+        return cell;
     } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
         
     }else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
