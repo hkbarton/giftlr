@@ -49,6 +49,12 @@
     layer.shadowPath = [[UIBezierPath bezierPathWithRect:layer.bounds] CGPath];
 }
 
+- (void)layoutSubviews {
+    if (self.activity.event || self.activity.gift) {
+        [self addShadowToContainerView];
+    }
+}
+
 - (void)setActivity:(Activity *)activity{
     _activity = activity;
 
@@ -72,8 +78,6 @@
     if (activity.event || activity.gift) {
         self.eventGiftInfoContainer.hidden = NO;
         self.eventGiftContainerHeightConstraint.constant = 52;
-        
-        [self addShadowToContainerView];
         
         if (activity.gift) {
             [self.eventGiftImageView setImageWithURL:[NSURL URLWithString:activity.gift.imageURLs[0]]];
