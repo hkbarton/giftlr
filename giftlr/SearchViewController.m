@@ -96,6 +96,7 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     UIView *searchbarTopBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.searchBar.frame.size.width, 1)];
     searchbarTopBorder.backgroundColor = [UIColor whiteColor];
     [self.searchBar addSubview:searchbarTopBorder];
+    [self.searchBar becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

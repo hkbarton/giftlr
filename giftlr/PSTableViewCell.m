@@ -19,7 +19,9 @@
 @implementation PSTableViewCell
 
 - (void)awakeFromNib {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIView *selectedBgView = [[UIView alloc] init];
+    selectedBgView.backgroundColor = [UIColor clearColor];
+    [self setSelectedBackgroundView:selectedBgView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
