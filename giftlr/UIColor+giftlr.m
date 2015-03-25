@@ -11,7 +11,11 @@
 @implementation UIColor (giftlr)
 
 + (UIColor *) redPinkColor {
-    UIColor *redPink = [UIColor  colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:1.0f];
+    return [UIColor redPinkColorWithAlpha:1.0f];
+}
+
++ (UIColor *) redPinkColorWithAlpha:(CGFloat)alpha {
+    UIColor *redPink = [UIColor  colorWithRed:255.0f/255.0f green:90.0f/255.0f blue:95.0f/255.0f alpha:alpha];
     return redPink;
 }
 
@@ -21,8 +25,7 @@
 }
 
 + (UIColor *) lightGreyBackgroundColor {
-    UIColor *lightGrey = [UIColor  colorWithRed:245.0f/255.0f green:245.0f/255.0f blue:245.0f/255.0f alpha:1.0f];
-    return lightGrey;
+    return [UIColor lightGreyBackgroundColorWithAlpha:1.0f];
 }
 
 + (UIColor *) lightGreyBackgroundColorWithAlpha:(CGFloat)alpha {

@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailViewController">
             <connections>
+                <outlet property="addGiftControl" destination="G7B-DS-b2g" id="aRa-xg-aDt"/>
                 <outlet property="joinEventControl" destination="pWm-Dd-y8v" id="PPj-zg-NGZ"/>
                 <outlet property="tableView" destination="Ipo-hz-drR" id="ik0-fX-oB5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -32,18 +33,47 @@
                     </segments>
                     <color key="tintColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
                 </segmentedControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G7B-DS-b2g" userLabel="Add Gift View">
+                    <rect key="frame" x="0.0" y="532" width="320" height="36"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a Gift" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fha-PA-P0k">
+                            <rect key="frame" x="129" y="10" width="61" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.075164162387910793" blue="0.082412688886904673" alpha="0.69000000000000006" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="centerY" secondItem="Fha-PA-P0k" secondAttribute="centerY" id="Bv8-8D-BJi"/>
+                        <constraint firstAttribute="height" constant="36" id="f0D-up-FSR"/>
+                        <constraint firstAttribute="centerX" secondItem="Fha-PA-P0k" secondAttribute="centerX" id="tiZ-GI-bhi"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Vtz-ef-pcV" appends="YES" id="iDp-0R-WaL"/>
+                    </connections>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="G7B-DS-b2g" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0Zm-3O-IOq"/>
+                <constraint firstAttribute="bottom" secondItem="G7B-DS-b2g" secondAttribute="bottom" id="CCp-Ns-0LN"/>
                 <constraint firstAttribute="bottom" secondItem="Ipo-hz-drR" secondAttribute="bottom" id="Zhu-vC-cdU"/>
                 <constraint firstItem="pWm-Dd-y8v" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="g0M-tr-CpZ"/>
                 <constraint firstAttribute="centerX" secondItem="pWm-Dd-y8v" secondAttribute="centerX" id="hdJ-19-aG3"/>
                 <constraint firstAttribute="trailing" secondItem="Ipo-hz-drR" secondAttribute="trailing" id="iBp-fR-k8D"/>
                 <constraint firstItem="Ipo-hz-drR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="s7g-hI-D3a"/>
                 <constraint firstItem="Ipo-hz-drR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tDI-O1-Ab3"/>
+                <constraint firstAttribute="trailing" secondItem="G7B-DS-b2g" secondAttribute="trailing" id="uM8-HX-0Af"/>
             </constraints>
             <point key="canvasLocation" x="433" y="239"/>
         </view>
+        <tapGestureRecognizer id="Vtz-ef-pcV">
+            <connections>
+                <action selector="onTapAddGift:" destination="-1" id="ar0-tp-hX9"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

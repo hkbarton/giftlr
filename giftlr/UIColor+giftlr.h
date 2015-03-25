@@ -12,6 +12,7 @@
 
 // ff5a5f
 + (UIColor *) redPinkColor;
++ (UIColor *) redPinkColorWithAlpha:(CGFloat)alpha;
 // ff69b4
 + (UIColor *) hotPinkColor;
 // f5f5f5

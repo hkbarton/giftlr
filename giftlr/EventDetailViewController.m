@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
+@property (weak, nonatomic) IBOutlet UIView *addGiftControl;
 
 @property (strong, nonatomic) NSArray *gifts;
 
@@ -64,6 +65,9 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
     self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
     
+    self.addGiftControl.backgroundColor = [UIColor redPinkColorWithAlpha:0.8f];
+    self.addGiftControl.hidden = YES;
+
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
@@ -72,10 +76,10 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     self.joinEventControl.backgroundColor = [UIColor  colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:0.5f];
     if (self.event.isHostEvent == YES) {
         if ([self.event.startTime compare:[NSDate date]] == NSOrderedDescending) {
-            UIBarButtonItem *addGiftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Gift-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onAddGift)];
+            self.addGiftControl.hidden = NO;
             UIBarButtonItem *addGuestItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"AddUser-26"] style:UIBarButtonItemStylePlain target:self action:@selector(onInviteGuest)];
             
-            self.navigationItem.rightBarButtonItems = @[addGuestItem, addGiftItem];
+            self.navigationItem.rightBarButtonItems = @[addGuestItem];
         }
         self.joinEventControl.hidden = YES;
     } else {
@@ -286,6 +290,9 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 }
 
 #pragma mark - action handlers
+- (IBAction)onTapAddGift:(UITapGestureRecognizer *)sender {
+    [self.addGiftActionSheet showInView:self.view];
+}
 
 - (void)onBack {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -410,7 +417,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = @"";
             gift.status = ProductGiftStatusUnclaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case ProductGiftControlTypeClaim:
             [eventProductGiftCell hideControlView];
@@ -422,7 +429,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             activity = [[Activity alloc] initWithProductGiftClaim:gift];
             [activity saveToParse];
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case ProductGiftControlTypeDelete:
             [self.productGiftList removeObject:gift];
