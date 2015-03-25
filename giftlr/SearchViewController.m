@@ -104,14 +104,14 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
 
 - (NSInteger)getSectionCount {
     [self.sectionIDs removeAllObjects];
-    if (self.events.count > 0) {
-        [self.sectionIDs addObject:SECTION_ID_EVENT];
-    }
     if (self.productGifts.count > 0) {
         [self.sectionIDs addObject:SECTION_ID_PRODUCT_GIFT];
     }
     if (self.cashGifts.count > 0) {
         [self.sectionIDs addObject:SECTION_ID_CASH_GIFT];
+    }
+    if (self.events.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_EVENT];
     }
     if (self.contacts.count > 0) {
         [self.sectionIDs addObject:SECTION_ID_CONTACT];
@@ -291,6 +291,9 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if ([self.searchBar isFirstResponder]) {
+        [self.searchBar resignFirstResponder];
+    }
     NSString *sectionID = [self getSectionID:indexPath.section];
     if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
         [self presentEventDetailViewController:self.events[indexPath.row]];
