@@ -71,8 +71,12 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 108;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 0)];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 30)];
     self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    
+    UIPanGestureRecognizer *tablePanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    tablePanGestureRecognizer.delegate = self;
+    [self.tableView addGestureRecognizer:tablePanGestureRecognizer];
     
     self.addGiftControl.backgroundColor = [UIColor redPinkColorWithAlpha:0.8f];
     self.addGiftControl.hidden = YES;
@@ -151,12 +155,29 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - swipe guestures
+#pragma mark - guestures
 
 // Need to allow parent container to handle pan gesture while the table view scroll still working
 // See http://stackoverflow.com/questions/17614609/table-view-doesnt-scroll-when-i-use-gesture-recognizer
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
+}
+
+- (void)onPan:(UIPanGestureRecognizer *)sender {
+    CGPoint velocity = [sender velocityInView:self.view];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+//        if (velocity.y > 0) {
+//            if (self.navigationController.navigationBarHidden) {
+//                [self.navigationController setNavigationBarHidden:NO animated:YES];
+//            }
+//        } else {
+//            if (!self.navigationController.navigationBarHidden) {
+//                [self.navigationController setNavigationBarHidden:YES animated:YES];
+//            }
+//        }
+    } else if (sender.state == UIGestureRecognizerStateEnded) {
+    }
 }
 
 - (void) setupSwipeGuestures {
@@ -384,7 +405,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             gift.claimerName = @"";
             gift.status = CashGiftStatusUnclaimed;
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case CashGiftControlTypeClaim:
             [eventCashGiftCell hideControlView];
@@ -396,7 +417,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             activity = [[Activity alloc] initWithCashGiftClaim:gift];
             [activity saveToParse];
             [gift saveToParse];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         case CashGiftControlTypeDelete:
             [self.cashGiftList removeObject:gift];
@@ -529,7 +550,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     //activity = [[Activity alloc] initWithCashGiftTransfer:gift];
     //[activity saveToParse];
     [gift saveToParse];
-    [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

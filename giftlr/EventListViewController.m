@@ -57,11 +57,9 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 @property (assign, nonatomic) NSInteger pastMyEventsCount;
 
 @property (assign, nonatomic) BOOL isMyEventMode;
-@property (assign, nonatomic) BOOL isSearchMode;
 @property (assign, nonatomic) BOOL showPendingEvents;
 
 @property (nonatomic, strong) UIRefreshControl *tableRefreshControl;
-@property (nonatomic, strong) UIView *searchBgView;
 @property (nonatomic, weak) UIImageView *navBarHairlineImageView;
 
 @property (nonatomic, retain) EKEventStore *eventStore;
@@ -81,7 +79,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     self.myEvents = [[NSMutableArray alloc] init];
     self.allEvents = [[NSMutableArray alloc] init];
     self.isMyEventMode = NO;
-    self.isSearchMode = NO;
     self.showPendingEvents = NO;
     self.upcomingEventsCount = self.pastEventsCount = self.pastMyEventsCount = self.upcomingMyEventsCount = 0;
     self.eventNotificationButton.hidden = YES;
@@ -208,33 +205,12 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
     if (sender.state == UIGestureRecognizerStateBegan) {
     } else if (sender.state == UIGestureRecognizerStateChanged) {
     } else if (sender.state == UIGestureRecognizerStateEnded) {
-//        EventViewCell *willDisplayCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:self.willDisplayIndexPath];
-//        [willDisplayCell zoomEventProfilePic:YES];
-//        if (velocity.y > 0) {
-//            if (self.willDisplayIndexPath.row > 0) {
-//                NSIndexPath *prevIndexPath = [NSIndexPath indexPathForRow:self.willDisplayIndexPath.row - 1 inSection:self.willDisplayIndexPath.section];
-//                EventViewCell *prevCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:prevIndexPath];
-//                [prevCell zoomEventProfilePic:NO];
-//            }
-//        } else {
-//            if (self.willDisplayIndexPath.row + 1 < [self.tableView numberOfRowsInSection:self.willDisplayIndexPath.section]) {
-//                NSIndexPath *prevIndexPath = [NSIndexPath indexPathForRow:self.willDisplayIndexPath.row + 1 inSection:self.willDisplayIndexPath.section];
-//                EventViewCell *prevCell = (EventViewCell *)[self.tableView cellForRowAtIndexPath:prevIndexPath];
-//                [prevCell zoomEventProfilePic:NO];
-//            }
-//            
-//        }
-//        
     }
 }
 
 #pragma mark - Table methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.isSearchMode) {
-        return 1;
-    }
-    
     if (self.showPendingEvents) {
         return EventListWithPendingSectionIndexMax;
     } else {
@@ -243,10 +219,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (self.isSearchMode) {
-        return @"";
-    }
-    
     if (!self.isMyEventMode && self.showPendingEvents) {
         switch (section) {
             case EventListWithPendingSectionIndexUpcoming:
@@ -282,10 +254,6 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.isSearchMode) {
-        return self.searchEvents.count;
-    }
-
     if (self.isMyEventMode) {
         switch (section) {
             case EventListWithoutPendingSectionIndexUpcoming:
@@ -333,10 +301,7 @@ typedef NS_ENUM(NSInteger, EventListWithoutPendingSectionIndex) {
 
 - (Event *)getEventForCell:(NSIndexPath *)indexPath {
     Event *event = nil;
-    if (self.isSearchMode) {
-        event = self.searchEvents[indexPath.row];
-        return event;
-    } else if (self.isMyEventMode) {
+    if (self.isMyEventMode) {
         switch (indexPath.section) {
             case EventListWithoutPendingSectionIndexUpcoming:
                 event = self.myEvents[indexPath.row];

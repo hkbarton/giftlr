@@ -142,12 +142,4 @@
     button.selected = YES;
 }
 
-#pragma mark - Gift List View Controller
-/*
-- (void)goToEventListWithGiftListViewController:(GiftListViewController *)giftListViewController {
-    [self goToViewController:self.eventListViewController];
-    [self setSelectedTabButton:self.btnTabEvent];
-}
-*/
-
 @end
