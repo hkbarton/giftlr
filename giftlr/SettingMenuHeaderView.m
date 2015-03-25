@@ -22,7 +22,7 @@
     self.imageProfile.clipsToBounds = YES;
     self.imageProfile.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.imageProfile.layer.borderWidth = 2;
-    [User setUserProfileImage:self.imageProfile fbUserId:[User currentUser].fbUserId];
+    [User addUserProfileImage:self.imageProfile profilePicView:[User currentUser].profilePicView];
 }
 
 @end
