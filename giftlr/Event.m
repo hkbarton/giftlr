@@ -380,6 +380,24 @@ static NSDateFormatter *df = nil;
     }];
 }
 
++ (void)fetchEventOfCurrentUser:(void (^)(NSArray * events, NSError *error))completion {
+    PFRelation *relation = [[PFUser currentUser] relationForKey:@"events"];
+    [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *pfEvents, NSError *error) {
+        NSMutableArray *results = nil;
+        if (error) {
+            NSLog(@"failed to get events for the user");
+        } else {
+            results = [NSMutableArray array];
+            for (PFObject *pfEvent in pfEvents) {
+                Event *event = [[Event alloc] initWithPFObject:pfEvent];
+                [results addObject:event];
+            }
+            
+        }
+        completion(results, error);
+    }];
+}
+
 + (EventType)stringToEventType:(NSString *)eventTypeString {
     if ([eventTypeString isEqualToString:@"not_replied"]) {
         return EventTypeNotReplied;

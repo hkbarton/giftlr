@@ -14,6 +14,12 @@
 #import "User.h"
 #import "CashGift.h"
 #import "EventViewCell.h"
+#import "SearchProductGfitCell.h"
+#import "EventCashGiftCell.h"
+#import "EventDetailViewController.h"
+#import "SideViewTransition.h"
+#import "ModalViewTransition.h"
+#import "ProductDetailViewController.h"
 
 @interface SearchViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
@@ -29,13 +35,19 @@
 @property (nonatomic, strong) NSMutableArray *contacts;
 @property (nonatomic, strong) NSDictionary *data;
 @property (nonatomic, strong) NSMutableArray *sectionIDs;
+@property (nonatomic, assign) NSInteger searchedSectionCount;
+@property (nonatomic, assign) NSInteger targetSectionCount;
+
+@property (strong, nonatomic) SideViewTransition *detailViewTransition;
+@property (strong, nonatomic) ModalViewTransition *productDetailViewTransition;
 
 @end
 
 @implementation SearchViewController
 
 NSString *const SECTION_ID_EVENT = @"section-event";
-NSString *const SECTION_ID_GIFT = @"section-gift";
+NSString *const SECTION_ID_PRODUCT_GIFT = @"section-product-gift";
+NSString *const SECTION_ID_CASH_GIFT = @"section-cash-gift";
 NSString *const SECTION_ID_CONTACT = @"section-cantact";
 
 - (void)viewDidLoad {
@@ -56,6 +68,8 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     self.searchBar.delegate = self;
     // table view
     [self.tableView registerNib:[UINib nibWithNibName:@"EventViewCell" bundle:nil] forCellReuseIdentifier:@"EventViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SearchProductGfitCell" bundle:nil] forCellReuseIdentifier:@"SearchProductGfitCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EventCashGiftCell" bundle:nil] forCellReuseIdentifier:@"EventCashGiftCell"];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
@@ -72,7 +86,8 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     self.contacts = [NSMutableArray array];
     self.data = [NSDictionary dictionaryWithObjectsAndKeys:
                  self.events, SECTION_ID_EVENT,
-                 [NSArray arrayWithObjects:self.productGifts, self.cashGifts, nil], SECTION_ID_GIFT,
+                 self.productGifts, SECTION_ID_PRODUCT_GIFT,
+                 self.cashGifts, SECTION_ID_CASH_GIFT,
                  self.contacts, SECTION_ID_CONTACT, nil];
 }
 
@@ -92,8 +107,11 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     if (self.events.count > 0) {
         [self.sectionIDs addObject:SECTION_ID_EVENT];
     }
-    if (self.productGifts.count > 0 || self.cashGifts.count > 0) {
-        [self.sectionIDs addObject:SECTION_ID_GIFT];
+    if (self.productGifts.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_PRODUCT_GIFT];
+    }
+    if (self.cashGifts.count > 0) {
+        [self.sectionIDs addObject:SECTION_ID_CASH_GIFT];
     }
     if (self.contacts.count > 0) {
         [self.sectionIDs addObject:SECTION_ID_CONTACT];
@@ -119,13 +137,8 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
 }
 
 - (NSInteger)getRowCountOfSection:(NSInteger)sectionIndex {
-    NSString *sectionID = [self getSectionID:sectionIndex];
     NSArray *sectionData = [self getDataOfSection:sectionIndex];
-    if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
-        return self.productGifts.count + self.cashGifts.count;
-    } else {
-        return sectionData.count;
-    }
+    return sectionData.count;
 }
 
 - (NSString *)getSectionTitle:(NSInteger)sectionIndex {
@@ -133,8 +146,10 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     NSString *sectionTitle = @"";
     if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
         sectionTitle = @"EVENTS";
-    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+    } else if ([sectionID isEqualToString:SECTION_ID_PRODUCT_GIFT]) {
         sectionTitle = @"GIFTS";
+    } else if ([sectionID isEqualToString:SECTION_ID_CASH_GIFT]) {
+        sectionTitle = @"CASH GIFTS";
     } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
         sectionTitle = @"CONTACTS";
     }
@@ -145,15 +160,21 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
     NSString *sectionID = [self getSectionID:sectionIndex];
     if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
         return 266;
-    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
-
+    } else if ([sectionID isEqualToString:SECTION_ID_PRODUCT_GIFT]) {
+        return 163;
+    } else if ([sectionID isEqualToString:SECTION_ID_CASH_GIFT]) {
+        return 108;
     } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
 
     }
     return 0;
 }
 
-- (void)loadTableBySectionID:(NSString *)sectionID {
+- (void)loadTable {
+    self.searchedSectionCount++;
+    if (self.searchedSectionCount < self.targetSectionCount) {
+        return;
+    }
     if ([self getSectionCount]==0) {
         [SVProgressHUD showInfoWithStatus:@"Can't find anything."];
         return;
@@ -173,15 +194,20 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
         } completion:nil];
     } else {
         [self.tableView reloadData];
-        //[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:[self getSectionIndexByID:sectionID]] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
 - (void)searchAndLoad {
     NSString *keyword = self.searchBar.text;
+    self.searchedSectionCount = 0;
+    self.targetSectionCount = 2;
     [Event searchEventsByKeyword:keyword withCompletion:^(NSArray *events) {
         [self.events addObjectsFromArray:events];
-        [self loadTableBySectionID:SECTION_ID_EVENT];
+        [self loadTable];
+    }];
+    [ProductGift searchProductGiftsByKeyword:keyword withCallback:^(NSArray *productGifts, NSError *error) {
+        [self.productGifts addObjectsFromArray:productGifts];
+        [self loadTable];
     }];
 }
 
@@ -196,6 +222,20 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
         [self.tableView reloadData];
     }
     [self searchAndLoad];
+}
+
+- (void)presentEventDetailViewController:(Event *)event {
+    EventDetailViewController *edvc = [[EventDetailViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:edvc];
+    edvc.event = event;
+    self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
+    self.detailViewTransition.widthPercent = 1.0;
+    self.detailViewTransition.AnimationTime = 0.5;
+    self.detailViewTransition.addModalBgView = NO;
+    self.detailViewTransition.slideFromViewPercent = 0.3;
+    nvc.transitioningDelegate = self.detailViewTransition;
+    [self presentViewController:nvc animated:YES completion:nil];
+    
 }
 
 #pragma mark table view
@@ -237,12 +277,35 @@ NSString *const SECTION_ID_CONTACT = @"section-cantact";
         cell.event = data[indexPath.row];
         [cell zoomEventProfilePic:YES];
         return cell;
-    } else if ([sectionID isEqualToString:SECTION_ID_GIFT]) {
+    } else if ([sectionID isEqualToString:SECTION_ID_PRODUCT_GIFT]) {
+        SearchProductGfitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchProductGfitCell"];
+        cell.productGift = data[indexPath.row];
+        return cell;
+    } else if ([sectionID isEqualToString:SECTION_ID_CASH_GIFT]) {
         
-    }else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
+    } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
         
     }
     return nil;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSString *sectionID = [self getSectionID:indexPath.section];
+    if ([sectionID isEqualToString:SECTION_ID_EVENT]) {
+        [self presentEventDetailViewController:self.events[indexPath.row]];
+    } else if ([sectionID isEqualToString:SECTION_ID_PRODUCT_GIFT]) {
+        ProductGift *productGift = self.productGifts[indexPath.row];
+        ProductDetailViewController *pdvc = [[ProductDetailViewController alloc] initWithProduct:productGift andMode:ProductDetailViewModeView];
+        pdvc.modalPresentationStyle = UIModalPresentationCustom;
+        self.productDetailViewTransition = [ModalViewTransition newTransitionWithTargetViewController:pdvc];
+        pdvc.transitioningDelegate = self.productDetailViewTransition;
+        [self presentViewController:pdvc animated:YES completion:nil];
+    } else if ([sectionID isEqualToString:SECTION_ID_CASH_GIFT]) {
+        
+    } else if ([sectionID isEqualToString:SECTION_ID_CONTACT]) {
+        
+    }
 }
 
 #pragma mark Gesture

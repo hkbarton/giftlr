@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071DA7AA1AC27C5C0023FB61 /* SearchProductGfitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 071DA7A81AC27C5C0023FB61 /* SearchProductGfitCell.m */; };
+		071DA7AB1AC27C5C0023FB61 /* SearchProductGfitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 071DA7A91AC27C5C0023FB61 /* SearchProductGfitCell.xib */; };
 		0729D5B91AB60C6E00E7C26A /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5B71AB60C6E00E7C26A /* SettingViewController.m */; };
 		0729D5BA1AB60C6E00E7C26A /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */; };
 		0729D5BE1AB6141D00E7C26A /* SettingMenuHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729D5BD1AB6141D00E7C26A /* SettingMenuHeaderView.m */; };
@@ -106,6 +108,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		071DA7A71AC27C5C0023FB61 /* SearchProductGfitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchProductGfitCell.h; sourceTree = "<group>"; };
+		071DA7A81AC27C5C0023FB61 /* SearchProductGfitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchProductGfitCell.m; sourceTree = "<group>"; };
+		071DA7A91AC27C5C0023FB61 /* SearchProductGfitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchProductGfitCell.xib; sourceTree = "<group>"; };
 		0729D5B61AB60C6E00E7C26A /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		0729D5B71AB60C6E00E7C26A /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		0729D5B81AB60C6E00E7C26A /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
@@ -267,6 +272,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		071DA7A61AC27C350023FB61 /* SearchGiftView */ = {
+			isa = PBXGroup;
+			children = (
+				071DA7A71AC27C5C0023FB61 /* SearchProductGfitCell.h */,
+				071DA7A81AC27C5C0023FB61 /* SearchProductGfitCell.m */,
+				071DA7A91AC27C5C0023FB61 /* SearchProductGfitCell.xib */,
+			);
+			name = SearchGiftView;
+			sourceTree = "<group>";
+		};
 		0729D5BB1AB613BB00E7C26A /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,6 +424,7 @@
 		073B41DC1AA815B100139A10 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				071DA7A61AC27C350023FB61 /* SearchGiftView */,
 				96AB29EC1AB95B8600FB64AD /* EventGiftView */,
 				96AB29E61AB94F9700FB64AD /* ContactView */,
 				96AB29D71AB672E800FB64AD /* EventView */,
@@ -712,6 +728,7 @@
 				07EB3EE01AB00BFF007B1607 /* EventProductGiftCell.xib in Resources */,
 				078945F61ABF40C200663548 /* SearchViewController.xib in Resources */,
 				33AC4BDC1AAD226800438120 /* ProductGiftCell.xib in Resources */,
+				071DA7AB1AC27C5C0023FB61 /* SearchProductGfitCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,6 +798,7 @@
 				079CF3E61AB9614200C2752D /* PSCreationTableViewCell.m in Sources */,
 				9602DBE41AABD7380070CEB8 /* EventViewCell.m in Sources */,
 				96AB29F31ABF754800FB64AD /* NotificationViewController.m in Sources */,
+				071DA7AA1AC27C5C0023FB61 /* SearchProductGfitCell.m in Sources */,
 				33AC4BDB1AAD226800438120 /* ProductGiftCell.m in Sources */,
 				96AB29EF1ABE4BF100FB64AD /* Activity.m in Sources */,
 				072FC3B31AABA3E300E7A1D5 /* ProductDetailViewController.m in Sources */,

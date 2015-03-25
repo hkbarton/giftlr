@@ -8,6 +8,8 @@
 
 #import "ProductGift.h"
 #import "ProductHTMLParser.h"
+#import "User.h"
+#import "Event.h"
 
 NSString *const ProductGiftStatusUnclaimed = @"Unclaimed";
 NSString *const ProductGiftStatusClaimed = @"Claimed";
@@ -44,7 +46,6 @@ NSString *const PFObjectClassName = @"ProductGift";
             self.hostEvent.eventHostId = pfObject[@"hostFacebookUserID"];
             self.hostEvent.eventHostName = pfObject[@"hostName"];
             self.hostEvent.name = pfObject[@"eventName"];
-            
         }
     }
     return self;
@@ -181,6 +182,48 @@ NSString *const PFObjectClassName = @"ProductGift";
             }
         }
         callback(result, error);
+    }];
+}
+
++(void)searchProductGiftsByKeyword:(NSString *)keyword withCallback:(void (^)(NSArray *productGifts, NSError *error))callback {
+    [Event fetchEventOfCurrentUser:^(NSArray *events, NSError *error) {
+        if (error) {
+            callback(nil, error);
+            return;
+        }
+        NSMutableArray *eventIDs = [NSMutableArray array];
+        for (int i=0;i<events.count;i++) {
+            Event *event = events[i];
+            [eventIDs addObject:event.fbEventId];
+        }
+        PFQuery *giftNameQuery = [PFQuery queryWithClassName:PFObjectClassName];
+        [giftNameQuery whereKey:@"fbEventId" containedIn:eventIDs];
+        [giftNameQuery whereKey:@"name" containsString:keyword];
+        
+        PFQuery *giftDesQuery = [PFQuery queryWithClassName:PFObjectClassName];
+        [giftDesQuery whereKey:@"fbEventId" containedIn:eventIDs];
+        [giftDesQuery whereKey:@"productDescription" containsString:keyword];
+        
+        PFQuery *query = [PFQuery orQueryWithSubqueries:@[giftNameQuery, giftDesQuery]];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSMutableArray *result = nil;
+            if (!error) {
+                result = [NSMutableArray array];
+                for (int i=0;i<[objects count];i++) {
+                    PFObject *pfObj = objects[i];
+                    ProductGift *gift = [[ProductGift alloc] initWithPFObject:pfObj];
+                    for (int j=0;j<events.count;j++) {
+                        Event *event = events[j];
+                        if ([gift.hostEvent.fbEventId isEqualToString:event.fbEventId]) {
+                            gift.hostEvent = event;
+                            break;
+                        }
+                    }
+                    [result addObject:gift];
+                }
+            }
+            callback(result, error);
+        }];
     }];
 }
 
