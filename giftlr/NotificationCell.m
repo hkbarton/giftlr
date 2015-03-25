@@ -29,6 +29,10 @@
     self.eventGiftTimeLabel.backgroundColor = bgColor;
     self.eventGiftNameLabel.backgroundColor = bgColor;
     
+    self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
+    
+    self.containerView.layer.cornerRadius = 3.0f;
+    self.containerView.clipsToBounds = YES;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -78,6 +82,7 @@
     if (activity.event || activity.gift) {
         self.eventGiftInfoContainer.hidden = NO;
         self.eventGiftContainerHeightConstraint.constant = 52;
+        [self addShadowToContainerView];
         
         if (activity.gift) {
             [self.eventGiftImageView setImageWithURL:[NSURL URLWithString:activity.gift.imageURLs[0]]];

@@ -38,9 +38,9 @@
     self.tableRefreshControl = [[UIRefreshControl alloc] init];
     [self.tableRefreshControl addTarget:self action:@selector(onRefresh) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.tableRefreshControl atIndex:0];
+    self.tableView.backgroundColor = [UIColor lightGreyBackgroundColor];
     
     self.title = @"News Feed";
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor darkGrayColor]};
     
     self.activities = [[NSArray alloc] init];
     [self fetchActivities];
