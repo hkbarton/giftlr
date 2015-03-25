@@ -100,6 +100,16 @@ static NSDateFormatter *df = nil;
     return self;
 }
 
+- (id) initWithCashGiftTransfer:(CashGift *)gift {
+    self = [super init];
+    
+    if (self) {
+        
+    }
+    
+    return self;
+}
+
 - (id)initWithPFObject:(PFObject*)pfObject {
     self = [super init];
     if (self) {

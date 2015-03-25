@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,6 +16,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8g9-fm-SLe" userLabel="Control View">
                         <rect key="frame" x="8" y="4" width="304" height="79.5"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2Y-wc-W90" userLabel="Transfer Button">
+                                <rect key="frame" x="144" y="0.5" width="80" height="79.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="KXc-Cv-sov"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="MQB-Q2-B5Q"/>
+                                </constraints>
+                                <state key="normal" title="Transfer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onTransferGift:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aLR-wH-HT4"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i62-a9-dDy" userLabel="Claim Button">
                                 <rect key="frame" x="224" y="0.0" width="80" height="79.5"/>
                                 <color key="backgroundColor" red="0.77644690689999996" green="0.18125167070000001" blue="0.69197123599999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -76,8 +91,11 @@
                             <constraint firstAttribute="trailing" secondItem="eQw-aJ-OrJ" secondAttribute="trailing" id="7cL-oL-ZUL"/>
                             <constraint firstItem="i62-a9-dDy" firstAttribute="top" secondItem="8g9-fm-SLe" secondAttribute="top" id="7xp-43-xGu"/>
                             <constraint firstAttribute="bottom" secondItem="eQw-aJ-OrJ" secondAttribute="bottom" id="91x-pg-0tS"/>
+                            <constraint firstAttribute="bottom" secondItem="f2Y-wc-W90" secondAttribute="bottom" id="JFN-sP-cFt"/>
                             <constraint firstAttribute="bottom" secondItem="Bqh-K5-ubs" secondAttribute="bottom" id="L6V-83-DLs"/>
                             <constraint firstItem="eQw-aJ-OrJ" firstAttribute="top" secondItem="8g9-fm-SLe" secondAttribute="top" id="M0z-PI-gBs"/>
+                            <constraint firstItem="f2Y-wc-W90" firstAttribute="top" secondItem="8g9-fm-SLe" secondAttribute="top" id="XeT-BL-ivt"/>
+                            <constraint firstItem="eQw-aJ-OrJ" firstAttribute="leading" secondItem="f2Y-wc-W90" secondAttribute="trailing" id="e2E-Io-pJL"/>
                             <constraint firstAttribute="trailing" secondItem="i62-a9-dDy" secondAttribute="trailing" id="mjc-qh-klv"/>
                             <constraint firstItem="eQw-aJ-OrJ" firstAttribute="leading" secondItem="i62-a9-dDy" secondAttribute="trailing" id="ou8-Li-Hzz"/>
                             <constraint firstItem="Bqh-K5-ubs" firstAttribute="top" secondItem="8g9-fm-SLe" secondAttribute="top" id="qgc-E0-uUn"/>
@@ -91,7 +109,7 @@
                         </variation>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9K6-1J-bxx" userLabel="Container View">
-                        <rect key="frame" x="8" y="4" width="304" height="79.5"/>
+                        <rect key="frame" x="8" y="4.5" width="304" height="79.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="Mrk-cS-qjG">
                                 <rect key="frame" x="8" y="8" width="70" height="63.5"/>
@@ -166,6 +184,7 @@
                 <outlet property="amountLabel" destination="bih-n6-5bt" id="OHL-ti-CEf"/>
                 <outlet property="btnClaim" destination="i62-a9-dDy" id="RIF-jb-l5z"/>
                 <outlet property="btnDelete" destination="eQw-aJ-OrJ" id="Fgw-cs-l6J"/>
+                <outlet property="btnTransfer" destination="f2Y-wc-W90" id="1ko-L7-Jp3"/>
                 <outlet property="btnUnclaim" destination="Bqh-K5-ubs" id="WUV-Ee-idL"/>
                 <outlet property="claimByLabel" destination="uCL-6V-6vC" id="XfK-cp-rmn"/>
                 <outlet property="containerView" destination="9K6-1J-bxx" id="svR-DD-ASj"/>

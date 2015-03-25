@@ -22,6 +22,10 @@
 #import "UIColor+giftlr.h"
 #import "User.h"
 #import "Activity.h"
+#import "PaymentInfo.h"
+#import "PaymentSettingViewController.h"
+#import "BottomUpTransition.h"
+#import "CCPickerViewController.h"
 
 typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeProduct = 0,
@@ -29,7 +33,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddCashGiftViewControllerDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CCPickerViewControllerDelegate, AddCashGiftViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
@@ -45,6 +49,11 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 @property (nonatomic, strong) UIActionSheet *addGiftActionSheet;
 @property (nonatomic, strong) UIActionSheet *changeEventProfilePicActionSheet;
+@property (nonatomic, strong) BottomUpTransition *paymentSettingViewTransition;
+@property (nonatomic, strong) BottomUpTransition *ccPickerTransition;
+@property (nonatomic, strong) EventCashGiftCell *currentCashGiftCell;
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
+
 
 @end
 
@@ -365,6 +374,9 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:eventCashGiftCell];
     Activity *activity;
     
+    self.currentCashGiftCell = eventCashGiftCell;
+    self.currentIndexPath = indexPath;
+    
     switch (value) {
         case CashGiftControlTypeUnclaim:
             [eventCashGiftCell hideControlView];
@@ -391,7 +403,27 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [gift deleteFromParse];
             [self.tableView reloadData];
             break;
-        default:
+        case CashGiftControlTypeTransfer:
+            [PaymentInfo loadCreditCardsByUser:[User currentUser] withCallback:^(NSArray *pamentInfos, NSError *error) {
+                
+                if (pamentInfos.count == 0) {
+                    PaymentSettingViewController *psvc = [[PaymentSettingViewController alloc] init];
+                    self.paymentSettingViewTransition = [BottomUpTransition newTransitionWithTargetViewController:psvc];
+                    psvc.transitioningDelegate = self.paymentSettingViewTransition;
+                    [self presentViewController:psvc animated:YES completion:nil];
+
+                } else {
+                    
+                    CCPickerViewController *ccvc = [[CCPickerViewController alloc] init];
+                    self.ccPickerTransition = [BottomUpTransition newTransitionWithTargetViewController:ccvc];
+                    ccvc.transitioningDelegate = self.ccPickerTransition;
+                    [self presentViewController:ccvc animated:YES completion:nil];
+                    
+                    ccvc.delegate = self;
+                    
+                }
+            }];
+            
             break;
     }
 }
@@ -478,6 +510,26 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)addCashGiftViewController:(AddCashGiftViewController *)addCashGiftViewController didGiftAdd:(NSArray *)gifts {
     [self.cashGiftList addObjectsFromArray:gifts];
     [self.tableView reloadData];
+}
+
+
+#pragma mark - Delegate for cc piker
+
+- (void)CCPickerViewController:(CCPickerViewController *)ccPickerViewController didPickCreditCard:(PaymentInfo *)paymentInfo {
+    
+    [self.currentCashGiftCell hideControlView];
+    
+    CashGift *gift = self.currentCashGiftCell.cashGift;
+    
+    gift.claimerFacebookUserID = [User currentUser].fbUserId;
+    gift.claimerName = [User currentUser].name;
+    gift.claimDate = [NSDate date];
+    gift.status = CashGiftStatusTransferred;
+    gift.hostEvent = self.event;
+    //activity = [[Activity alloc] initWithCashGiftTransfer:gift];
+    //[activity saveToParse];
+    [gift saveToParse];
+    [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 @end

@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, ActivityType) {
 - (id)initWithFriendJoin:(NSDictionary *)friendData;
 - (id)initWithProductGiftClaim:(ProductGift *)gift;
 - (id)initWithCashGiftClaim:(CashGift *)gift;
+- (id) initWithCashGiftTransfer:(CashGift *)gift;
 
 - (void)saveToParse;
 

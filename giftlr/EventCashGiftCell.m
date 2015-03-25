@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnClaim;
 @property (weak, nonatomic) IBOutlet UIButton *btnUnclaim;
 @property (weak, nonatomic) IBOutlet UIButton *btnDelete;
+@property (weak, nonatomic) IBOutlet UIButton *btnTransfer;
 @property (weak, nonatomic) IBOutlet UILabel *claimByLabel;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *containerViewLeadingContraint;
@@ -39,6 +40,8 @@
     self.isControlMode = NO;
     self.claimByLabel.hidden = YES;
     self.claimByLabel.textColor = [UIColor hotPinkColor];
+    self.btnTransfer.backgroundColor = [UIColor redPinkColor];
+    self.btnClaim.backgroundColor = [UIColor redPinkColor];
     self.btnClaim.backgroundColor = [UIColor redPinkColor];
     self.contentView.backgroundColor = [UIColor lightGreyBackgroundColor];
     self.containerView.layer.cornerRadius = 3.0f;
@@ -93,14 +96,21 @@
 - (void)showControlView {
     NSInteger newConstraint;
     [self hideAllControlButtons];
-    newConstraint = -88;
     if (self.event.isHostEvent) {
+        newConstraint = -88;
         self.btnDelete.hidden = NO;
+        self.btnDelete.userInteractionEnabled = YES;
     } else {
         if ([self.cashGift.status isEqualToString:CashGiftStatusUnclaimed]){
+            newConstraint = -88;
             self.btnClaim.hidden = NO;
-        } else if ([self.cashGift.status isEqualToString:CashGiftStatusClaimed]){
+        } else if ([self.cashGift.status isEqualToString:CashGiftStatusClaimed] &&
+                   [self.cashGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]){
+            newConstraint = - 168;
             self.btnUnclaim.hidden = NO;
+            self.btnTransfer.hidden = NO;
+            self.btnDelete.userInteractionEnabled = NO;
+            self.btnDelete.hidden = YES;
         } else {
             return;
         }
@@ -143,6 +153,10 @@
 
 - (IBAction)onDeleteGift:(id)sender {
     [self.delegate eventCashGiftCell:self didControlClicked:CashGiftControlTypeDelete];
+}
+
+- (IBAction)onTransferGift:(id)sender {
+    [self.delegate eventCashGiftCell:self didControlClicked:CashGiftControlTypeTransfer];
 }
 
 @end

@@ -13,7 +13,8 @@
 typedef NS_ENUM(NSInteger, CashGiftControlType) {
     CashGiftControlTypeClaim = 0,
     CashGiftControlTypeUnclaim = 1,
-    CashGiftControlTypeDelete = 2
+    CashGiftControlTypeDelete = 2,
+    CashGiftControlTypeTransfer = 3
 };
 
 @class EventCashGiftCell;
