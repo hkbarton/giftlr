@@ -94,9 +94,9 @@
                         <rect key="frame" x="8" y="4" width="304" height="79.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="Mrk-cS-qjG">
-                                <rect key="frame" x="8" y="8" width="64" height="63.5"/>
+                                <rect key="frame" x="8" y="8" width="70" height="63.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="1TB-Lp-rFH"/>
+                                    <constraint firstAttribute="width" constant="70" id="1TB-Lp-rFH"/>
                                     <constraint firstAttribute="height" constant="64" id="TdX-ae-yi0"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="63" id="dY9-mu-V7W"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="63.5" id="rGw-Vd-8Mk"/>
@@ -109,19 +109,19 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip to Hawaii" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aj-yJ-o2X">
-                                <rect key="frame" x="80" y="8" width="216" height="17"/>
+                                <rect key="frame" x="86" y="8" width="210" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bih-n6-5bt">
-                                <rect key="frame" x="80" y="33" width="216" height="17"/>
+                                <rect key="frame" x="86" y="33" width="210" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Claimed by" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCL-6V-6vC" userLabel="Claimed by">
-                                <rect key="frame" x="80" y="55" width="68" height="16"/>
+                                <rect key="frame" x="86" y="55" width="68" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>

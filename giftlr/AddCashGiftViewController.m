@@ -39,6 +39,10 @@
     cashGift.amount = [[NSDecimalNumber alloc] initWithString:self.priceTextField.text];
     cashGift.hostEvent = self.event;
     
+    if (self.delegate) {
+        [self.delegate addCashGiftViewController:self didGiftAdd:@[cashGift]];
+    }
+    
     [cashGift saveToParse];
     
     [self dismissViewControllerAnimated:YES completion:nil];

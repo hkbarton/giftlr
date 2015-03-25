@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AddCashGiftViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
@@ -319,8 +319,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 - (void)onAddCashGift {
     AddCashGiftViewController *vc = [[AddCashGiftViewController alloc] init];
     vc.event = self.event;
-//    [self presentViewController:vc animated:YES completion:nil];
-
+    vc.delegate = self;
     vc.modalPresentationStyle = UIModalPresentationCustom;
     self.addCashGiftViewTransition = [ModalViewTransition newTransitionWithTargetViewController:vc andXScale:1 andYScale:0.5];
     vc.transitioningDelegate = self.addCashGiftViewTransition;
@@ -473,6 +472,11 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 - (void)productSearchViewController:(ProductSearchViewController *)productSearchViewController didProductGiftAdd:(NSArray *)products {
     [self.productGiftList addObjectsFromArray:products];
+    [self.tableView reloadData];
+}
+
+- (void)addCashGiftViewController:(AddCashGiftViewController *)addCashGiftViewController didGiftAdd:(NSArray *)gifts {
+    [self.cashGiftList addObjectsFromArray:gifts];
     [self.tableView reloadData];
 }
 
