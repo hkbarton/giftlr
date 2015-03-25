@@ -315,7 +315,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 //    [self presentViewController:vc animated:YES completion:nil];
 
     vc.modalPresentationStyle = UIModalPresentationCustom;
-    self.addCashGiftViewTransition = [ModalViewTransition newTransitionWithTargetViewController:vc andXScale:0.8 andYScale:0.7];
+    self.addCashGiftViewTransition = [ModalViewTransition newTransitionWithTargetViewController:vc andXScale:1 andYScale:0.5];
     vc.transitioningDelegate = self.addCashGiftViewTransition;
     [self presentViewController:vc animated:YES completion:nil];
 

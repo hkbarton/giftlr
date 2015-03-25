@@ -8,13 +8,15 @@
 
 #import "AddCashGiftViewController.h"
 #import "CashGift.h"
+#import "UIColor+giftlr.h"
+
 
 @interface AddCashGiftViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (weak, nonatomic) IBOutlet UIView *containerDetail;
 - (IBAction)onAddButton:(id)sender;
 - (IBAction)onCancelButton:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
 
 @end
 
@@ -22,8 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.eventNameLabel.text = self.event.name;
+    self.containerDetail.backgroundColor = [UIColor lightGreyBackgroundColor];
 }
 
 - (void)didReceiveMemoryWarning {
