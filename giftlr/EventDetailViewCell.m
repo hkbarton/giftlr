@@ -53,7 +53,7 @@
     if (event.profileImage) {
         [self.eventProfilePicView setImage:self.event.profileImage];
     } else if (event.profileUrl) {
-        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:[UIImage imageNamed:event.defaultEventProfileImage]];
+        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:event.profileUrl] placeholderImage:nil];
     } else {
         [self.eventProfilePicView setImage:[UIImage imageNamed:event.defaultEventProfileImage]];
     }

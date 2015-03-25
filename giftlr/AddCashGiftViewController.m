@@ -12,6 +12,7 @@
 
 
 @interface AddCashGiftViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *splitByTextField;
 @property (weak, nonatomic) IBOutlet UITextField *priceTextField;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UIView *containerDetail;
@@ -33,18 +34,24 @@
 }
 
 - (IBAction)onAddButton:(id)sender {
-    CashGift *cashGift = [[CashGift alloc]init];
+    NSDecimalNumber *cashGiftCount = [[NSDecimalNumber alloc] initWithString:self.splitByTextField.text];
+    NSDecimalNumber *totalAmount = [[NSDecimalNumber alloc] initWithString:self.priceTextField.text];
+    NSDecimalNumber *cashGiftAmount = [totalAmount decimalNumberByDividingBy:cashGiftCount];
     
-    cashGift.name = self.nameTextField.text;
-    cashGift.amount = [[NSDecimalNumber alloc] initWithString:self.priceTextField.text];
-    cashGift.hostEvent = self.event;
-    
-    if (self.delegate) {
-        [self.delegate addCashGiftViewController:self didGiftAdd:@[cashGift]];
+    NSInteger count = [cashGiftCount integerValue];
+    NSMutableArray *cashGifts = [NSMutableArray array];
+    for (NSInteger i = 0; i < count; i ++) {
+        CashGift *cashGift = [[CashGift alloc]init];
+        cashGift.name = self.nameTextField.text;
+        cashGift.amount = cashGiftAmount;
+        cashGift.hostEvent = self.event;
+        [cashGifts addObject:cashGift];
+        [cashGift saveToParse];
     }
     
-    [cashGift saveToParse];
-    
+    if (self.delegate) {
+        [self.delegate addCashGiftViewController:self didGiftAdd:cashGifts];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
