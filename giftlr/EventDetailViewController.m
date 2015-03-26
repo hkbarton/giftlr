@@ -425,6 +425,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
             [self.tableView reloadData];
             break;
         case CashGiftControlTypeTransfer:
+            [eventCashGiftCell hideControlView];
             [PaymentInfo loadCreditCardsByUser:[User currentUser] withCallback:^(NSArray *pamentInfos, NSError *error) {
                 
                 if (pamentInfos.count == 0) {

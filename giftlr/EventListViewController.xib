@@ -21,7 +21,7 @@
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-pu-wGc">
-                    <rect key="frame" x="100" y="70" width="120" height="27"/>
+                    <rect key="frame" x="100" y="40" width="120" height="27"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="120" id="ZsG-sE-gYg"/>
@@ -38,7 +38,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="HDw-eS-6DJ" secondAttribute="bottom" id="1na-PI-Wr0"/>
-                <constraint firstItem="wGo-pu-wGc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="L43-6Z-Kat"/>
+                <constraint firstItem="wGo-pu-wGc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="L43-6Z-Kat"/>
                 <constraint firstAttribute="centerX" secondItem="wGo-pu-wGc" secondAttribute="centerX" id="MP4-22-c0C"/>
                 <constraint firstAttribute="trailing" secondItem="HDw-eS-6DJ" secondAttribute="trailing" id="N12-WO-6or"/>
                 <constraint firstItem="HDw-eS-6DJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="buF-5a-bRh"/>
