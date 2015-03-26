@@ -52,6 +52,7 @@
 		07EB3EE51AB00C27007B1607 /* EventCashGiftCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07EB3EE31AB00C27007B1607 /* EventCashGiftCell.xib */; };
 		3344044D1AB40284008B2A73 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3344044B1AB40283008B2A73 /* MainViewController.m */; };
 		3344044E1AB40284008B2A73 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3344044C1AB40284008B2A73 /* MainViewController.xib */; };
+		335A28701AC3920800867717 /* UIImageView+NSAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 335A286F1AC3920800867717 /* UIImageView+NSAdditions.m */; };
 		33AC4BD21AAD21B900438120 /* GiftListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD01AAD21B900438120 /* GiftListViewController.m */; };
 		33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33AC4BD11AAD21B900438120 /* GiftListViewController.xib */; };
 		33AC4BD71AAD222300438120 /* CashGift.m in Sources */ = {isa = PBXBuildFile; fileRef = 33AC4BD61AAD222300438120 /* CashGift.m */; };
@@ -182,6 +183,8 @@
 		3344044A1AB40283008B2A73 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		3344044B1AB40283008B2A73 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		3344044C1AB40284008B2A73 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		335A286E1AC3920800867717 /* UIImageView+NSAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+NSAdditions.h"; sourceTree = "<group>"; };
+		335A286F1AC3920800867717 /* UIImageView+NSAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+NSAdditions.m"; sourceTree = "<group>"; };
 		33AC4BCF1AAD21B900438120 /* GiftListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GiftListViewController.h; sourceTree = "<group>"; };
 		33AC4BD01AAD21B900438120 /* GiftListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GiftListViewController.m; sourceTree = "<group>"; };
 		33AC4BD11AAD21B900438120 /* GiftListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GiftListViewController.xib; sourceTree = "<group>"; };
@@ -347,6 +350,8 @@
 		073B41B31AA8157400139A10 /* giftlr */ = {
 			isa = PBXGroup;
 			children = (
+				335A286E1AC3920800867717 /* UIImageView+NSAdditions.h */,
+				335A286F1AC3920800867717 /* UIImageView+NSAdditions.m */,
 				073E022B1AAB9044007778F4 /* Html */,
 				073B41DA1AA8158B00139A10 /* Model */,
 				073B41DB1AA815A300139A10 /* API */,
@@ -797,6 +802,7 @@
 				9602DBEE1AACFDE20070CEB8 /* EventDetailViewCell.m in Sources */,
 				079CF3E61AB9614200C2752D /* PSCreationTableViewCell.m in Sources */,
 				9602DBE41AABD7380070CEB8 /* EventViewCell.m in Sources */,
+				335A28701AC3920800867717 /* UIImageView+NSAdditions.m in Sources */,
 				96AB29F31ABF754800FB64AD /* NotificationViewController.m in Sources */,
 				071DA7AA1AC27C5C0023FB61 /* SearchProductGfitCell.m in Sources */,
 				33AC4BDB1AAD226800438120 /* ProductGiftCell.m in Sources */,

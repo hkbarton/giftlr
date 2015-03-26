@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "User.h"
 #import "UIColor+giftlr.h"
+#import "UIImageView+NSAdditions.h"
 
 @interface EventViewCell ()
 
@@ -77,7 +78,10 @@
     if (self.event.profileImage) {
         [self.eventProfilePicView setImage:self.event.profileImage];
     } else if (self.event.profileUrl) {
-        [self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:nil];//[UIImage imageNamed:self.event.defaultEventProfileImage]];
+        //[self.eventProfilePicView setImageWithURL:[NSURL URLWithString:self.event.profileUrl] placeholderImage:nil];//[UIImage imageNamed:self.event.defaultEventProfileImage]];
+        
+        [self.eventProfilePicView fadeInImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.event.profileUrl]] placeholderImage:nil];
+        
     }else {
         [self.eventProfilePicView setImage:[UIImage imageNamed:self.event.defaultEventProfileImage]];
     }
