@@ -15,10 +15,15 @@
 #import "MainViewController.h"
 #import "User.h"
 #import "Activity.h"
+#import "SideViewTransition.h"
 
 @interface LoginViewController ()
 
+@property (weak, nonatomic) IBOutlet UIButton *btnLogin;
+
 - (IBAction)onLogin:(id)sender;
+
+@property (nonatomic, strong) SideViewTransition *mainViewTransition;
 
 @end
 
@@ -37,6 +42,7 @@
         NSArray *permissions = @[@"email", @"user_friends", @"public_profile", @"user_birthday",
                                  @"user_interests", @"user_events"];
         [PFFacebookUtils logInWithPermissions:permissions block:^(PFUser *user, NSError *error) {
+            self.btnLogin.hidden = YES;
             if (!user) {
                 NSLog(@"Uh oh. The user cancelled the Facebook login.");
                 return;
@@ -76,7 +82,14 @@
 
 - (void)presentEventListView {
     MainViewController *mvc = [[MainViewController alloc] init];
+    self.mainViewTransition = [SideViewTransition newTransitionWithTargetViewController:mvc andSideDirection:RightSideDirection];
+    self.mainViewTransition.widthPercent = 1.0;
+    self.mainViewTransition.AnimationTime = 0.5;
+    self.mainViewTransition.addModalBgView = NO;
+    self.mainViewTransition.slideFromViewPercent = 0.3;
+    mvc.transitioningDelegate = self.mainViewTransition;
     [self presentViewController:mvc animated:YES completion:^{
+        self.btnLogin.hidden = NO;
     }];
 }
 
