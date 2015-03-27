@@ -14,6 +14,7 @@
 NSString *const SettingMenuPayment = @"MENU_PAYMENT";
 NSString *const SettingMenuLogout = @"MENU_LOGOUT";
 NSString *const SettingMenuWishlist = @"MENU_WISHLIST";
+NSString *const SettingMenuContacts = @"MENU_CONTACTS";
 
 @interface SettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -40,6 +41,7 @@ NSString *const SettingMenuWishlist = @"MENU_WISHLIST";
     self.menuData = [NSArray arrayWithObjects:
                      [NSDictionary dictionaryWithObjectsAndKeys:@"payment", @"icon", @"Payment Setting", @"menuDes", SettingMenuPayment, @"menuID", nil],
                      [NSDictionary dictionaryWithObjectsAndKeys:@"wishlist-24", @"icon", @"Wishlist", @"menuDes", SettingMenuWishlist, @"menuID", nil],
+                     [NSDictionary dictionaryWithObjectsAndKeys:@"Contacts-25", @"icon", @"Contacts", @"menuDes", SettingMenuContacts, @"menuID", nil],
                      [NSDictionary dictionaryWithObjectsAndKeys:@"logout", @"icon", @"Logout", @"menuDes", SettingMenuLogout, @"menuID", nil],
                      nil];
 }
@@ -50,6 +52,7 @@ NSString *const SettingMenuWishlist = @"MENU_WISHLIST";
 
 - (void)viewDidAppear:(BOOL)animated {
     SettingMenuHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"SettingMenuHeaderView" owner:self options:nil] objectAtIndex:0];
+    headerView.user = [User currentUser];
     headerView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 150);
     self.tableView.tableHeaderView = headerView;
 }

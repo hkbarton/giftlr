@@ -22,7 +22,10 @@
     self.imageProfile.clipsToBounds = YES;
     self.imageProfile.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.imageProfile.layer.borderWidth = 2;
-    [User addUserProfileImage:self.imageProfile profilePicView:[User currentUser].profilePicView];
 }
 
+- (void)setUser:(User *)user {
+    _user = user;
+    [User addUserProfileImage:self.imageProfile profilePicView:user.profilePicView];
+}
 @end

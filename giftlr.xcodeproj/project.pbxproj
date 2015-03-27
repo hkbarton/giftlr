@@ -95,6 +95,8 @@
 		96AB29F41ABF754800FB64AD /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29F21ABF754800FB64AD /* NotificationViewController.xib */; };
 		96AB29F81ABF75C300FB64AD /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 96AB29F61ABF75C300FB64AD /* NotificationCell.m */; };
 		96AB29F91ABF75C300FB64AD /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96AB29F71ABF75C300FB64AD /* NotificationCell.xib */; };
+		96BA43A31AC5F63600C7E787 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96BA43A11AC5F63600C7E787 /* UserProfileViewController.m */; };
+		96BA43A41AC5F63600C7E787 /* UserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 96BA43A21AC5F63600C7E787 /* UserProfileViewController.xib */; };
 		E3A79EE3D331AF6A9F7AE534 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31F1E81EBE4E83E81F5D889F /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -252,6 +254,9 @@
 		96AB29F51ABF75C300FB64AD /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		96AB29F61ABF75C300FB64AD /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		96AB29F71ABF75C300FB64AD /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
+		96BA43A01AC5F63600C7E787 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		96BA43A11AC5F63600C7E787 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		96BA43A21AC5F63600C7E787 /* UserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,6 +585,9 @@
 				96AB29E11AB94E9700FB64AD /* ContactListViewController.h */,
 				96AB29E21AB94E9700FB64AD /* ContactListViewController.m */,
 				96AB29E31AB94E9700FB64AD /* ContactListViewController.xib */,
+				96BA43A01AC5F63600C7E787 /* UserProfileViewController.h */,
+				96BA43A11AC5F63600C7E787 /* UserProfileViewController.m */,
+				96BA43A21AC5F63600C7E787 /* UserProfileViewController.xib */,
 			);
 			name = Contact;
 			sourceTree = "<group>";
@@ -722,6 +730,7 @@
 				33AC4BD31AAD21B900438120 /* GiftListViewController.xib in Resources */,
 				96AB29D61AB65AB600FB64AD /* EventInviteGuestViewController.xib in Resources */,
 				96AB29F41ABF754800FB64AD /* NotificationViewController.xib in Resources */,
+				96BA43A41AC5F63600C7E787 /* UserProfileViewController.xib in Resources */,
 				073E022C1AAB9044007778F4 /* Html in Resources */,
 				96AB29EB1AB94FC500FB64AD /* ContactCell.xib in Resources */,
 				073E02271AAB856B007778F4 /* ProductSearchViewController.xib in Resources */,
@@ -789,6 +798,7 @@
 				9602DBDD1AAB8E530070CEB8 /* User.m in Sources */,
 				07EB3EE41AB00C27007B1607 /* EventCashGiftCell.m in Sources */,
 				0729D5B91AB60C6E00E7C26A /* SettingViewController.m in Sources */,
+				96BA43A31AC5F63600C7E787 /* UserProfileViewController.m in Sources */,
 				07C1D3091AB4F0CB00EF171D /* ModalViewTransition.m in Sources */,
 				9602DBE91AACEC640070CEB8 /* EventDetailViewController.m in Sources */,
 				96AB29D51AB65AB600FB64AD /* EventInviteGuestViewController.m in Sources */,

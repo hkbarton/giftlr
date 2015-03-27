@@ -185,6 +185,25 @@ NSString *const PFObjectClassName = @"ProductGift";
     }];
 }
 
+// Fake function
++(void)loadProductGifts:(void (^)(NSArray *productGifts, NSError *error))callback {
+    PFQuery *query = [PFQuery queryWithClassName:PFObjectClassName];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSMutableArray *result = nil;
+        if (!error) {
+            result = [NSMutableArray array];
+            for (int i=0;i<[objects count] && i < 5;i++) {
+                PFObject *pfObj = objects[i];
+                ProductGift *gift =[[ProductGift alloc] initWithPFObject:pfObj];
+                gift.status = ProductGiftStatusUnclaimed;
+                [result addObject:gift];
+            }
+        }
+        callback(result, error);
+    }];
+}
+
+
 +(void)searchProductGiftsByKeyword:(NSString *)keyword withCallback:(void (^)(NSArray *productGifts, NSError *error))callback {
     [Event fetchEventOfCurrentUser:^(NSArray *events, NSError *error) {
         if (error) {

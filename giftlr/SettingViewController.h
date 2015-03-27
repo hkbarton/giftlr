@@ -10,6 +10,9 @@
 
 extern NSString *const SettingMenuPayment;
 extern NSString *const SettingMenuLogout;
+extern NSString *const SettingMenuWishlist;
+extern NSString *const SettingMenuContacts;
+
 
 @class SettingViewController;
 

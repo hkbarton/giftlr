@@ -9,12 +9,15 @@
 #import "ContactListViewController.h"
 #import "ContactCell.h"
 #import "User.h"
+#import "UserProfileViewController.h"
+#import "SideViewTransition.h"
 
 @interface ContactListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) NSArray *contacts;
+@property (strong, nonatomic) SideViewTransition *detailViewTransition;
 
 @end
 
@@ -37,6 +40,7 @@
         }
     }];
     self.title = @"Contacts";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Left-25"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,6 +64,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    User *contact = self.contacts[indexPath.row];
+    UserProfileViewController *uvc = [[UserProfileViewController alloc] init];
+    User *user = [[User alloc] initWithPFUser:contact.pfUser];
+    uvc.user = user;
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:uvc];
+    self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
+    self.detailViewTransition.widthPercent = 1.0;
+    self.detailViewTransition.AnimationTime = 0.5;
+    self.detailViewTransition.addModalBgView = NO;
+    self.detailViewTransition.slideFromViewPercent = 0.3;
+    nvc.transitioningDelegate = self.detailViewTransition;
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)onBack {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

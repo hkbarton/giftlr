@@ -16,6 +16,7 @@
 #import "SideViewTransition.h"
 #import "BottomUpTransition.h"
 #import "NotificationViewController.h"
+#import "ContactListViewController.h"
 #import "UIColor+giftlr.h"
 
 @interface MainViewController () <UITabBarDelegate, SettingViewControllerDelegate>
@@ -35,6 +36,7 @@
 
 @property (strong, nonatomic) SideViewTransition *menuViewTransition;
 @property (strong, nonatomic) BottomUpTransition *paymentSettingViewTransition;
+@property (strong, nonatomic) SideViewTransition *detailViewTransition;
 
 - (IBAction)onTabItemClick:(id)sender;
 
@@ -130,6 +132,16 @@
         self.paymentSettingViewTransition = [BottomUpTransition newTransitionWithTargetViewController:psvc];
         psvc.transitioningDelegate = self.paymentSettingViewTransition;
         [self presentViewController:psvc animated:YES completion:nil];
+    } else if ([menuID isEqualToString:SettingMenuContacts]) {
+        ContactListViewController *vc = [[ContactListViewController alloc] init];
+        UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+        self.detailViewTransition = [SideViewTransition newTransitionWithTargetViewController:nvc andSideDirection:RightSideDirection];
+        self.detailViewTransition.widthPercent = 1.0;
+        self.detailViewTransition.AnimationTime = 0.5;
+        self.detailViewTransition.addModalBgView = NO;
+        self.detailViewTransition.slideFromViewPercent = 0.3;
+        nvc.transitioningDelegate = self.detailViewTransition;
+        [self presentViewController:nvc animated:YES completion:nil];
     }
 }
 

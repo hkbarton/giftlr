@@ -38,5 +38,5 @@ extern NSString *const ProductGiftBought;
 +(BOOL)isProductParseAbleFromWeb:(NSURL *)url withHTML:(NSString *)html;
 +(void)loadProductGiftsByEvent:(Event *)event withCallback:(void (^)(NSArray *productGifts, NSError *error))callback;
 +(void)searchProductGiftsByKeyword:(NSString *)keyword withCallback:(void (^)(NSArray *productGifts, NSError *error))callback;
-
++(void)loadProductGifts:(void (^)(NSArray *productGifts, NSError *error))callback;
 @end
