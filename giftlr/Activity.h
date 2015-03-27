@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, ActivityType) {
     ActivityTypeEventInvite = 0,
     ActivityTypeFriendJoin = 1,
     ActivityTypeGiftClaim = 2,
-    ActivityTypeGiftDue = 3
+    ActivityTypeCashTransfer = 3,
+    ActivityTypeGiftDue = 4
 };
 
 @interface Activity : NSObject

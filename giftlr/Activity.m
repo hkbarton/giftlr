@@ -104,7 +104,17 @@ static NSDateFormatter *df = nil;
     self = [super init];
     
     if (self) {
-        
+        self.activityType = ActivityTypeCashTransfer;
+        self.fromUserId = [User currentUser].fbUserId;
+        self.fromUserName = [User currentUser].name;
+        self.toUserId = gift.hostEvent.eventHostId;
+        self.toUserName = gift.hostEvent.eventHostName;
+        self.eventId = gift.hostEvent.fbEventId;
+        self.eventName = gift.hostEvent.name;
+        self.event = gift.hostEvent;
+        self.activityDate = [NSDate date];
+        self.detail = [NSString stringWithFormat:@"Transfered %@$ to %@ for the event:", gift.amount, self.toUserName];
+        self.fromUserProfilePicView = [[FBProfilePictureView alloc] initWithProfileID:self.fromUserId pictureCropping:FBProfilePictureCroppingSquare];
     }
     
     return self;

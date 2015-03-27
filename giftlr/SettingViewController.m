@@ -13,6 +13,7 @@
 
 NSString *const SettingMenuPayment = @"MENU_PAYMENT";
 NSString *const SettingMenuLogout = @"MENU_LOGOUT";
+NSString *const SettingMenuWishlist = @"MENU_WISHLIST";
 
 @interface SettingViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -38,6 +39,7 @@ NSString *const SettingMenuLogout = @"MENU_LOGOUT";
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.menuData = [NSArray arrayWithObjects:
                      [NSDictionary dictionaryWithObjectsAndKeys:@"payment", @"icon", @"Payment Setting", @"menuDes", SettingMenuPayment, @"menuID", nil],
+                     [NSDictionary dictionaryWithObjectsAndKeys:@"wishlist-24", @"icon", @"Wishlist", @"menuDes", SettingMenuWishlist, @"menuID", nil],
                      [NSDictionary dictionaryWithObjectsAndKeys:@"logout", @"icon", @"Logout", @"menuDes", SettingMenuLogout, @"menuID", nil],
                      nil];
 }
@@ -78,6 +80,9 @@ NSString *const SettingMenuLogout = @"MENU_LOGOUT";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *selectedMenuID = self.menuData[indexPath.row][@"menuID"];
+    if (indexPath.row == 1) {
+        return;
+    }
     [self dismissViewControllerAnimated:YES completion:^{
         if (self.delegate) {
             [self.delegate settingViewController:self didMenuItemSelected:selectedMenuID];

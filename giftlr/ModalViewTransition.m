@@ -31,7 +31,7 @@
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
     if (self.isPresenting) {
-        return 0.5;
+        return 0.7;
     }
     return 0.3;
 }
@@ -52,7 +52,7 @@
         toViewController.view.center = containerView.center;
         toViewController.view.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
         self.modalBgView.alpha = 0;
-        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.7 initialSpringVelocity:0 options:0 animations:^{
+        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:0 animations:^{
             self.modalBgView.alpha = 1;
             toViewController.view.transform = CGAffineTransformMakeScale(1, 1);
             if (self.xScale != 1 || self.yScale != 1) {

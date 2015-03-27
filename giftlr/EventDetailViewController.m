@@ -33,7 +33,7 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
     AddGiftActionTypeCancel = 2
 };
 
-@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CCPickerViewControllerDelegate, AddCashGiftViewControllerDelegate>
+@interface EventDetailViewController () <UITableViewDataSource, UITableViewDelegate, ProductSearchViewControllerDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate, EventProductGiftCellDelegate, EventCashGiftCellDelegate, EventDetailViewCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CCPickerViewControllerDelegate, AddCashGiftViewControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *joinEventControl;
@@ -136,11 +136,11 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
         }
     }];
     
-    self.addGiftActionSheet = [[UIActionSheet alloc] initWithTitle:@"What gift do you want to add?"
+    self.addGiftActionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Product", @"Cash", nil];
+                                                    otherButtonTitles:@"Choose Gift Online", @"Add Cash Gift", @"Choose from Wishlist", @"Scan Barcode", nil];
     
 
     self.changeEventProfilePicActionSheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -537,21 +537,31 @@ typedef NS_ENUM(NSInteger, AddGiftActionType) {
 
 #pragma mark - Delegate for cc piker
 
+// Called when a button is clicked. The view will be automatically dismissed after this call returns
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.firstOtherButtonIndex) {
+        CashGift *gift = self.currentCashGiftCell.cashGift;
+        gift.claimerFacebookUserID = [User currentUser].fbUserId;
+        gift.claimerName = [User currentUser].name;
+        gift.claimDate = [NSDate date];
+        gift.status = CashGiftStatusTransferred;
+        gift.hostEvent = self.event;
+        Activity *activity = [[Activity alloc] initWithCashGiftTransfer:gift];
+        [activity saveToParse];
+        [gift saveToParse];
+        [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 - (void)CCPickerViewController:(CCPickerViewController *)ccPickerViewController didPickCreditCard:(PaymentInfo *)paymentInfo {
     
     [self.currentCashGiftCell hideControlView];
-    
     CashGift *gift = self.currentCashGiftCell.cashGift;
     
-    gift.claimerFacebookUserID = [User currentUser].fbUserId;
-    gift.claimerName = [User currentUser].name;
-    gift.claimDate = [NSDate date];
-    gift.status = CashGiftStatusTransferred;
-    gift.hostEvent = self.event;
-    //activity = [[Activity alloc] initWithCashGiftTransfer:gift];
-    //[activity saveToParse];
-    [gift saveToParse];
-    [self.tableView reloadRowsAtIndexPaths:@[self.currentIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSString *message = [NSString stringWithFormat:@"Transfer $%@ to %@", gift.amount, gift.hostEvent.eventHostName];
+    UIAlertView *confirmView = [[UIAlertView alloc]
+                                initWithTitle:@"Transfer Confirmation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Confirm", nil];
+    [confirmView show];
 }
 
 @end

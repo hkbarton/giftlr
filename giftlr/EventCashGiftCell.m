@@ -83,11 +83,15 @@
         [cashGift.status isEqualToString:CashGiftStatusTransferred]) {
         if (self.cashGift.claimerName != nil) {
             self.claimByLabel.hidden = NO;
+            NSString *action = @"Claimed";
+            if ([cashGift.status isEqualToString:CashGiftStatusTransferred]) {
+                action = @"Transfered";
+            }
             NSString *claimerName = self.cashGift.claimerName;
             if ([self.cashGift.claimerFacebookUserID isEqualToString:[User currentUser].fbUserId]) {
                 claimerName = @"me";
             }
-            self.claimByLabel.text = [NSString stringWithFormat:@"Claimed by %@", claimerName];
+            self.claimByLabel.text = [NSString stringWithFormat:@"%@ by %@", action, claimerName];
         }
     }
     
